@@ -1,2 +1,0 @@
-# webOs.github.io
-webOs
