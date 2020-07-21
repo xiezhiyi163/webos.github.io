@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>js+canvas多张图片合成一张图片代码</title>
+
+<style>
+img {
+	border: solid 1px #ddd;
+}
+</style>
+
+</head>
+<body>
+
+<h3 style="text-align: center">注：请在服务端运行才能看到效果</h3>
+<div align="center">
+	<ul id="id1" style="float: left;width: 300px;height: 300px;">
+		<li>
+			<div>
+				<div>
+					<img src="img1.png" onclick="data0(this)" width="300"> 
+				</div>
+			</div>
+		</li>
+	</ul>
+	<ul id="id2" style="float: left;width: 300px;height: 300px;">
+		<li>
+			<div>
+				<div>
+					<img src="img2.png" onclick="data1(this)" width="300"> 
+				</div>
+			</div>
+		</li>
+	</ul>
+	<ul id="id3" style="float: left;width: 300px;height: 300px;">
+		<li>
+			<div>
+				<div>
+					<img src="img3.png" onclick="data2(this)" width="300">
+				</div>
+			</div>
+		</li>
+	</ul>
+	<ul id="id4" style="float: left;width: 300px;height: 300px;">
+		<li>
+			<div>
+				<div>
+					<img src="img4.png" onclick="data3(this)" width="300"> 
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div id="imgBox" align="center">
+  <input type="button" value="一键合成" onclick="hecheng()">
+</div>
+<iframe src="http://imarine-project.jp/vol2/" width="100%" height="700"></iframe>
+<!-------------js----------->
+<script src="all-jQ/jquery-1.7.2.js"></script>
+<script>
+	
+//循环数据出来，之后就可以调用下面的那个插件	
+	
+var data=['','','',''],base64=[];
+
+function data0(d0) {
+	$(d0).toggleClass('ifchose');
+	if($(d0).hasClass('ifchose')){
+		data[0]=d0.src;
+		$(d0).siblings().removeClass('ifchose');
+		$(d0).parent().siblings().children().removeClass('ifchose');
+	}else{
+		data[0]='';
+	}	
+	hecheng()
+};
+function data1(d1) {
+	$(d1).toggleClass('ifchose');
+	if($(d1).hasClass('ifchose')){
+		data[1]=d1.src;
+		$(d1).siblings().removeClass('ifchose');
+		$(d1).parent().siblings().children().removeClass('ifchose');
+	}else{
+		data[1]='';
+	}	
+	hecheng()
+};
+function data2(d2) {
+	$(d2).toggleClass('ifchose');
+	if($(d2).hasClass('ifchose')){
+		data[2]=d2.src;
+		$(d2).siblings().removeClass('ifchose');
+		$(d2).parent().siblings().children().removeClass('ifchose');
+	}else{
+		data[2]='';
+	}	
+	hecheng()
+};
+function data3(d3) {
+	$(d3).toggleClass('ifchose');
+	if($(d3).hasClass('ifchose')){
+		data[3]=d3.src;
+		$(d3).siblings().removeClass('ifchose');
+		$(d3).parent().siblings().children().removeClass('ifchose');
+	}else{
+		data[3]='';
+	}	
+	hecheng()
+};
+
+function hecheng(){
+	draw(function(){
+		document.getElementById('imgBox').innerHTML='<p style="padding:10px 0">合成图片成功！可以鼠标另存图片查看我是否是一张图片~~！</p><img src="'+base64[0]+'">';
+	})	
+}
+function draw(fn){
+	var newdata = data
+	console.log(newdata)
+	var c=document.createElement('canvas'),
+		ctx=c.getContext('2d'),
+		len=newdata.length;
+	c.width=290;
+	c.height=290;
+	ctx.rect(0,0,c.width,c.height);
+	ctx.fillStyle='#fff';
+	ctx.fill();
+//	ctx.clearRect(0,0,290,290); 
+	function drawing(n){
+		if(n<len){
+			if(newdata[n].split('.')[1]){
+				var img=new Image;
+				img.crossOrigin = 'Anonymous'; //解决跨域
+				img.src=newdata[n];
+				img.onload=function(){
+					ctx.drawImage(img,0,0,290,290);
+					drawing(n+1);//递归
+				}				
+			}else{
+				drawing(n+1);//递归
+			}
+		}else{
+			//保存生成作品图片
+			base64[0]=c.toDataURL("image/jpeg",0.8);
+			//alert(JSON.stringify(base64));
+			fn();
+		}
+	}
+	drawing(0);
+}
+</script>
+
+<!--<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>-->
+<!--</div>-->
+</body>
+</html>

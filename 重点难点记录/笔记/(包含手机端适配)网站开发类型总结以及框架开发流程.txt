@@ -1,0 +1,27 @@
+响应式，html跟vue都有
+
+移动端（按比例的），html跟vue都有,比例控制代码：
+function fixsize(){
+	var dpr = window.devicePixelRatio;
+	var sca = dpr>1?1/dpr:dpr;
+	var head = document.getElementsByTagName('head')[0];
+	var meta = document.createElement('meta');
+	meta.name = 'viewport';
+	meta.content = 'width=device-width,user-scalable=no,initial-scale='+sca;
+	head.appendChild(meta);
+	var winwidth = document.documentElement.clientWidth;
+	var remroot = winwidth*100/720;
+	var html = document.getElementsByTagName('html')[0];
+	html.style.fontSize = remroot+'px';
+}
+fixsize();window.onresize = function(){fixsize();}
+
+后台管理系统，html跟vue都有
+
+移动端，不按比例的，按轻重进行调整，如果是广告的话，可以略微忽略高度
+
+vue：router配置---vue页面（附加可能的组件引入或子试图）---	app.vue或者html的id=app这个标签带的试图标签生成最终页面
+
+网站开发规范：
+	html的，头部尾部尽量统一，有多个完全看起来不一样的，那就多个分开来，多个当中，变化不大的尽量保持头部统一，public。css合起来，里面有多种不同的头部元素class命名即可
+	框架类型的，多个完全不一样的，也是跟html那样，基本相同的写到一起，public。css也是合起来写，用不同class区分就行

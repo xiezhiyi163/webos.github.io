@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html>
+	<!--顶部变化不大保持头部一致-->
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta http-equiv="X-UA-COMPATIBLE" CONTENT="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="css/_public.css" />
+		<title></title>
+		<style type="text/css">
+			/**/
+			.heightfix {
+				overflow: hidden;
+			}
+
+			.cont {
+				width: 1200px;
+				margin: auto;
+				min-height: 900px;
+			}
+
+
+			/*插件css*/
+			.domnone {
+				display: none;
+			}
+
+			.leftfloat {
+				float: left;
+			}
+
+			.rightfloat {
+				float: right;
+			}
+
+			/*loading*/
+			.loadingwrap {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 4;
+				background-color: white;
+			}
+
+			.loading {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 200px;
+				height: 60px;
+				margin: auto;
+			}
+
+			/*单个移动*/
+			#nalimgturn {
+				height: 100%;
+				position: relative;
+				margin: 0px 0 0 0;
+				background: burlywood;
+			}
+
+			.nalimgdiv {
+				width: 100%;
+				height: 100%;
+			}
+
+			.nalimgdiv-in {
+				display: block;
+			}
+
+			.nalimgdiv>p {
+				width: 100%;
+				height: 100%;
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.nalimgdiv>p>span {
+				display: block;
+				position: absolute;
+				top: 30px;
+				right: 30px;
+				height: 280px;
+				width: 200px;
+				background: mediumturquoise;
+			}
+
+			.naltabturn {
+				width: 200px;
+				height: 30px;
+				position: absolute;
+				bottom: 30px;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+			}
+
+			.naltabturn>li {
+				width: 30px;
+				height: 30px;
+				float: left;
+				margin: 0 10px;
+				background: wheat;
+			}
+
+			.naltabturn-in {
+				background: lightsteelblue !important;
+			}
+
+			.nalleftbtn,
+			.nalrightbtn {
+				width: 40px;
+				height: 55px;
+				position: absolute;
+				top: 50%;
+				margin-top: -27.5px;
+				border: none;
+			}
+
+			.nalleftbtn {
+				left: 0;
+			}
+
+			.nalrightbtn {
+				right: 0;
+			}
+
+			/*左右旋转*/
+			#LRximgturn,
+			#UDyimgturn {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: relative;
+				background: wheat;
+			}
+
+			#LRximgturn>ul {
+				width: 700000px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: grey;
+			}
+
+			#UDyimgturn>ul {
+				width: 100%;
+				height: 700000px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: grey;
+			}
+
+			#LRximgturn>ul>li,
+			#UDyimgturn>ul>li {
+				float: left;
+			}
+
+			#UDyimgturn>ul>li {
+				width: 100%;
+			}
+
+			#LRximgturn>ul>li {
+				height: 100%;
+			}
+
+			#LRximgturn>ul>li>p,
+			#UDyimgturn>ul>li>p {
+				width: 100%;
+				height: 100%;
+			}
+
+			#LRximgturn>div,
+			#UDyimgturn>div {
+				width: 150px;
+				height: 30px;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 30px;
+				margin: 0 auto;
+			}
+
+			#LRximgturn>div>p,
+			#UDyimgturn>div>p {
+				width: 30px;
+				height: 30px;
+				float: left;
+				margin: 0 10px;
+				background: wheat;
+			}
+
+			#LRximgturn>.leftbtn,
+			#LRximgturn>.rightbtn,
+			#UDyimgturn>.leftbtn,
+			#UDyimgturn>.rightbtn {
+				width: 50px;
+				height: 70px;
+				border: none;
+				position: absolute;
+				top: 50%;
+				margin: -35px 0 0 0;
+			}
+
+			#LRximgturn>.leftbtn,
+			#UDyimgturn>.leftbtn {
+				left: 0;
+			}
+
+			#LRximgturn>.rightbtn,
+			#UDyimgturn>.rightbtn {
+				right: 0;
+			}
+
+			.LRxtabturn-in,
+			.UDytabturn-in {
+				background: burlywood !important;
+			}
+
+			#UDyimgturn>.leftbtn,
+			#UDyimgturn>.rightbtn,
+			#UDyimgturn>div {
+				display: none;
+			}
+
+			/**/
+			.xuanzhuanslide {
+				position: relative;
+				height: 100%;
+				z-index: 0;
+			}
+
+			.posimg {
+				position: absolute;
+				bottom: 20%;
+				left: 0;
+				width: 60%;
+				height: 100%;
+				background-color: tan;
+				border-left: 1px solid coral;
+				border-right: 1px solid coral;
+				z-index: 0;
+			}
+
+			/**/
+			.slidescrollItemwrap {
+				margin: 0 60px;
+				height: 100%;
+				overflow: hidden;
+				position: relative;
+			}
+
+			.slidescrollItemwraps {
+				position: relative;
+			}
+
+			.slidescrollItemwrapin {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.leftslidescrollbutton,
+			.xuanzhuanleft {
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+
+			.rightslidescrollbutton,
+			.xuanzhuanright {
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+
+			.leftslidescrollbutton,
+			.rightslidescrollbutton {
+				top: 41%;
+			}
+
+			.xuanzhuanleft,
+			.xuanzhuanright {
+				top: 47%;
+			}
+
+			.index-slide,
+			.index-xuanzhuanslide {
+				margin-top: 15px;
+				/*background-color: #fff;*/
+				position: relative;
+				height: 450px;
+			}
+
+			.index-xuanzhuanslide {
+				height: auto;
+				padding: 60px 0;
+			}
+
+			.index-xuanzhuanslidecustom {
+				height: 300px;
+			}
+
+			.index-slidescroll {
+				margin-top: 15px;
+				height: 150px;
+				background-color: coral;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body id="app">
+		<script src="js/_jq.js" type="text/javascript" charset="utf-8"></script>
+		<!--@allthispagecontent-->
+		<div id="index" class="cont">
+			<div class="index-xuanzhuanslide" chajianV>
+				<div class="loadingwrap" id="xuanzhuanSlide">
+					<img class="loading" src="img/Bars-1s-200px.gif" />
+				</div>
+				<div class="xuanzhuanslide index-xuanzhuanslidecustom">
+					<div class="posimg" style="background-color: coral;">1</div>
+					<div class="posimg" style="background-color: tan;">2</div>
+					<div class="posimg" style="background-color: silver;">3</div>
+					<div class="posimg" style="background-color: steelblue;">4</div>
+					<div class="posimg" style="background-color: palevioletred;">5</div>
+					<div class="posimg" style="background-color: lightblue;">6</div>
+					<div class="posimg" style="background-color: lightpink;">6</div>
+				</div>
+				<div class="xuanzhuanleft">
+					<</div> <div class="xuanzhuanright">>
+				</div>
+			</div>
+			<div class='index-slidescroll' chajianV>
+				<div class="loadingwrap" id="Slidescroll">
+					<img class="loading" src="img/Bars-1s-200px.gif" />
+				</div>
+				<div class="slidescrollItemwrap">
+					<div class="slidescrollItemwraps">
+						<ul class="slidescrollItemwrapin">
+							<li class="slidescrollli leftfloat">1</li>
+							<li class="slidescrollli leftfloat">2</li>
+							<li class="slidescrollli leftfloat">3</li>
+							<li class="slidescrollli leftfloat">4</li>
+							<li class="slidescrollli leftfloat">5</li>
+						</ul>
+					</div>
+				</div>
+				<div class="leftslidescrollbutton">
+					<</div> <div class="rightslidescrollbutton">>
+				</div>
+			</div>
+			<div class="clboth"></div>
+		</div>
+		<script type="text/javascript">
+			//flag集合
+			var publicflag = {
+				ani1: 1,
+				ani2: 1,
+				//逐张滑动切换需要的数据
+				slidescrollimgarr: [],
+				slidescrollfixwidthinit: 0,
+				slidescrollfixwidth: 0,
+				slidescrollleftnum: 0,
+				slidescrollrightnum: 0,
+				slidescrollcanclick: true,
+				scrollimgautoplayflag: true,
+				//旋转木马轮播
+				xuanzhuanmumaimgarr: [],
+				xuanzhuanmumaimgStyleobj: {
+					xuanzhuanleft: {
+						height: '70%',
+						left: 0,
+						right: 'auto',
+						margin: '0',
+						zIndex: 2
+					},
+					xuanzhuanRleft: {
+						height: '70%',
+						left: 0,
+						right: 'auto',
+						margin: '0',
+						zIndex: 0
+					},
+					xuanzhuanMid: {
+						height: '100%',
+						left: '0',
+						right: '0',
+						margin: 'auto',
+						zIndex: 3
+					},
+					xuanzhuanRright: {
+						height: '70%',
+						left: 'auto',
+						right: '0',
+						margin: '0',
+						zIndex: 0
+					},
+					xuanzhuanright: {
+						height: '70%',
+						left: 'auto',
+						right: '0',
+						margin: '0',
+						zIndex: 2
+					},
+				},
+				xuanzhuanmumafirstimgactive: 0,
+				xuanzhuanclickflag: true,
+				xuanzhuanmumawindow: 0,
+			}
+			//@集成页面全部有的元素以及挂起的插件，不可以集成的插件就loadjs来加载外部拓展插件（移动端轮播最好用swiper）
+			var objfn = {
+				//公共部分，每个页面都用到的js
+				//正文的功能性插件及数据交互
+				/*//数据交互插件（目前是demo）*/
+				api: function(j, k, l, fn) {
+					console.log(j, k, l)
+					fn()
+				},
+				/*//旋转木马轮播插件*1000*/
+				xuan_fixleft: function() {
+					var windowswidth = $(window).width()
+					var length = publicflag.xuanzhuanmumaimgarr.length
+					var active = publicflag.xuanzhuanmumafirstimgactive
+					for (var i = 0; i < length; i++) {
+						if (active == i || ($('.posimg').eq(i).css('left') != '0px' && $('.posimg').eq(i).css('right') != '0px')) {
+							$('.posimg').eq(i).css('left', ($('.index-xuanzhuanslide').eq(0).width() - $('.index-xuanzhuanslide').eq(0).width() *
+								0.65) / 2)
+							$('.posimg').eq(i).css('right', ($('.index-xuanzhuanslide').eq(0).width() - $('.index-xuanzhuanslide').eq(0).width() *
+								0.65) / 2)
+							$('.posimg').eq(i).css('width', $('.index-xuanzhuanslide').eq(0).width() * 0.65)
+						}
+					}
+				},
+				xuan_tofixleft: function() {
+					var windowswidth = $(window).width()
+					setTimeout(function() {
+						if (windowswidth != publicflag.xuanzhuanmumawindow) {
+							publicflag.xuanzhuanmumawindow = $(window).width()
+							if (publicflag.xuanzhuanclickflag == false) {
+								objfn.xuan_tofixleft()
+								return;
+							}
+							objfn.xuan_fixleft()
+							objfn.xuan_tofixleft()
+						} else {
+							objfn.xuan_tofixleft()
+							return;
+						}
+					}, 10)
+				},
+				xuan_autoplay: function() {
+					objfn.xuanzhuanmumaturnmodel('right')
+				},
+				xuan_toautoplay: function() {
+					setTimeout(function() {
+						objfn.xuan_autoplay()
+						objfn.xuan_toautoplay()
+					}, 3000)
+				},
+				xuan_afterevent: function(num, length) {
+					for (var i = 0; i < length; i++) {
+						if (i != num) {
+							//				console.log(i)
+						}
+					}
+				},
+				xuanzhuanmumaslide: function() { //轮播图的数量不能少于3张
+					if (publicflag.xuanzhuanmumaimgarr.length != 0) {
+						setTimeout(function() {
+							$('#xuanzhuanSlide').css({
+								'height': '0',
+								'overflow': 'hidden'
+							})
+							publicflag.xuanzhuanmumawindow = $(window).width() //插件运行之后再写入宽度
+						}, 1000)
+					}
+					var arr = publicflag.xuanzhuanmumaimgarr
+					var length = publicflag.xuanzhuanmumaimgarr.length
+					var obj = publicflag.xuanzhuanmumaimgStyleobj
+					$('.posimg').eq(length - 1).css({
+						'left': obj['xuanzhuanleft'].left,
+						'height': obj['xuanzhuanleft'].height,
+						'right': obj['xuanzhuanleft'].right,
+						'margin': obj['xuanzhuanleft'].margin,
+						'z-index': obj['xuanzhuanleft'].zIndex,
+						'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+						'bottom': '15%'
+					})
+					$('.posimg').eq(0).css({
+						'left': ($('.xuanzhuanslide').eq(0).width() - $('.posimg').eq(0).width()) / 2,
+						'height': obj['xuanzhuanMid'].height,
+						'right': ($('.xuanzhuanslide').eq(0).width() - $('.posimg').eq(0).width()) / 2,
+						'margin': obj['xuanzhuanMid'].margin,
+						'z-index': obj['xuanzhuanMid'].zIndex,
+						'width': ($('.xuanzhuanslide').eq(0).width() * 0.65),
+						'bottom': '0%'
+					})
+					$('.posimg').eq(1).css({
+						'left': obj['xuanzhuanright'].left,
+						'height': obj['xuanzhuanright'].height,
+						'right': obj['xuanzhuanright'].right,
+						'margin': obj['xuanzhuanright'].margin,
+						'z-index': obj['xuanzhuanright'].zIndex,
+						'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+						'bottom': '15%'
+					})
+					for (var i = 0; i < length; i++) {
+						if (i != length - 1 && i != 0 && i != 0 + 1) {
+							console.log(i)
+							$('.posimg').eq(i).css({
+								'left': ($('.xuanzhuanslide').eq(0).width() - $('.posimg').eq(0).width()) / 2,
+								'height': obj['xuanzhuanRleft'].height,
+								'right': obj['xuanzhuanRleft'].right,
+								'margin': obj['xuanzhuanRleft'].margin,
+								'z-index': obj['xuanzhuanRleft'].zIndex,
+								'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+								'bottom': '15%'
+							})
+						}
+					}
+					objfn.xuan_tofixleft()
+					objfn.xuan_toautoplay()
+					$('.xuanzhuanright').eq(0).click(function() {
+						objfn.xuanzhuanmumaturnmodel('right')
+					})
+					$('.xuanzhuanleft').eq(0).click(function() {
+						objfn.xuanzhuanmumaturnmodel('left')
+					})
+				},
+				xuanzhuanmumaturnmodel: function(type) {
+					if (publicflag.xuanzhuanclickflag == false) {
+						return;
+					}
+					publicflag.xuanzhuanclickflag = false
+					setTimeout(function() {
+						publicflag.xuanzhuanclickflag = true
+						objfn.xuan_afterevent(active, length)
+					}, 490) //**/
+					var length = publicflag.xuanzhuanmumaimgarr.length
+					var ac = publicflag.xuanzhuanmumafirstimgactive
+					var active = publicflag.xuanzhuanmumafirstimgactive
+					var obj = publicflag.xuanzhuanmumaimgStyleobj
+					if (type == 'right') {
+						var tempact = active
+						active++
+						if (active > length - 1) {
+							active = 0
+						}
+						publicflag.xuanzhuanmumafirstimgactive = active
+						$('.posimg').eq(active).css({
+							'left': $('.xuanzhuanslide').width() * 0.35 + ($('.xuanzhuanslide').width() * 0.65 - ($('.xuanzhuanslide').width() *
+								0.65) * 0.65),
+							'z-index': obj['xuanzhuanMid'].zIndex,
+							'width': $('.xuanzhuanslide').width() * 0.65,
+						})
+						var tempwidth = $('.posimg').eq(active).width()
+						$('.posimg').eq(active).css({
+							'width': ($('.xuanzhuanslide').width() * 0.65) * 0.65,
+							'right': 0,
+						})
+						$('.posimg').eq(active).stop().animate({
+							'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+							'height': obj['xuanzhuanMid'].height,
+							'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+							'margin': obj['xuanzhuanMid'].margin,
+							'width': $('.xuanzhuanslide').width() * 0.65,
+							'bottom': '0%'
+						}, 400)
+						if (tempact == length - 2) {
+							$('.posimg').eq(tempact - 1).stop().animate({
+								'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+								'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+								'bottom': '15%'
+							}, 400)
+						}
+						for (var i = 0; i < length; i++) {
+							if (i != (active - 1 < 0 ? length - 1 : active - 1) && i != active && i != (active + 1 > length - 1 ? 0 :
+									active + 1)) {
+								if (active == length - 1) {
+									$('.posimg').eq(0).css({
+										'left': obj['xuanzhuanRright'].left,
+										'z-index': obj['xuanzhuanRright'].zIndex,
+									})
+									$('.posimg').eq(0).stop().animate({
+										'height': obj['xuanzhuanRright'].height,
+										'right': obj['xuanzhuanRright'].right,
+										'margin': obj['xuanzhuanRright'].margin,
+										'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+										'bottom': '15%'
+									}, 400)
+								} else {
+									$('.posimg').eq(i).css({
+										'z-index': obj['xuanzhuanRleft'].zIndex,
+									})
+									$('.posimg').eq(i).stop().animate({
+										'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+										'height': obj['xuanzhuanRleft'].height,
+										'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+										'margin': obj['xuanzhuanRleft'].margin,
+										'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+										'bottom': '15%'
+									}, 400)
+								}
+							}
+						}
+						$('.posimg').eq(active - 1 < 0 ? length - 1 : active - 1).css({
+							'right': 'auto', //固定值
+							'z-index': obj['xuanzhuanleft'].zIndex,
+						})
+						$('.posimg').eq(active - 1 < 0 ? length - 1 : active - 1).stop().animate({
+							'left': obj['xuanzhuanleft'].left,
+							'height': obj['xuanzhuanleft'].height,
+							'margin': obj['xuanzhuanleft'].margin,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'bottom': '15%'
+						}, 400)
+						$('.posimg').eq(active + 1 > length - 1 ? 0 : active + 1).css({
+							'left': obj['xuanzhuanright'].left,
+						})
+						$('.posimg').eq(active + 1 > length - 1 ? 0 : active + 1).stop().animate({
+							'height': obj['xuanzhuanright'].height,
+							'right': obj['xuanzhuanright'].right,
+							'margin': obj['xuanzhuanright'].margin,
+							'z-index': obj['xuanzhuanright'].zIndex,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'bottom': '15%'
+						}, 400)
+					} else {
+						var tempact = active
+						active--
+						if (active < 0) {
+							active = length - 1
+						}
+						publicflag.xuanzhuanmumafirstimgactive = active
+						$('.posimg').eq(active).css({
+							'z-index': obj['xuanzhuanMid'].zIndex,
+							'width': $('.xuanzhuanslide').width() * 0.65
+						})
+						var tempwidth = $('.posimg').eq(active).width()
+						$('.posimg').eq(active).css({
+							'width': ($('.xuanzhuanslide').width() * 0.65) * 0.65
+						})
+						$('.posimg').eq(active).stop().animate({
+							'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+							'height': obj['xuanzhuanMid'].height,
+							'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+							'margin': obj['xuanzhuanMid'].margin,
+							'width': $('.xuanzhuanslide').width() * 0.65,
+							'bottom': '0%'
+						}, 400)
+						if (tempact == 1) {
+							$('.posimg').eq(tempact + 1).css({
+								'z-index': 0 //固定值
+							})
+							$('.posimg').eq(tempact + 1).stop().animate({
+								'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+								'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+								'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+								'bottom': '15%'
+							}, 400)
+						}
+						for (var i = 0; i < length; i++) {
+							if (i != (active - 1 < 0 ? length - 1 : active - 1) && i != active && i != (active + 1 > length - 1 ? 0 :
+									active + 1)) {
+								if (active == 0) {
+									if ((ac + 1 > length - 1 ? 0 : ac + 1) == i) {
+										$('.posimg').eq(i).css({
+											'z-index': obj['xuanzhuanRright'].zIndex,
+											'left': obj['xuanzhuanRright'].left,
+											'right': obj['xuanzhuanRright'].right
+										})
+										$('.posimg').eq(i).stop().animate({
+											'height': obj['xuanzhuanRright'].height,
+											'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+											'margin': obj['xuanzhuanRright'].margin,
+											'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+											'bottom': '15%'
+										}, 400)
+									}
+									$('.posimg').eq(length - 1).css({
+										'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+										'z-index': obj['xuanzhuanRleft'].zIndex,
+									})
+									$('.posimg').eq(0).stop().animate({
+										'height': '100%',
+										'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+										'margin': obj['xuanzhuanRleft'].margin,
+										'width': ($('.xuanzhuanslide').eq(0).width() * 0.65),
+										'bottom': '0%'
+									}, 400)
+									continue;
+								} else {
+									if ((ac + 1 > length - 1 ? 0 : ac + 1) == i) {
+										$('.posimg').eq(i).css({
+											'z-index': obj['xuanzhuanRright'].zIndex,
+											'left': obj['xuanzhuanRright'].left,
+											'right': obj['xuanzhuanRright'].right
+										})
+										$('.posimg').eq(i).stop().animate({
+											'height': obj['xuanzhuanRright'].height,
+											'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+											'margin': obj['xuanzhuanRright'].margin,
+											'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+											'bottom': '15%'
+										}, 400)
+									} else {
+										$('.posimg').eq(i).css({
+											'z-index': obj['xuanzhuanRright'].zIndex,
+										})
+										$('.posimg').eq(i).stop().animate({
+											'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+											'height': obj['xuanzhuanRright'].height,
+											'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+											'margin': obj['xuanzhuanRright'].margin,
+											'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+											'bottom': '15%'
+										}, 400)
+									}
+								}
+							}
+						}
+						$('.posimg').eq(active + 1 > length - 1 ? 0 : active + 1).css({
+							'left': obj['xuanzhuanright'].left,
+							'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
+							'z-index': obj['xuanzhuanright'].zIndex,
+						})
+						$('.posimg').eq(active + 1 > length - 1 ? 0 : active + 1).stop().animate({
+							'height': obj['xuanzhuanright'].height,
+							'right': obj['xuanzhuanright'].right,
+							'margin': obj['xuanzhuanright'].margin,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'bottom': '15%'
+						}, 400)
+						$('.posimg').eq(active - 1 < 0 ? length - 1 : active - 1).css({
+							'right': obj['xuanzhuanleft'].right,
+							'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2
+						})
+						$('.posimg').eq(active - 1 < 0 ? length - 1 : active - 1).stop().animate({
+							'left': obj['xuanzhuanleft'].left,
+							'height': obj['xuanzhuanleft'].height,
+							'margin': obj['xuanzhuanleft'].margin,
+							'z-index': obj['xuanzhuanleft'].zIndex,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'bottom': '15%'
+						}, 400)
+					}
+				},
+				/*//逐张滑动切换插件*/
+				sc_fixleft: function() {
+					if ($(window).width() < 1000) {
+						publicflag.slidescrollfixwidth = Number(($('.slidescrollItemwrap').eq(0).width() / 3).toFixed())
+					} else {
+						publicflag.slidescrollfixwidth = $('.slidescrollItemwrap').eq(0).width() / 4
+					} //	
+					$('.slidescrollli').width(publicflag.slidescrollfixwidth)
+					var widths = $('.slidescrollItemwrapin').eq(0).children('.slidescrollli').length * publicflag.slidescrollfixwidth
+					$('.slidescrollItemwrapin').width(widths)
+					$('.slidescrollItemwrap>div').eq(0).width(widths)
+					$('.slidescrollItemwrapin').eq(1).css('left', $('.slidescrollItemwrapin').eq(1).width())
+					$('.slidescrollItemwrapin').eq(2).css('left', -$('.slidescrollItemwrapin').eq(1).width())
+					var slidescrollfixwidthinit = publicflag.slidescrollfixwidthinit
+					publicflag.slidescrollfixwidthinit = $('.slidescrollItemwrap').eq(0).width() //
+					if (slidescrollfixwidthinit != publicflag.slidescrollfixwidthinit) {
+						if ($(window).width() < 1000) {
+							$('.slidescrollItemwrap>div').eq(0).css({
+								'left': -(Number(($('.slidescrollItemwrap').eq(0).width() / 3).toFixed())) * publicflag.slidescrollrightnum
+							})
+						} else {
+							$('.slidescrollItemwrap>div').eq(0).css({
+								'left': -($('.slidescrollItemwrap').eq(0).width() / 4) * publicflag.slidescrollrightnum
+							})
+						}
+					}
+				},
+				sc_tofixleft: function() {
+					setTimeout(function() {
+						objfn.sc_fixleft()
+						objfn.sc_tofixleft()
+					}, 10)
+				},
+				sc_toright: function() {
+					if (publicflag.slidescrollcanclick == false) {
+						return;
+					}
+					publicflag.slidescrollcanclick = false
+					setTimeout(function() {
+						publicflag.slidescrollcanclick = true
+					}, 200)
+					publicflag.slidescrollrightnum++;
+					if (publicflag.slidescrollrightnum > ($('.slidescrollItemwrapin').eq(0).children('.slidescrollli').length)) {
+						$('.slidescrollItemwrap>div').eq(0).css({
+							'left': 0
+						})
+						publicflag.slidescrollrightnum = 1 //
+						if ($(window).width() < 1000) {
+							$('.slidescrollItemwrap>div').eq(0).animate({
+								'left': -(Number(($('.slidescrollItemwrap').eq(0).width() / 3).toFixed())) * publicflag.slidescrollrightnum
+							}, 200)
+						} else {
+							$('.slidescrollItemwrap>div').eq(0).animate({
+								'left': -($('.slidescrollItemwrap').eq(0).width() / 4) * publicflag.slidescrollrightnum
+							}, 200)
+						}
+					} //
+					if ($(window).width() < 1000) {
+						$('.slidescrollItemwrap>div').eq(0).animate({
+							'left': -(Number(($('.slidescrollItemwrap').eq(0).width() / 3).toFixed())) * publicflag.slidescrollrightnum
+						}, 200)
+					} else {
+						$('.slidescrollItemwrap>div').eq(0).animate({
+							'left': -($('.slidescrollItemwrap').eq(0).width() / 4) * publicflag.slidescrollrightnum
+						}, 200)
+					}
+				},
+				sc_toleft: function() {
+					if (publicflag.slidescrollcanclick == false) {
+						return;
+					}
+					publicflag.slidescrollcanclick = false
+					setTimeout(function() {
+						publicflag.slidescrollcanclick = true
+					}, 200)
+					publicflag.slidescrollrightnum--;
+					if (publicflag.slidescrollrightnum < -($('.slidescrollItemwrapin').eq(0).children('.slidescrollli').length)) {
+						$('.slidescrollItemwrap>div').eq(0).css({
+							'left': 0
+						})
+						publicflag.slidescrollrightnum = -1 //
+						if ($(window).width() < 1000) {
+							$('.slidescrollItemwrap>div').eq(0).animate({
+								'left': -(Number(($('.slidescrollItemwrap').eq(0).width() / 3).toFixed())) * publicflag.slidescrollrightnum
+							}, 200)
+						} else {
+							$('.slidescrollItemwrap>div').eq(0).animate({
+								'left': -($('.slidescrollItemwrap').eq(0).width() / 4) * publicflag.slidescrollrightnum
+							}, 200)
+						}
+					} //
+					if ($(window).width() < 1000) {
+						$('.slidescrollItemwrap>div').eq(0).animate({
+							'left': -(Number(($('.slidescrollItemwrap').eq(0).width() / 3).toFixed())) * publicflag.slidescrollrightnum
+						}, 200)
+					} else {
+						$('.slidescrollItemwrap>div').eq(0).animate({
+							'left': -($('.slidescrollItemwrap').eq(0).width() / 4) * publicflag.slidescrollrightnum
+						}, 200)
+					}
+				},
+				scrollslide: function() {
+					if (publicflag.slidescrollimgarr.length != 0) {
+						setTimeout(function() {
+							$('#Slidescroll').css({
+								'height': '0',
+								'overflow': 'hidden'
+							})
+						}, 1000)
+					} //
+					publicflag.slidescrollfixwidthinit = $('.slidescrollItemwrap').eq(0).width()
+					$('.slidescrollItemwrap>div').eq(0).append($('.slidescrollItemwrapin').eq(0).clone().css('left', $(
+						'.slidescrollItemwrapin').eq(0).width()))
+					$('.slidescrollItemwrap>div').eq(0).append($('.slidescrollItemwrapin').eq(0).clone().css('left', -$(
+						'.slidescrollItemwrapin').eq(0).width()))
+					objfn.sc_tofixleft() //
+					$('.rightslidescrollbutton').eq(0).click(objfn.sc_toright)
+					$('.leftslidescrollbutton').eq(0).click(objfn.sc_toleft)
+					$('.index-slidescroll').eq(0).mouseleave(function() {
+						publicflag.scrollimgautoplayflag = true
+					})
+					$('.index-slidescroll').eq(0).mouseenter(function() {
+						publicflag.scrollimgautoplayflag = false
+					})
+					objfn.scrollautoplay()
+				},
+				scrollautoplay: function() {
+					setTimeout(function() {
+						if (publicflag.scrollimgautoplayflag == false) {
+							objfn.scrollautoplay()
+							return;
+						}
+						objfn.sc_toright()
+						objfn.scrollautoplay()
+					}, 3000)
+				},
+				/*//栏目加载动画插件*/
+				itemloadinganiinit: function() {
+					$('.cont1-ani').eq(0).animate({
+						'width': '40%'
+					}, 300)
+					$('.cont2-ani').eq(0).animate({
+						'width': '100%'
+					}, 300)
+				},
+				itemloadingani: function() {
+					setTimeout(function() {
+						if (publicflag.ani1 == 1) {
+							publicflag.ani1 = 0
+							$('.cont1-ani').eq(0).animate({
+								'width': '100%'
+							}, 300)
+						} else {
+							publicflag.ani1 = 1
+							$('.cont1-ani').eq(0).animate({
+								'width': '40%'
+							}, 300)
+						}
+						if (publicflag.ani2 == 1) {
+							publicflag.ani2 = 0
+							$('.cont2-ani').eq(0).animate({
+								'width': '40%'
+							}, 300)
+						} else {
+							publicflag.ani2 = 1
+							$('.cont2-ani').eq(0).animate({
+								'width': '100%'
+							}, 300)
+						}
+						objfn.itemloadingani()
+					}, 300)
+				},
+				//页面版心宽度适配需要的函数（非重点）
+				sizefix: function() {
+					if ($(window).width() > 1200) {
+						$('.cont').eq(0).width(850)
+					} else if ($(window).width() < 1200 && $(window).width() > 1000) {
+						$('.cont').eq(0).width(1000)
+					} else if ($(window).width() < 1000 && $(window).width() > 720) {
+						$('.cont').eq(0).width(720)
+					} else {
+						$('.cont').eq(0).css('width', '100%')
+					}
+				},
+				tosizefix: function() {
+					setTimeout(function() {
+						objfn.sizefix()
+						objfn.tosizefix()
+					}, 10)
+				},
+			}
+			objfn.tosizefix()
+			objfn.api(null, null, null, function() {
+				publicflag.slidescrollimgarr = [0, 0, 0, 0]
+				objfn.scrollslide()
+			})
+			objfn.api(null, null, null, function() {
+				publicflag.xuanzhuanmumaimgarr = [0, 0, 0, 0, 0, 0, 0]
+				objfn.xuanzhuanmumaslide()
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="sel">
+			<select id="p0" class="oops" onchange="change()">
+				<option value="no">请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+			</select>
+			<select id="p1" class="oops" onchange="change()">
+				<option value="no">请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+			</select>
+			<select id="p2" class="oops" onchange="change()">
+				<option value="no">请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+			</select>			
+		</div>
+		<button onclick='add()'>添加</button>
+		<!--------------js----------------------->
+		<script src="all-jQ/jquery-1.7.2.js"></script>
+		<script>
+			var datas = [
+				{'valsl':'no','htmls':'请选择'},
+				{'valsl':'1','htmls':'1'},
+				{'valsl':'2','htmls':'2'},
+				{'valsl':'3','htmls':'3'},
+				{'valsl':'4','htmls':'4'},
+				{'valsl':'5','htmls':'5'},
+				{'valsl':'6','htmls':'6'},
+				{'valsl':'7','htmls':'7'}
+			];
+			//选中，以及旋回请选择选项这两种情况的判断(核心代码)
+			function change(){
+				var findoption = $('#sel>.oops').find('option');
+				for(var k=0;k<findoption.length;k++){
+					var ops = findoption;
+					ops.get(k).disabled = false;
+				}
+				var thesels = $('#sel>.oops');
+				for(var i=0;i<thesels.length;i++){
+					for(var k=0;k<findoption.length;k++){
+						var op = findoption;
+						if(thesels.eq(i).val() == op.eq(k).val()&&op.eq(k).val()!='no'){
+							op.get(k).disabled = true;
+						}
+					}
+				}
+			}
+			//添加的时候 判断并重置id
+			var num = 0;
+			function add(){
+				$('#sel').append('<select class="oops" onchange="change()"></select>');
+				for(var j=0;j<$('.oops').length;j++){
+					$('.oops').eq(j).prop('id','p'+j);
+					num = j;
+				}
+				var lastid = document.getElementById('p'+num);
+				for(var k=0;k<datas.length;k++){
+					var valsl = datas[k].valsl;
+					var htmls = datas[k].htmls;
+//					console去掉，然后inner会完全无效，在低版浏览器
+					$('#'+lastid.id).append('<option value="'+valsl+'">'+htmls+'</option>')
+				}
+			}
+		</script>
+	</body>
+</html>

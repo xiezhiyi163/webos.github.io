@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#small-to-big {
+				width: 1000px;
+				height: 500px;
+				margin: auto;
+				background: gold;
+			}
+			
+			.small {
+				width: 500px;
+				height: 353px;
+				float: left;
+				position: relative;
+			}
+			
+			.small>p {
+				width: 200px;
+				height: 200px;
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: rgba(255, 255, 255, .5);
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7fffffff, endColorstr=#7fffffff);
+			}
+			
+			.big {
+				width: 500px;
+				height: 500px;
+				display: none;
+				float: left;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.big>img {
+				position: absolute;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="small-to-big">
+			<div class="small">
+				<img src="img/26436247p0.jpg" width="100%" />
+				<p></p>
+			</div>
+			<div class="big">
+				<img src="img/26436247p0.jpg" />
+			</div>
+		</div>
+		<script src="../all-jQ/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('#small-to-big .small').mousemove(function(event) {
+				var moveleftmaxwidth = $('#small-to-big .small').width() - $('#small-to-big .small p').width();
+				var moveleftmaxheight = $('#small-to-big .small').height() - $('#small-to-big .small p').height();
+
+				var ev = event || window.event; //---
+				var scrollX = document.body.scrollLeft || document.documentElement.scrollLeft; //---
+				var scrollY = document.body.scrollTop || document.documentElement.scrollTop; //---
+				var moveX = ev.pageX || ev.clientX + scrollX; //---
+				var moveY = ev.pageY || ev.clientY + scrollY; //---
+
+				var lastmoveX = moveX - $('#small-to-big .small img').offset().left - $('#small-to-big .small p').width() / 2;
+				var lastmoveY = moveY - $('#small-to-big .small img').offset().top - $('#small-to-big .small p').height() / 2;
+				//
+				if(lastmoveX < 0) {
+					lastmoveX = 0;
+				} else if(lastmoveX > moveleftmaxwidth) {
+					lastmoveX = moveleftmaxwidth;
+				}
+				if(lastmoveY < 0) {
+					lastmoveY = 0;
+				} else if(lastmoveY > moveleftmaxheight) {
+					lastmoveY = moveleftmaxheight;
+				}
+
+				$('#small-to-big .small p').css({ 'left': lastmoveX, 'top': lastmoveY });
+				//
+				var sizeX = ($('#small-to-big .big img').width() - $('#small-to-big .big').width()) / ($('#small-to-big .small img').width() - $('#small-to-big .small p').width())
+				var sizeY = ($('#small-to-big .big img').height() - $('#small-to-big .big').height()) / ($('#small-to-big .small img').height() - $('#small-to-big .small p').height())
+
+				$('#small-to-big .big img').css({ 'left': -lastmoveX * sizeX, 'top': -lastmoveY * sizeY });
+			})
+			//////
+			$('#small-to-big .small').hover(function() {
+					$('#small-to-big .small p').show();
+					$('#small-to-big .big').show();
+				},
+				function() {
+					$('#small-to-big .small p').hide();
+					$('#small-to-big .big').hide();
+				})
+		</script>
+	</body>
+
+</html>

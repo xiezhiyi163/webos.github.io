@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../../css/Pcss.css"/>
+		<title></title>
+	</head>
+	<body>
+		<script src="../../js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<div style="height: 60px;">
+			<div style="position: fixed;top: 0;left: 0;width: 100%;height: 60px;background-color: #00BFFF;line-height: 60px;text-align: center;color: white;">
+				caption
+			</div>
+		</div>
+		<div>
+			<!-- 到时左边这基于swiper去处理就行 -->
+			<div class="leftandright" style="float: left;width: 33%;background-color: coral;overflow-y: auto;">
+				<p id="p1" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p1b').scrollIntoView(true)">1</a>
+				</p>
+				<p id="p2" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p2b').scrollIntoView(true)">1</a>
+				</p>
+				<p id="p3" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p3b').scrollIntoView(true)">1</a>
+				</p>
+				<p id="p4" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p4b').scrollIntoView(true)">1</a>
+				</p>
+				<p id="p5" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p5b').scrollIntoView(true)">1</a>
+				</p>
+				<p id="p6" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p6b').scrollIntoView(true)">1</a>
+				</p>
+				<p id="p7" style="height: 200px;">
+					<a onclick="javascript:document.querySelector('#p7b').scrollIntoView(true)">1</a>
+				</p>
+			</div>
+			<div id='leftandright' class="leftandright" style="float: left;width: 67%;background-color: #E38D13;overflow-y: auto;">
+				<div>
+					<p id="p1b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p1').scrollIntoView(true)">s1</a>
+					</p>
+					<p id="p2b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p2').scrollIntoView(true)">s1</a>
+					</p>
+					<p id="p3b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p3').scrollIntoView(true)">s1</a>
+					</p>
+					<p id="p4b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p4').scrollIntoView(true)">s1</a>
+					</p>
+					<p id="p5b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p5').scrollIntoView(true)">s1</a>
+					</p>
+					<p id="p6b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p6').scrollIntoView(true)">s1</a>
+					</p>
+					<p id="p7b" class="p" style="height: 200px;">
+						<a onclick="javascript:document.querySelector('#p7').scrollIntoView(true)">s1</a>
+					</p>					
+				</div>
+				<div id="bottomWrap">
+					<!-- 底部占位 -->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//底部占位响应
+			$('#bottomWrap').height($(window).height()-60-$('.p').eq($('.p').length-1).height())
+			// 左右高度响应固定
+			$('.leftandright').height($(window).height()-60)
+			//内容滚动联动测试
+			var lastrightmodel = []
+			/* 
+				监听
+			*/
+			window.addEventListener('resize',function(){
+				//底部占位响应
+				$('#bottomWrap').height($(window).height()-60-$('.p').eq($('.p').length-1).height())
+				// 左右高度响应固定
+				$('.leftandright').height($(window).height()-60)
+			})
+			//右边滚动监听
+			document.getElementById('leftandright').addEventListener('scroll',function(){
+				//内容滚动联动测试
+				for(var i=0;i<$('.p').length-1;i++){
+					if(($('.p').eq(i+1).offset().top>60)&&(i+1<=$('.p').length-1)){
+						console.log(i)
+						break;
+					}
+				}				
+			})
+		</script>
+	</body>
+</html>
+
+<!-- 
+	锚点处理，用scrollintoview去实现某个盒子的滚动条到对应位置，监听滚动位置，控制左边自动滚动
+ -->

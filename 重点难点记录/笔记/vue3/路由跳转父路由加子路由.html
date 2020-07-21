@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script>
+		<script src="node_modules/_vue-router@3.0.1@vue-router/dist/vue-router.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#box {
+				width: 600px;
+				height: 720px;
+				margin: auto;
+				position: relative;
+				border-right: 1px solid grey;
+				border-left: 1px solid grey;
+				border-bottom: 1px solid grey;
+				overflow: hidden;
+			}
+			
+			.review {
+				max-height: 670px;min-height: 670px;overflow: hidden;
+			}
+			
+			.mainnav {
+				height: 50px;
+				border-bottom: 1px solid gray;
+				line-height: 50px;
+				background: #eee;
+			}
+			
+			.mainsubnav {
+				display: inline-block;
+				padding: 0 52px;
+				font-weight: bolder;
+			}
+			
+			.subnav-con {
+				margin-left: 120px;
+				padding: 20px;
+			}
+			
+			.imgdiv {
+				height: 670px;
+			}
+			
+			.img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.img2 {
+				width: 100%;
+			}
+			
+			.router-link-active {
+				color: goldenrod
+			}
+			
+			.secroutes {
+				position: absolute;
+				top: /*51*/0px;
+				left: 0;
+				height: 669px;
+				background: whitesmoke;
+				border-right: 2px solid #eee
+			}
+			
+			#hide {
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<router-view class='review'></router-view>
+			<div class="mainnav">
+				<span class="mainsubnav">
+					<router-link to='/index'>首页</router-link>
+				</span>
+				<span class="mainsubnav">
+					<router-link to='/allmyclass'>我的课程</router-link>
+				</span>
+				<span class="mainsubnav">
+					<router-link to='/mybak'>收藏</router-link>
+				</span>
+				<span class="mainsubnav">
+					<router-link to='/set'>设置</router-link>
+				</span>
+			</div>
+		</div>
+		<script>
+			var home = {
+				template: `
+				<div>
+					<div class='imgdiv'>
+						<img class='img' src='index.png'/>
+					</div>
+				</div>
+				`
+			}
+			var myclass = {
+				template: `
+				<div >
+					<div class='secroutes' @click='show()'>
+						<span style='display:block;padding:30px 0px 0;width:120px;text-align:center;'>
+							<router-link to='/allmyclass/h5'>H5</router-link>
+						</span>
+						<span style='display:block;padding:30px 0px 0;width:120px;text-align:center;'>
+							<router-link to='/allmyclass/node'>nodeJS</router-link>
+						</span>
+						<span style='display:block;padding:30px 0px 0;width:120px;text-align:center;'>
+							<router-link to='/allmyclass/vue'>VueJS</router-link>
+						</span>
+					</div>
+					<div class='subnav-con'>
+						<router-view>
+						</router-view>
+					</div>
+				</div>
+				`
+			}
+			var mybak = {
+				template: `
+				<div >
+					<h2 style='text-align:center'>这里是收藏的内容</h2>
+					<div class='imgdiv'>
+						<img class='img2' src='1.png'/>
+					</div>
+				</div>
+				`
+			}
+			var set = {
+				template: `
+				<div >
+					<h2 style='text-align:center'>这里是设置的内容</h2>
+					<div class='imgdiv'>
+						<img class='img2' src='2.jpg'/>
+					</div>
+				</div>
+				`
+			}
+			var subpageTm = {
+				template: `
+				<div>					
+					<h3>这里的内容是:{{$route.params.name}}	</h3>
+					<br />
+					<hr/>
+					<div v-for='(v,i) in cont[$route.params.name]'>
+						<br />
+						<p><h1>{{v.cont1}}</h1></p>
+						<br />
+						<p><h2>{{v.cont2}}</h2></p>
+					</div>
+				</div>
+				`,
+				data(){
+					return{
+						cont:{
+							h5:[
+								{cont1:'HTML',cont2:'css'}
+							],
+							node:[
+								{cont1:'Node',cont2:'express'}
+							],
+							vue:[
+								{cont1:'Vue',cont2:'M-V-VM'}
+							]
+						}
+					}
+				}
+			}
+			var routes = [{
+					path: '/index',
+					component: home
+				},
+				{
+					path: '/allmyclass',
+					component: myclass,
+					children: [{
+						path: ':name',
+						component: subpageTm
+					},{
+						path: '/',
+						component: subpageTm
+					}]
+				},
+				{
+					path: '/mybak',
+					component: mybak
+				},
+				{
+					path: '/set',
+					component: set
+				},
+				{
+					path: '*',
+					component: home
+				}
+			]
+			var router = new VueRouter({
+				routes
+			})
+
+			var vm = new Vue({
+				el: '#box',
+				router,
+				data:{
+					h5:{h5:'HTML',
+						h5css:'css'}
+				}
+				
+			})
+		</script>
+	</body>
+
+</html>

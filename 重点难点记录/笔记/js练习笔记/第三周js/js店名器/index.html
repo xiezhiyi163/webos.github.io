@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			#name-wrap{
+				width: 300px;
+				height: 70px;
+				background: mediumaquamarine;
+				float: left;
+				color: white;
+				text-indent: 15px;
+				line-height: 70px;
+			}
+			#name-wrap>span{
+				float: left;
+			}
+			.name{
+				float: left;
+			}
+			input[type="submit"]{
+				border:none;
+				height: 70px;
+				width: 70px;
+				color: brown;
+				background:mediumturquoise;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="name-wrap">
+			<span>号码：</span><div class="name">随机抽取</div>
+		</div>
+		<input type="submit" value="开始抽取" />
+		<script type="text/javascript">
+			var namewrap = document.getElementById("name-wrap");
+			var thenamediv = namewrap.getElementsByTagName("div");
+			var inp = document.getElementsByTagName("input");
+			var thename = ["21441","13244","12334","53321","12321","43646"];
+			var num2 = 0;
+			function nameturn(){
+				var num = Math.round(Math.random()*5+0);
+				thenamediv[0].innerHTML = thename[num];
+			}
+			inp[0].onclick = function(){
+				num2++
+			if(num2%2 == 1){
+//				clearInterval(timer);
+				timer = setInterval(nameturn,200);
+				inp[0].value = "停止抽取";
+			}else{
+				clearInterval(timer);
+				inp[0].value = "开始抽取";
+			}
+			}
+		</script>
+	</body>
+</html>

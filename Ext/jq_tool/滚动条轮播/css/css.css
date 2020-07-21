@@ -1,0 +1,75 @@
+@charset "utf-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+#imgWarp{
+	width: 665px;
+	height: 326px;
+	position: relative;
+	margin-bottom: 5px;
+	border-radius: 0 0 4px 4px;
+	behavior: url(css/PIE.htc);
+	overflow: hidden;
+}
+#imgBox{
+	position: absolute;
+	height: 326px;
+}
+#imgBox li{
+	float: left;
+	width: 665px;
+	height: 326px;
+}
+#tabBtn{
+	width: 665px;
+	height: 16px;
+}
+#leftBtn,#rightBtn{
+	width: 46px;
+	height: 16px;
+	border-radius: 3px;
+	position: relative;
+	behavior: url(css/PIE.htc);
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+#leftBtn{
+	float: left;
+	background: #9c9ea1 url(../img/leftbtn.png) no-repeat 50%;
+}
+#leftBtn:hover{
+	background: #4a4d4d url(../img/leftbtn.png) no-repeat 50%;
+}
+#rightBtn{
+	float: right;
+	background: #9c9ea1 url(../img/rightbtn.png) no-repeat 50%;
+}
+#rightBtn:hover{
+	background: #4a4d4d url(../img/rightbtn.png) no-repeat 50%;
+}
+#sliderBox{
+	width: 564px;
+	height: 16px;
+	position: relative;
+	float: left;
+	margin: 0 3px;
+	background: #9c9ea1;
+	border-radius: 3px;
+	behavior: url(css/PIE.htc);
+	cursor: pointer;
+}
+#slider{
+	width: 47px;
+	height: 16px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #4a4d4d;
+	border-radius: 3px;
+	behavior: url(css/PIE.htc);
+}
+#slider:hover{
+	background: #fff;
+}

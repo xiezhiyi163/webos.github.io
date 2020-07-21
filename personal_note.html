@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<style>
+	*{
+		margin: 0;padding: 0;list-style: none;border: 0;outline: none;text-decoration: 0;
+	}
+	html{
+		overflow: hidden;
+	}
+	textarea::-webkit-scrollbar{  
+	    width:4px;  
+	    height:4px;  
+	}  
+	textarea::-webkit-scrollbar-track{  
+	    background: #eee;  
+	    border-radius:2px;  
+	}  
+	textarea::-webkit-scrollbar-thumb{  
+	    background: #aaa;  
+	    border-radius:2px;  
+	}
+	textarea:hover textarea::-webkit-scrollbar-thumb{
+		background:#aaa;
+	}
+	textarea::-webkit-scrollbar-thumb:hover{  
+	    background: #747474;  
+	}  
+	textarea::-webkit-scrollbar-corner{  
+	    background: #f6f6f6;  
+	}
+	
+	.frt{
+		float: right;
+	}
+	.mr220{
+		margin-right: 220px;/*220-?=80*/
+	}
+	.ml220{
+		margin-left: 220px;/*220-?=80*/
+	}
+	.mr80{
+		margin-right: 80px;/*220-?=80*/
+	}
+	.headfix{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+	.head{
+		padding: 20px;
+		height: 20px;
+		font-size: 16px;
+		border-bottom: 1px solid #e7e7e7;
+		background-color: white;
+	}
+	.leftfix{
+		position: fixed;
+		left: 0;
+		top: 61px;
+		border-right: 2px solid #e7e7e7;
+		background-color: white;
+		overflow: auto;
+	}
+	.leftfix::-webkit-scrollbar{  
+	    width:4px;  
+	    height:4px;  
+	}  
+	.leftfix::-webkit-scrollbar-track{  
+	    background: #eee;  
+	    border-radius:2px;  
+	}  
+	.leftfix::-webkit-scrollbar-thumb{  
+	    background: #aaa;  
+	    border-radius:2px;  
+	}
+	.leftfix:hover .leftfix::-webkit-scrollbar-thumb{
+		background:#aaa;
+	}
+	.leftfix::-webkit-scrollbar-thumb:hover{  
+	    background: #747474;  
+	}  
+	.leftfix::-webkit-scrollbar-corner{  
+	    background: #f6f6f6;  
+	}
+	.leftfix220{
+		width: 220px;
+	}
+	.leftfix80{
+		width: 80px;
+	}
+	.leftfix>div{
+		padding: 10px 0 30px;
+	}
+	.leftfix>div>div{
+		position: relative;
+	}
+	.leftfix>div>div>div{
+		height: 60px;
+		margin-left: 70px;
+		margin-right: 20px;
+		border-bottom: 1px solid #666;
+	}
+	.leftfix>div>div>img{
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		left: 0;
+		top: 0;
+		margin-left: 20px;
+		margin-top: 10px;
+		background-color: #eee;
+	}
+	.content{
+		margin-top: 61px;
+		padding: 0px 30px;overflow: auto;
+	}
+	.content>div{
+		padding: 30px 0;
+	}
+	.itemwrap{
+		display: inline-block;width: 200px;height:300px;background-color: #FFCC66;margin-bottom: 5px;vertical-align: top;
+	}
+	.itemwrap>textarea{
+		width: 140px;height:260px;margin-left:20px;margin-top:20px;background-color: transparent;resize: none;
+	}
+</style>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+	</head>
+	<body id="personal">
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<div id="_noteWin">
+			<div class="headfix">
+				<div class="head">
+					<span>添加</span> 丨<span> 删除</span><span class="frt"> 关于</span>				
+				</div>
+			</div>
+			<div class="leftfix leftfix220" id="leftfix">
+				<div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+					<div>
+						<img/ >
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<!-- !!! -->
+			<div class="content ml220" id="cont">
+				<div>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>
+					<p class="itemwrap">
+						<textarea name="" rows="" cols=""></textarea>
+					</p>					
+				</div>
+			</div>
+			<!-- !!! -->
+		</div>
+		<script src="static/js/_personal_note.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

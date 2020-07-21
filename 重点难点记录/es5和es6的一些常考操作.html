@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		/*三栏布局*/
+		.a4{display: block;margin: 0 200px;height: 400px; background-color: coral;}
+		#a3{width:200px;float: left;margin-top:-0.01px;height: 300px;background-color: blueviolet;}
+		#a5{width:200px;float: right;margin-top:-0.01px;background-color: #007AFF;}
+		/*flextest,使用Flex布局之后，里面的float、clear、vertical-align属性将失效。*/
+		#flextest{
+			display:flex;
+			flex-direction:row;/*row\row-reverse\column\column-reverse*/
+			/*flex-wrap: wrap | nowrap | wrap-reverse
+			 * 定义主轴对其方式
+			 justify-content: flex-start | flex-end | center | space-between | space-around
+			 *align-items属性定义项目在纵轴上的对齐方式，默认值为stretch，适用于项目在纵轴上高度不一样的情况
+			 align-items: flex-start | flex-end | center | baseline | stretch
+			 *align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。(即需要设置容器的flex-wrap属性值为wrap)
+			 align-content: flex-start | flex-end | center | space-between | space-around | stretch
+			  */
+		}
+		.flextest{
+			/*order定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+			 *flex-grow属性定义项目的放大比例，主要在父元素的宽度大于子元素的宽度之和时候起作用，它定义子元素如何分配父元素的剩余宽度
+			 */
+			height: 600px;
+			background-color:coral ;
+		}
+	</style>
+	<body>
+		<!--三栏布局以及margin重叠解决-->
+		<div id="wrap" style="margin-bottom: 60px;">
+			<p id="a3" class="a">3</p>
+			<p id="a5" class="a">5</p>
+			<p id="a4" class="a">
+				<span class="a4">1</span>
+			</p>
+			<i style="display: block;clear: both;"></i>
+		</div>
+		<div>
+			<i style="margin-top: 60px;width:100%;display: inline-block;/*解决margin重叠*/ ">
+			</i>
+			<div style="background-color: #00BFFF;">
+				<input type="file" name="files" id="files" value="" />
+			</div>			
+		</div>
+		<div id="flextest">
+			<p class="flextest"></p>
+			<p class="flextest"></p>
+			<p class="flextest"></p>
+		</div>
+		<script type="text/javascript">
+			//排序
+			console.log([1,3,6,2,2,3].sort(function(a,b){return a-b}));
+			//去重es6
+//			console.log(Array.from(new Set([1,3,6,2,2,3])));
+			console.log(...(new Set([1,3,6,2,2,3])));//
+			var arrset = [1,3,2,6,3]
+			var s = new Set()
+			for( var i in arrset){
+				s.add(arrset[i])
+			}
+			console.log(...s)
+			//对象操作，参数二为参数1追加属性es5
+			console.log(Object.assign({},{a:0}));
+			//es6的map使用
+			var arrmap = [1,2,5,3,8].map(function(arr){//循环获取数组某一个，遍历数组
+				console.log(arr)
+			});
+			var m = new Map()//主要用于遍历对象
+			m.set('1','sadas')
+			m.set('2','sadas')
+			m.forEach(function(v,k){
+				console.log(k+':'+v)
+			})
+			console.log(m.get('1'));
+			//es6的some()
+			[3,5,2,2,1,2,4].some(function(v,i,arr){//
+				console.log(v>1)
+			});
+			//es6的every()(有问题的，v跟i那里不是检测全部的)
+			[3,5,2,2,1,2,4].every(function(v,i,arr){//
+				console.log(i)
+			});
+			//对象操作，new Promise es6,亦可用于异步加载函数
+			(function(){
+				return new Promise(function(resolve,reject){
+					resolve('[1,3,6,2]')//内容可以是jq的get方法的ajax函数然后resolve（用在多个函数顺序执行的时候）或者纯数据
+				})
+			})().then(function(value){//可以多个then，下一个then拿的是上面resolve处理好的数据
+				console.log(value)
+			})
+			//class构造函数
+//			class demo{
+//				constructor () {
+//					this.x = 'gouzao0';
+//				}
+//				things(){
+//					console.log(this.x)
+//				}
+//			}
+//			class dogs extends demo {//可继承demo的字段
+//				constructor () {
+//					super();
+//					this.y = this.x
+//				}
+//				things2(){
+//					console.log(this.y)
+//				}
+//			}
+			function demo(){
+				this.x = 'gouzao0'
+			}
+			demo.__proto__.__proto__.things = function(){
+				console.log(this.x)
+			}
+			function dogs(){//继承
+				this.x = new demo().x
+			}
+			dogs.prototype.__proto__.things2 = function(){
+				console.log(this.x)
+			}
+			new demo().things()
+			new dogs().things2()
+			//new demo().__proto__.__proto__ == demo.__proto__.__proto__ == demo.prototype.__proto__
+			//== demo.prototype.constructor.__proto__.__proto__ 都可以构造出方法， 都多加一个原型链就是null
+			//闭包
+			function ab(){
+				var i='bibao0';
+				function b(){
+					console.log(i)
+				}
+				return b
+			};
+			ab()()
+			//图片压缩（多用于头像上传，后台管理，移动端）
+			var canvas = document.createElement('CANVAS');
+			var ctx = canvas.getContext('2d');//1.先创建2d画布
+			var imgNew = new Image();
+			imgNew.src = this.result; //2.该图片url是你要压缩的url（选中图片或者获取图片路径之后）
+			imgNew.onload = function() {
+				var imgWidth = imgNew.width;
+				var imgHeight = imgNew.height;//3.获取到宽高
+				var rate = 0.5
+				canvas.width = imgWidth * rate;
+				canvas.height = imgHeight * rate;//4.乘以自定义比例0.5赋给canvas的宽高
+				console.log(rate, canvas.width, canvas.height)
+				ctx.drawImage(imgNew, 0, 0, imgWidth * rate, imgHeight * rate);
+				var dataURL = canvas.toDataURL('image/png');//5.画出来bingtoDataUrl转码
+				var img = document.getElementById('imgPic'); //6.需要显示的img
+				img.src = dataURL //给img赋值
+			}
+			//事件委托
+			document.getElementsByTagName('div')[0].onclick = function(){
+				var target = (event||window.event).target||(event||window.event).srcElement
+				if(target.nodeName.toLowerCase()=='p'){
+					alert(target.id)
+				}
+			}
+			//变量提升测试
+			console.log('------------函数预解析------------')
+			console.log(a)//函数等级更高，最后的a函数本身  a
+			var a =1//1
+			function a(){
+				console.log(2)
+			}
+			console.log(a)//   b
+			var a = 3//还是a函数本身 
+			console.log(a)//   c
+			function a(){
+				console.log(4)
+			}
+			var a = 5
+			console.log(a)//5  d
+			console.log('-----------------------------------')
+			var n = 3
+			function text6() {
+				var n = 6//有var，外面的console.log拿不到这个局部的
+				var a = 1;
+				function b() {
+					a = 10;//外面的局部变量跟里面的局部同名变量不受影响
+					return;
+					function a() {}
+				}
+				b();
+				console.log(a);         //  ？
+			}
+			text6();
+			console.log(n)
+			//获取文件信息获取后缀名
+			document.getElementById('files').onchange = function(){
+				var files = document.getElementById('files').files[0]
+				console.log(files.name.split('.')[files.name.split('.').length-1])
+			}
+			//浅克隆与深克隆
+			var objkl={
+		        card:[' visa','master'],
+		        name:"abc",
+		        age:123,
+		        wife:{
+		            name:"bcd",
+		            son:{
+		                name:"aaa"
+		            }
+		        }
+		    }
+			function simplecopy(){//浅克隆
+				var qiankelong = objkl
+				qiankelong.age = 36
+				console.log(qiankelong.age,objkl.age)				
+			}
+		    function deepSimpleClone(origin,target){//简单深克隆
+		        var target = target || {};//target默认对象
+		        for(var prop in origin){//遍历
+		             if(origin.hasOwnProperty(prop)){//判断是否是直系属性
+		                    target[prop] = origin[prop];
+		            }
+		        }
+		        return target;
+		    }
+		    function getType(obj){//复杂深克隆
+		    	//三步判断数组对象并返回
+			    if(Object.prototype.toString.call(obj)=='[object Object]'){
+			        return 'Object';
+			    }else if(Object.prototype.toString.call(obj)=='[object Array]'){
+			        return 'Array';
+			    }else{
+			        return 'nomal';
+			    }
+			}			
+			function deepCopy(obj) {
+				//判断是否不属于数组或对象
+			    if (getType(obj)=='nomal') {
+			        return obj ;
+			    }else{
+			        var newObj = getType(obj)=='Object'?{}:[];
+			        for(var key in obj){//遍历
+			            if(obj.hasOwnProperty(key)){//如果存在
+			                newObj[key] = deepCopy(obj[key]) ;//递归进去
+			            }
+			        }
+			    }
+			    return newObj;
+			}
+		</script>
+	</body>
+</html>

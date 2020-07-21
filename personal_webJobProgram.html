@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/Pcss.css"/>
+	</head>
+	<body>
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<div>
+			<div style="height: 120px;background-color: #eee;line-height: 120px;text-align: center;font-size: 50px;color: #ccc;font-weight: bolder;">
+				webJobProgram
+			</div>
+			<div id="wrap" style="padding-bottom: 15px;">
+				<!-- 
+					///template:
+					<div id="" style="padding: 15px 0 0px 15px;">
+						 <h3>title</h3>
+						 <button style="padding: 10px;margin-top: 15px;margin-right: 15px;border: 1px solid #999;background-color: transparent;border-radius: 15px;color: #666;">
+							 subtitle
+						 </button>
+					</div>
+				 -->
+				 
+			</div>
+		</div>
+		<!-- js -->
+		<a id="webJobProgramData"></a>
+		<script type="text/javascript">
+			var time = new Date().getTime()
+			$('#webJobProgramData').append('<script src="static/js/_personal_webJobProgramJson.js?v='+time+'" type="text/javascript" charset="utf-8"></\script>')
+			for(var i=0;i<webJobProgramData.length;i++){
+				var str = '<div id="'+webJobProgramData[i].id+'" style="padding: 15px 0 0px 15px;"></div>'
+				var str2 = '<h3>'+webJobProgramData[i].type+'</h3>'
+				var str3 = '<button style="padding: 10px;margin-top: 15px;margin-right: 15px;border: 1px solid #999;background-color: transparent;border-radius: 15px;color: #666;'+(webJobProgramData[i].isOk?'background-color:steelblue;color:white':'')+'">'+webJobProgramData[i].title+'</button>'
+				if(!document.getElementById(webJobProgramData[i].id)){
+					$('#wrap').append(str)
+					$('#'+webJobProgramData[i].id).append(str2)
+					$('#'+webJobProgramData[i].id).append(str3)
+				}else{
+					$('#'+webJobProgramData[i].id).append(str3)
+				}
+			}
+		</script>
+	</body>
+</html>

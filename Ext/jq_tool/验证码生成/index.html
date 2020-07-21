@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="../all-jQ/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+		<script src="jquery.qrcode.min.js" type="text/javascript"></script> 
+		<title></title>
+	</head>
+	<body>
+		<input type="text" id="inp" />
+		<button id="btn">提交</button>
+		<div id="wrap"></div>
+		<!--下面那个是用来回显二维码，上面的wrap是显示初始生成的二维码-->
+		<img id="imgcas"></img>
+		
+		
+		
+		
+		<script>
+			$('#btn').click(function(){
+				var qrcode = $('#wrap').qrcode({//默认宽高150
+					text:utf16to8($('#inp').val()),
+					width:150,
+					height:150
+				})				
+				var canvas = qrcode.find('canvas').get(0)//这里以及下面的是为覆盖做铺垫的，获取这里的就可以了，这里需要转为DOM元素
+				console.log(canvas.toDataURL())
+				$('#imgcas').attr('src',canvas.toDataURL())//toDataUrl是DOM元素的方法,是真正要传给后台的加密的数据地址		
+				qrcode.find('canvas').eq(0).remove()//把初始删掉的再生成一个回显的
+			})
+			//
+			function utf16to8(str) { //input的val值传进去就可以
+			    var out, i, len, c;  
+			    out = "";  
+			    len = str.length;  
+			    for(i = 0; i < len; i++) {  
+			    c = str.charCodeAt(i);  
+			    if ((c >= 0x0001) && (c <= 0x007F)) {  //单字节
+			        out += str.charAt(i);  
+			    } else if (c > 0x07FF) {  //双字节
+			        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));  
+			        out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));  
+			        out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));  
+			    } else {  //三字节
+			        out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));  
+			        out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));  
+			    }  
+			    }  
+			    return out;  
+			}  
+
+		</script>
+	</body>
+</html>

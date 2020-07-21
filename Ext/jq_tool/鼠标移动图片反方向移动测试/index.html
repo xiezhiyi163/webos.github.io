@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#small-to-big {
+				width: 100%;
+				height: 500px;
+				margin: auto;
+				background: gold;
+			}
+						
+			.big {
+				width: 1000px;
+				height: 500px;
+				/*display: none;*/
+				margin: auto;
+				overflow: hidden;
+				position: relative;
+				left: -20px;
+			}
+			
+			.big>img {
+				position: absolute;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="small-to-big">
+			<div class="big">
+				<img src="img/26436247p0.jpg" />
+			</div>
+		</div>
+		<script src="../all-jQ/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(window).mousemove(function(event) {
+				var ev = event || window.event; //---
+				var scrollX = document.body.scrollLeft || document.documentElement.scrollLeft; //---
+				var scrollY = document.body.scrollTop || document.documentElement.scrollTop; //---
+				var moveX = ev.pageX || ev.clientX + scrollX; //---
+				var moveY = ev.pageY || ev.clientY + scrollY; //---
+
+				var lastmoveX = moveX - $(window).width() / 1.00000001;
+				var lastmoveY = moveY - $(window).height() / 1.00000001;
+				//
+				var sizeX = $('#small-to-big .big img').width() / $(window).width()
+				var sizeY = $('#small-to-big .big img').height() / $(window).height()
+
+				$('#small-to-big .big img').animate({ 'left': (-lastmoveX * sizeX)/10, 'top': (-lastmoveY * sizeY)/16,'transition':'0.2s'},200).stop();	
+				$('#small-to-big .big img').css({ 'left': (-lastmoveX * sizeX)/10-50, 'top': (-lastmoveY * sizeY)/16,'transition':'0.2s'});
+
+			})
+			//////
+			$(window).hover(function() {
+					$('#small-to-big .big').show();
+				},
+				function() {
+					$('#small-to-big .big').show();
+				})
+		</script>
+	</body>
+
+</html>

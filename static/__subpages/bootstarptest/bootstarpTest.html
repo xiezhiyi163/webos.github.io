@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!-- ==::css::== -->
+<link rel="stylesheet" type="text/css" href="../../js/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+<style>
+	@media screen and (min-width:1200px) {
+		.col-lg-10-5 {
+			width: 20%;
+			margin-top: 10px;
+			float: left;
+		}
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="../../css/Pcss.css" />
+<style>
+	html,body{
+		background-color: #000000;
+	}
+	.badgeSetposi {margin-left: 10px;position: relative;top:-1px}
+	.carousel-inner,.carousel-inner .item{height: 100%;}
+	.topnavwrap,.topnavwrap2{height: 80px;background-color: #333;}
+	.topnavwrap2,.topnavwrap3{		margin-top: 10px;	}
+	.topnavwrap2 {		height: auto;		background-color:transparent !important	}
+	.topnavwrap3 {/*列表对齐需要的外层容器样式*/		margin-right: 15px;	}
+	.topnavwrap3,.topnavwrap2 {/*设置外边距之后对外层容器进行居中对齐*/		position: relative;		left: 7px;	}
+	.topleft,.topright {		height: 100%;	}
+	.topleft {		background-color: #5C83B0;	}
+	.topnavwrap2 .item {		padding-left: 0 !important;	}
+	.topnavwrap2 .item div{		background-color: #333;		margin-top: 10px;	}
+	.dropdown-menu{		background-color: #666 !important;		border: 0 !important;		border-radius: 0 !important;	}
+	.dropdown-menu a{		color: white !important;	}
+	.navbar-collapse {		max-height: 223.5px;	}
+	.icon-bar {		background-color: #31B0D5;	}
+	/* / */
+	.itemimgwrap,.itemimgwrap2,.itemimgwrap3 {		padding-bottom: 62.5%;		margin-top: 0px;		position: relative;		overflow: hidden;	}
+	.itemimgwrap p,.itemimgwrap2 p,.itemimgwrap3 p{		position: absolute;		left: 0;		width: 100%;		height: 100%;		top: 0;		background-position: center;		background-size: cover;	}
+	.itemdesc {		margin-top: 0 !important;		height: 60px;		background-color: #333 !important;	}
+	.totop{		position: fixed;		right: 20px;		bottom: 20px;		width: 60px;		height: 60px;		background-color: #333;		color: white;		text-align: center;		line-height: 65px;		font-size: 45px;		border: 1px solid white;		display: none;	}
+	.totop:hover{		color: white !important;	}
+	.footer{		min-height: 580px;		padding-top: 25px;		margin-top: 30px;		background-color: #333;	}
+	.footer .btnwrap {		text-align: right;		margin-right: 7px;	}
+	/* - */
+	.modal {		padding-right: 0 !important;	}
+</style>
+<!-- ==::html::== -->
+<html id="totop">
+	<!-- 
+	相近的响应式：element ui的layout布局，Ant design的layout布局 
+	-->
+	<head>
+		<meta charset="utf-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<script src="../../js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 
+		==
+		top
+		== -->
+		<div class="topnav" style="height: 50px;">
+			<!-- 
+			变成浮动，js稍微控制下最大高度，完美，topnav高度为0 
+			-->
+			<div class="topnavwrap navbar-fixed-top navbar-inverse" style="height: auto;border-bottom: 1px solid #444;">
+				<!-- 
+				/.container-fluid 
+				-->
+				<div class="container-fluid">
+					<!-- 
+					Brand and toggle get grouped for better mobile display 
+					-->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand">Brand</a>
+						<form class="navbar-form navbar-left visible-xs" style="margin: 0 40px 0 55px;padding-top: 8px;padding-bottom: 2px;border: 0;box-shadow: none;">
+							<!-- 
+							/.col-lg-6 
+							-->
+							<div class="col-lg-6">
+								<!-- 
+								/input-group 
+								-->
+								<div class="input-group">
+									<!-- 
+									/btn-group 
+									-->
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+										<ul class="dropdown-menu" id="noactionwithBootstarp2">
+											<li><a>Action</a></li>
+											<li><a>Another action</a></li>
+											<li><a>Something else here</a></li>
+											<li role="separator" class="divider"></li>
+											<li><a>Separated link</a></li>
+										</ul>
+									</div>
+									<input type="text" class="form-control" placeholder="Search" aria-label="...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<!--
+					Collect the nav links, forms, and other content for toggling 
+					/.navbar-collapse 
+					-->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a>Link <span class="sr-only">(current)</span></a></li>
+							<li><a>Link</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span class="glyphicon glyphicon-tasks"></span></a>
+								<ul class="dropdown-menu">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>One more separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+						<form class="navbar-form navbar-left hidden-xs">
+							<div class="input-group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+								<ul class="dropdown-menu" id="noactionwithBootstarp">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+								</ul>
+								<div class="form-group" style="width: 130px;margin-left: -5px;">
+									<input type="text" style="width: 130px;" class="form-control" placeholder="Search">
+								</div>
+								<button type="submit" class="btn btn-default" style="border-radius: 0 5px 5px 0;">Go!</button>
+							</div>
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a>Link</a></li>
+							<li class="dropdown hidden-xs">
+								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<!-- 
+		==
+		content
+		== -->
+		<div class="container" style="margin-top: 10px;">
+			<!--
+			 hold page - bootstrap3 
+			 -->
+			<div class="topnavwrap topnavwrap3" style="margin-top: 0;height: auto;background-color: transparent;">
+				<div class="alert alert-success" role="alert" style="margin: 0;">
+				  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  <span class="sr-only">Error:</span>
+				  hold page - bootstrap3<span class="badge" style="margin-left: 10px;">42</span>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+			<!-- 
+			轮播图 
+			-->
+			<div class="topnavwrap topnavwrap3" style="height: 400px;">
+				<div id="carousel-example-generic" style="height: 100%;" class="carousel slide" data-ride="carousel">
+					<!--
+					 Indicators 
+					 -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					</ol>
+					<!--
+					 Wrapper for slides 
+					 -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="..." alt="1..." style="visibility: hidden;">
+							<div class="carousel-caption">
+								<h3>.asdsadadasdad..</h3>
+								<p>...</p>
+							</div>
+						</div>
+						<div class="item">
+							<img src="..." alt="2..." style="visibility: hidden;">
+							<div class="carousel-caption">
+								<h3>...</h3>
+								<p>...</p>
+							</div>
+						</div>
+						<div class="item">
+							<img src="..." alt="3..." style="visibility: hidden;">
+							<div class="carousel-caption">
+								<h3>...</h3>
+								<p>...</p>
+							</div>
+						</div>
+					</div>
+					<!-- 
+					Controls 
+					-->
+					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+			<!-- 
+			单边响应式(对等长度,外围不用给边距或给一点点边距) 
+			-->
+			<div class="topnavwrap topnavwrap3" style="margin:0 5px 0 0;background-color: transparent;">
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 0;">
+					<div class="topleft" style="margin:10px 10px 0 0;height: 80px;"></div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 0;">
+					<div class="topleft" style="margin:10px 10px 0 0;height: 80px;"></div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+			<!--
+			 单边响应式(不对等长度) 
+			 -->
+			<div class="topnavwrap topnavwrap3">
+				<div class="topleft col-xs-12 col-sm-7 col-md-8 col-lg-8"></div>
+				<div class="topright col-xs-12 col-sm-5 col-md-4 col-lg-4"></div>
+			</div>
+			<div style="clear: both;"></div>
+			<!--
+			 单边响应式(不对等长度) 
+			 -->
+			<div class="topnavwrap topnavwrap3">
+				<div class="topleft col-xs-12 col-sm-8 col-md-9 col-lg-9"></div>
+				<div class="topright col-xs-12 col-sm-4 col-md-3 col-lg-3"></div>
+			</div>
+			<div style="clear: both;"></div>
+			<!-- 
+			双边响应式(中途隐藏右边的,mob字样的class为移动端情况出现适配的布局) 
+			-->
+			<div class="topnavwrap topnavwrap3">
+				<div class="topright left mob__ col-xs-12 visible-xs"></div>
+				<div class="topright left col-sm-4 col-md-3 hidden-xs"></div>
+				<div class="topleft col-xs-12 col-sm-8 col-md-6"></div>
+				<div class="topright right col-sm-4 col-md-3 hidden-xs hidden-sm"></div>
+				<div class="topright right mob__ col-xs-12 visible-xs"></div>
+			</div>
+			<div style="clear: both;"></div>
+			<!--
+			 双边响应式(中途隐藏左边的,mob字样的class为移动端情况出现适配的布局)
+			-->
+			<div class="topnavwrap topnavwrap3">
+				<div class="topright left col-md-3 hidden-sm hidden-xs"></div>
+				<div class="topleft col-xs-12 col-sm-8 col-md-6"></div>
+				<div class="topright right col-sm-4 col-md-3 visible-md"></div>
+				<div class="topright right mob__ col-xs-12 visible-xs"></div>
+			</div>
+			<div style="clear: both;margin-bottom: 10px;"></div>	
+			<!--
+			 page part - bootstarp3 
+			 -->
+			<ol class="breadcrumb" style="margin: 20px 7px 0;">
+			  <li><a>page part - bootstarp3</a><span class="badge badgeSetposi">12单位</span></li>
+			</ol>
+			<!--
+			 list resize(外围不用给边距或给一点点边距) 
+			 -->
+			<div class="topnavwrap2" id="itemswrap">
+				<!--
+				 itemdata 
+				 -->
+			</div>
+			<ol class="breadcrumb" style="margin: 10px 7px 0;">
+			  <li><a>page part - bootstarp3addStyleByUser</a><span class="badge badgeSetposi">10单位</span></li>
+			</ol>
+			<div class="topnavwrap2" id="itemswrap2">
+				<!--
+				 itemdata 
+				 -->
+			</div>
+		</div>
+		<!-- 
+		==
+		footer
+		== -->
+		<a class="totop" onclick="javascript:document.querySelector('#totop').scrollIntoView(true)">△</a>
+		<div class="footer">
+			<div class="container">
+				<div class="btnwrap">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg2">Large modal</button>
+				</div>
+			</div>
+		</div>
+		<!-- 
+		==
+		弹框
+		== -->
+		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" onclick="javascript:$('.bs-example-modal-lg').click()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<div style="padding: 25px;">
+							<div class="input-group" style="padding-bottom: 20px;">
+								<span class="input-group-addon" id="basic-addon1">@</span>
+								<input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group" style="padding-bottom: 20px;">
+								<span class="input-group-addon" id="basic-addon1">TEL</span>
+								<input type="text" class="form-control" placeholder="Phone" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group" style="padding-bottom: 20px;">
+								<span class="input-group-addon" id="basic-addon1">personID</span>
+								<input type="text" class="form-control" placeholder="Personid" aria-describedby="basic-addon1">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" onclick="javascript:$('.bs-example-modal-lg').click()">Close</button>
+						<button type="button" class="btn btn-primary" onclick="javascript:$('.bs-example-modal-lg').click()">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" onclick="javascript:$('.bs-example-modal-lg2').click()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<div style="padding: 25px;">
+							<div class="input-group" style="padding-bottom: 20px;">
+								<span class="input-group-addon" id="basic-addon1">@</span>
+								<input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group" style="padding-bottom: 20px;">
+								<span class="input-group-addon" id="basic-addon1">TEL</span>
+								<input type="text" class="form-control" placeholder="Phone" aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group" style="padding-bottom: 20px;">
+								<span class="input-group-addon" id="basic-addon1">personID</span>
+								<input type="text" class="form-control" placeholder="Personid" aria-describedby="basic-addon1">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" onclick="javascript:$('.bs-example-modal-lg2').click()">Close</button>
+						<button type="button" class="btn btn-primary" onclick="javascript:$('.bs-example-modal-lg2').click()">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ==::js::== -->
+		<script src="../../js/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--[if lt IE 9]>
+			<script src="../../js/promiseJsSupport.min.js"></script>
+			<script src="../../js/html5.min.js"></script>
+			<script src="../../js/respond.min.js"></script>
+			<script>$('body').html('浏览器版本过低，请升级浏览器')</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var dataFn = {
+				//纯样式处理
+				domsetTimeout: function() {},
+				scrollTop: function() {
+					$(document).scroll(function() {
+						if ($(document).scrollTop() > 500) {
+							$('.totop').show()
+						} else {
+							$('.totop').hide()
+						}
+					})
+				},
+				//数据请求部分
+				additemdom12: function() {//容器总单位为12
+					return new Promise(function(rel,rej){
+						$('#itemswrap').empty()//
+						$('#itembothclear0').remove()
+						for (var i = 0; i < 12; i++) {
+							var e = ''
+							e += '<div class="item col-xs-6 col-sm-4 col-md-3 col-lg-3">'
+							e += '<div>'
+							e += '<div class="itemimgwrap2">'
+							e += '<p style="background-image:url(../../imgs/66195764_p0.jpg)"></p>'
+							e += '</div>'
+							e += '</div>'
+							e += '<div class="itemdesc"></div>'
+							e += '</div>'
+							$('#itemswrap').append(e)
+						}
+						$('#itemswrap').append('<div id="itembothclear0" style="clear: both;margin-bottom: 10px;"></div>')
+						rel('')
+					})
+				},
+				additemdom12b: function(data) {//容器总单位为12
+					return new Promise(function(rel,rej){
+						$('#itembothclear0').remove()
+						for (var i = 0; i < 12; i++) {
+							var f = ''
+							f += '<div class="item col-xs-6 col-sm-4 col-md-3 col-lg-3">'
+							f += '<div>'
+							f += '<div class="itemimgwrap">'
+							f += '<p style="background-image:url(../../imgs/12462713951.jpg)"></p>'
+							f += '</div>'
+							f += '</div>'
+							f += '<div class="itemdesc"></div>'
+							f += '</div>'
+							$('#itemswrap').append(f)
+						}
+						$('#itemswrap').append('<div id="itembothclear0" style="clear: both;margin-bottom: 10px;"></div>')
+						rel('')
+					})
+				},
+				additemdom12c: function(data) {//容器总单位为12
+					return new Promise(function(rel,rej){
+						$('#itembothclear0b').remove()
+						for (var i = 0; i < 12; i++) {
+							var c = ''
+							c += '<div class="item col-xs-6 col-sm-4 col-md-3 col-lg-10-5">'
+							c += '<div>'
+							c += '<div class="itemimgwrap3">'
+							c += '<p style="background-image:url(../../imgs/12462713951.jpg)"></p>'
+							c += '</div>'
+							c += '</div>'
+							c += '<div class="itemdesc"></div>'
+							c += '</div>'
+							$('#itemswrap2').append(c)
+						}
+						$('#itemswrap2').append('<div id="itembothclear0b" style="clear: both;margin-bottom: 10px;"></div>')
+						rej('结束了')
+					})
+				},
+				//挂载
+				setEvent: function() {
+					//事件委托,用jq的$(obj).on(targetobj,'click',function(){})
+					$('#noactionwithBootstarp').click(function(e) {
+						e.stopPropagation();
+					})
+					$('#noactionwithBootstarp2').click(function(e) {
+						e.stopPropagation();
+					})
+				},
+				mounted: function() {
+					dataFn.setEvent()
+					//
+					dataFn.scrollTop()
+					//
+					dataFn.additemdom12().then(function(data){
+						return dataFn.additemdom12b(data)
+					}).then(function(data){
+						return dataFn.additemdom12c(data)
+					}).then(function(data){
+						return;
+					},function(err){
+						alert(err)
+					})
+				}
+			};
+			dataFn.mounted()
+		</script>
+	</body>
+</html>

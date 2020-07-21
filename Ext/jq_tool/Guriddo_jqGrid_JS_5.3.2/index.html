@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/ui.jqgrid.css"/>
+		<link rel="stylesheet" type="text/css" href="css/css/redmond/jquery-ui-1.8.16.custom.css"/>
+	</head>
+	<body>
+		<script src="../all-jQ/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+		<table id="list2"></table>
+		<div id="pager2"></div>		
+		<script src="js/jquery.jqGrid.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/i18n/grid.locale-cn.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#list2").jqGrid({
+			   	url:'datas.json',
+				datatype: "json",
+			   	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
+			   	colModel:[
+			   		{name:'id',index:'id', width:55},
+			   		{name:'invdate',index:'invdate', width:90},
+			   		{name:'name',index:'name asc, invdate', width:100},
+			   		{name:'amount',index:'amount', width:80, align:"right"},
+			   		{name:'tax',index:'tax', width:80, align:"right"},		
+			   		{name:'total',index:'total', width:80,align:"right"},		
+			   		{name:'notes',index:'note', width:150, sortable:false}		
+			   	],
+			   	rowNum:10,
+			   	rowList:[10,20,30],
+			   	pager: '#pager2',
+			   	sortname: 'id',
+			    viewrecords: true,
+			    sortorder: "desc",
+			    caption:"JSON Example",
+			    regional : 'cn',
+			});
+			//json:
+			//page:第几页，records	：共几条，total：条数，rows：数组保存的对象， 	
+		</script>
+	</body>
+</html>

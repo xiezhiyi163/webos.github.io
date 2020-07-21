@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/index.css" />
+		<style>
+			/* 圆形进度条 */
+			.svg {
+			    transform: rotate(-90deg);
+			}
+			.progress {
+			    animation: rotate 4500ms linear both;
+			}
+			@keyframes rotate {
+			    from {
+			        stroke-dashoffset: 40px;
+			    }
+			    to {
+			        stroke-dashoffset: 0px;
+			    }
+			}
+			/* 按钮特效 */
+			#two0 {
+				width:200px;
+				height:50px;
+				margin-bottom:20px;
+				/* background:#ccc;
+				*/
+			        cursor:default;
+			}
+			/*  */
+			rect#two {
+				fill:transparent;
+				stroke:white;
+				stroke-width:6px;
+				stroke-dasharray:200 300;/*w*2+h*2即可形成环形动画；(宽度相等，剩下的长方形长度)，即可做到下划线，(宽度相等，0)，会变成全封闭*/
+				stroke-dashoffset:250;
+				transition:0.5s ease;
+			}
+			#two0:hover rect#two {
+				/* animation:dong2 500ms ease-in-out 1 alternate; */
+				/* animation-fill-mode: forwards; */
+				stroke-dasharray:200 0;
+				stroke-width:6px;
+				/* stroke-dashoffset:0;
+				*/
+				stroke:lightblue;
+			}
+			/* 按钮波纹 */
+			.waves{
+			    position:relative;
+			    cursor:pointer;
+			    display:inline-block;
+			    overflow:hidden;
+			    text-align: center;
+			    -webkit-tap-highlight-color:transparent;
+			    z-index:1;
+			}
+			.waves .waves-animation{
+			    position:absolute;
+			    border-radius:50%;
+			    width:25px;
+			    height:25px;
+			    opacity:0;
+			    background:rgba(255,255,255,0.3);
+			    transition:all 0.7s ease-out;
+			    transition-property:transform, opacity, -webkit-transform;
+			    -webkit-transform:scale(0);
+			    transform:scale(0);
+			    pointer-events:none
+			}
+			.ts-btn{
+			    width: 200px;
+			    height: 56px;
+			    line-height: 56px;
+			    background: #f57035;
+			    color: #fff;
+			    border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- @顶部导航 -->
+			<div class="top">
+				<div class="topleftwrap">
+
+				</div>
+				<div class="topcenterwrap">
+					<div>
+						<!-- 按钮特效 -->
+						<svg id="two0">
+							<rect id="two" height="50" width="200"></rect>
+							<text x="70" y="35"><a href="###">百度</a></text>
+						</svg>
+						<!-- 圆形进度条 -->
+						<svg width="20px" height="20px" class="svg">
+							<circle r="5" cy="10" cx="10" stroke-width="2" stroke="coral" stroke-linejoin="round" stroke-linecap="round"
+							 fill="none" /><!-- 10-5 = r stroke-dasharray = w *2 || h *2 stroke-dashoffset = 0代表从0开始-->
+							<circle class="progress" r="5" cy="10" cx="10" stroke-width="2" stroke="blue" stroke-linejoin="round"
+							 stroke-linecap="round" fill="none" stroke-dashoffset="0px" stroke-dasharray="40px" />
+						</svg>
+						<!-- 按钮波纹 -->
+						<a class="waves ts-btn">Press me!</a>
+					</div>
+				</div>
+				<div class="toprightwrap">
+
+				</div>
+			</div>
+			<!-- @内容 -->
+			<div class="contwrap">
+				<!-- @logo和menu导航 -->
+				<div class="logo_menu">
+					<div class="logo">
+						<h1>LOGO</h1>
+					</div>
+					<!-- <div class="logo">
+						<h1>LOGO2</h1>
+					</div> -->
+					<!-- <div class="menu">
+						<div>
+							<span v-for='(v,i) in menus'>菜单2</span>
+						</div>
+					</div> -->
+					<div class="menu">
+						<div>
+							<span v-for='(v,i) in menus'>菜单</span>
+						</div>
+					</div>
+					<div class="toparea">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<!-- @banner焦点图 -->
+				<div class="bannerwrap">
+					<div class="bannerleft">
+
+					</div>
+					<div class="bannerright">
+						<div v-for="(v,i) in bannerright" v-if="i<=bannerrightmaxlength">
+							<div></div>
+						</div>
+					</div>
+				</div>
+				<!-- @长辐banner -->
+				<div>
+					<img class="longbanner" />
+				</div>
+				<!-- @item1 -->
+				<div class="item item1" v-for="v in 5">
+					<div class="itemleft">
+						<div>
+							<p>title</p>
+							<div>
+								<div class="smallitem" v-for="(v,i) in item1" v-if="i<=itemlength">
+									<div>
+										<p></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="itemright">
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<!-- @尾部 -->
+			<div style="margin-top: 60px;height: 300px;background-color: #eee;"></div>
+		</div>
+		<script src="static/common/jq.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/common/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var datas = {
+					menus: [{}, {},
+						{}, {},
+						{}, {},
+						{}, {},
+						{}, {},
+						{}, {},
+						{}, {},
+					],
+					bannerright: [{}, {},
+						{}, {},
+						{}, {},
+						{}, {},
+					],
+					bannerrightmaxlength: 7,
+					item1: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+					itemlength: 9,
+				},
+				//按钮波纹
+				waves = function() {
+					var duration = 750;
+
+					// 样式string拼凑
+					var forStyle = function(position) {
+						var cssStr = '';
+						for (var key in position) {
+							if (position.hasOwnProperty(key)) cssStr += key + ':' + position[key] + ';';
+						};
+						return cssStr;
+					}
+
+					// 获取鼠标点击位置
+					var forRect = function(target) {
+						var position = {
+								top: 0,
+								left: 0
+							},
+							ele = document.documentElement;
+						'undefined' != typeof target.getBoundingClientRect && (position = target.getBoundingClientRect());
+						return {
+							top: position.top + window.pageYOffset - ele.clientTop,
+							left: position.left + window.pageXOffset - ele.clientLeft
+						}
+					}
+
+					var show = function(event) {
+						var pDiv = event.target,
+							cDiv = document.createElement('div');
+						pDiv.appendChild(cDiv);
+						var rectObj = forRect(pDiv),
+							_height = event.pageY - rectObj.top,
+							_left = event.pageX - rectObj.left,
+							_scale = 'scale(' + pDiv.clientWidth / 100 * 10 + ')';
+						var position = {
+							top: _height + 'px',
+							left: _left + 'px'
+						};
+						cDiv.className = cDiv.className + " waves-animation",
+							cDiv.setAttribute("style", forStyle(position)),
+							position["-webkit-transform"] = _scale,
+							position["-moz-transform"] = _scale,
+							position["-ms-transform"] = _scale,
+							position["-o-transform"] = _scale,
+							position.transform = _scale,
+							position.opacity = "1",
+							position["-webkit-transition-duration"] = duration + "ms",
+							position["-moz-transition-duration"] = duration + "ms",
+							position["-o-transition-duration"] = duration + "ms",
+							position["transition-duration"] = duration + "ms",
+							position["-webkit-transition-timing-function"] = "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
+							position["-moz-transition-timing-function"] = "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
+							position["-o-transition-timing-function"] = "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
+							position["transition-timing-function"] = "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
+							cDiv.setAttribute("style", forStyle(position));
+						var finishStyle = {
+							opacity: 0,
+							"-webkit-transition-duration": duration + "ms",
+							"-moz-transition-duration": duration + "ms",
+							"-o-transition-duration": duration + "ms",
+							"transition-duration": duration + "ms",
+							"-webkit-transform": _scale,
+							"-moz-transform": _scale,
+							"-ms-transform": _scale,
+							"-o-transform": _scale,
+							top: _height + "px",
+							left: _left + "px",
+						};
+						setTimeout(function() {
+							cDiv.setAttribute("style", forStyle(finishStyle));
+							setTimeout(function() {
+								pDiv.removeChild(cDiv);
+							}, duration);
+						}, 100)
+					}
+					//这里进行逐个按钮绑定
+					document.querySelector('.waves').addEventListener('click',function(e){
+						show(e);
+					},!1);
+				},
+				//监听
+				bannerrightmaxlengthfn = function($vue) {
+					var w = window.innerWidth,
+						b = document.body.clientWidth,
+						de = document.documentElement.clientWidth,
+						wh = w ? w : b ? b : de
+					if (wh > 1200) {
+						$vue.bannerrightmaxlength = 7
+						$vue.itemlength = 9
+					} else {
+						$vue.bannerrightmaxlength = 5
+						$vue.itemlength = 7
+					}
+				},
+				listens = function($vue) {
+					bannerrightmaxlengthfn($vue)
+					window.addEventListener('resize', function() {
+						bannerrightmaxlengthfn($vue)
+					})
+				},
+				vue = new Vue({
+					el: '#app',
+					data: datas,
+					mounted() {
+						//监听
+						listens(this)
+						//按钮波纹
+						waves()
+					}
+				})
+		</script>
+	</body>
+</html>

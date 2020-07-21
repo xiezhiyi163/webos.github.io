@@ -1,0 +1,9 @@
+<!--pages/tapItemToCenter/index.wxml-->
+
+<swiper style="height:230rpx" previous-margin="290rpx" next-margin="290rpx" circular="true" bindchange="swiperchange">
+	<swiper-item wx:for="{{9}}">
+		<view style="height:180rpx;background-color:coral;transition:300ms;margin:0 30rpx;{{swiperindex==index?'transform:scale(1.2);margin-top:30rpx;':'margin-top:50rpx;'}}">
+      {{index}}
+    </view>
+	</swiper-item>
+</swiper>

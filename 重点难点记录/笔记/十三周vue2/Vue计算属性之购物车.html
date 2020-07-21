@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			h1{
+				width: 100%;
+				text-align: center;
+			}
+		</style>
+		<script src="node_modules/vue/dist/vue.js"></script> 
+	</head>
+
+	<body>
+		<div id="box">
+			<h1>购物车简易demo</h1>
+			<div v-for='(v,i) in list' id='shop'>
+				<span>{{v.name}}</span>
+				<button @click="add(i)">+</button>
+				{{v.counts}}
+				<button @click="down(i)">-</button>
+				单价为：{{v.price}}
+				<!--价格为：<p style='display: inline;'>{{oneprice(i)}}</p>事件方法-->
+				价格为：<p style='display: inline;'>{{listallprice[i]}}</p><!--计算属性方法-->
+			</div>
+			<br/>总价格为：	{{allprice}}			
+		</div>
+		<script>
+			new Vue({
+				el:'#box',
+				data:{
+					count:0,
+					list:[
+						{name:'手机',counts:0,price:6544},
+						{name:'汽车',counts:0,price:5656665},
+						{name:'雨伞',counts:0,price:56}
+					]
+				},
+				methods:{
+//					oneprice(index){//事件方法
+//						return this.list[index].counts*this.list[index].price
+//					},
+					add(index){
+						if(this.list[index].counts>=5){
+							this.list[index].counts=5;
+							alert('商品售罄');
+						}else{
+							this.list[index].counts+=1;
+						}
+					},
+					down(index){
+						this.list[index].counts-=1;
+						if(this.list[index].counts<=0){
+							this.list[index].counts=0;
+						}
+					}
+				},
+				computed:{
+					listallprice:function(){//计算属性法
+						allarr=[]
+						//一次性将所有计算出来的价格放进这个空数组里面
+						for(var i=0;i<this.list.length;i++){
+							var arr = this.list[i].counts*this.list[i].price;
+							allarr.push(arr);
+						}
+						return allarr
+					},
+					allprice:function(){
+						var allprc = 0;
+						for(var i=0;i<this.list.length;i++){
+							var arr = this.list[i].counts*this.list[i].price;
+							allarr.push(arr);
+							allprc+=allarr[i]
+						}		
+						return allprc
+					}
+				}
+			})	
+		</script>
+	</body>
+
+</html>

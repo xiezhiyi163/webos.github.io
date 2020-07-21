@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				outline: 0;
+				border: 0;
+				text-decoration: none !important;
+				list-style: none;
+			}
+			input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
+			{
+			  appearance: none;
+			}
+			input[type="number"]
+			{
+			  appearance: textfield;
+			}
+			button{
+				border-radius: 0;
+			}			
+			/* 滚动轮播 */
+			#slideScrollview {
+				white-space: nowrap;
+				position: relative;
+			}
+			#slideScrollview div{
+				width: 100%;
+				height: 100%;
+				display: inline-block;
+				margin-left: -4.7px;
+				line-height: 300px;
+				text-align: center;
+				font-size: 150px;
+				font-weight: bolder;
+				color: #999;
+			}
+			#slideScrollview div:nth-of-type(1){
+				margin-left: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<div id="slideScrollviewWrap" style="width: 100%;position: relative;overflow: hidden;">
+				<div id='slideScrollview' style="height: 300px;background-color: #eee;position: relative;">
+					<div>1</div>
+					<div>2</div>
+					<div>3</div>
+					<div>4</div>
+					<div>5</div>
+				</div>				
+				<div style="height: 20px;background-color: #ccc;">
+					<div class="scrollVertical" style="margin: 0 20px;height: 100%;background-color: #bbb;position: relative;">
+						<p style="height: 100%;background-color: white;position: relative;" id="scrollhandle"></p>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				var data = {
+					//滚动条轮播
+					scrollhandleindex:0,
+					scrollhandleflag:0,
+					scrollhandleScale:0,
+					scrollhandleplayflag:0
+				},
+				//滚动条轮播
+				initscrollslide = function(){
+					var scrollhandle = document.getElementById('scrollhandle'),
+						slideScrollview = document.getElementById('slideScrollview'),
+						scrollVertical = document.querySelectorAll('.scrollVertical')[0],
+						slideScrollviewWrap = document.getElementById('slideScrollviewWrap');
+					scrollhandle.style.transition = '300ms'
+					slideScrollview.style.transition = '300ms'
+					setTimeout(function(){
+						data.scrollhandleScale = slideScrollview.children[0].offsetWidth/scrollhandle.offsetWidth
+					},0)						
+					scrollhandle.onmousedown = function(event){
+						scrollhandle.style.transition = '0ms'
+						slideScrollview.style.transition = '0ms'
+						data.scrollhandleScale = slideScrollview.children[0].offsetWidth/scrollhandle.offsetWidth
+						//
+						data.scrollhandleflag = 1
+						data.scrollhandleplayflag = 1
+						//
+						var ev = event||window.event,
+						scrollX0 = document.body.scrollLeft || document.documentElement.scrollLeft, //---
+						stx = ev.pageX || (ev.clientX + scrollX0),
+						scrollhandleOfl = scrollhandle.offsetLeft;
+						slideScrollviewWrap.onmousemove = function(event){
+							if(data.scrollhandleflag == 0){
+								return
+							}
+							var evs = event||window.event,
+							stxlast = evs.pageX || (evs.clientX + scrollX0);
+							scrollhandle.style.left = Number(scrollhandleOfl + (stxlast-stx)) +'px'
+							slideScrollview.style.left = -Number(scrollhandleOfl + (stxlast-stx))*data.scrollhandleScale +'px'
+							if(scrollhandle.offsetLeft<0){
+								scrollhandle.style.left = 0
+							}else if(scrollhandle.offsetLeft>scrollVertical.offsetWidth-scrollhandle.offsetWidth){
+								scrollhandle.style.left = scrollVertical.offsetWidth-scrollhandle.offsetWidth + 'px'
+							}
+						}
+					}
+					slideScrollviewWrap.onmouseup = function(){
+						data.scrollhandleplayflag = 0
+						data.scrollhandleflag = 0
+						for(var i=0;i<slideScrollview.children.length-1;i++){
+							console.log(i)
+							if(scrollhandle.offsetLeft<scrollhandle.offsetWidth){
+								scrollhandle.style.transition = '300ms'
+								if(scrollhandle.offsetLeft<scrollhandle.offsetWidth/2){
+									data.scrollhandleindex = i;
+									scrollhandle.style.left = scrollhandle.offsetWidth * i + 'px'
+								}else{
+									data.scrollhandleindex = i+1;
+									scrollhandle.style.left = scrollhandle.offsetWidth * (i+1) + 'px'
+								}
+								slideScrollview.style.transition = '300ms'
+								slideScrollview.style.left = -data.scrollhandleindex*slideScrollview.children[0].offsetWidth+'px'
+								break;
+							}else{
+								if(scrollhandle.offsetLeft-scrollhandle.offsetWidth*i<scrollhandle.offsetWidth){
+									scrollhandle.style.transition = '300ms'
+									if(scrollhandle.offsetLeft-scrollhandle.offsetWidth*i<scrollhandle.offsetWidth/2){
+										data.scrollhandleindex = i;
+										scrollhandle.style.left = scrollhandle.offsetWidth * i + 'px'
+									}else{
+										var t = i+1>slideScrollview.children.length-1?slideScrollview.children.length-1:i+1
+										data.scrollhandleindex = t;
+										scrollhandle.style.left = scrollhandle.offsetWidth * t + 'px'
+									}
+									slideScrollview.style.transition = '300ms'
+									slideScrollview.style.left = -data.scrollhandleindex*slideScrollview.children[0].offsetWidth+'px'
+									break;
+								}								
+							}
+						}
+					}
+				},
+				autoscrollPlay = function(){
+					setTimeout(function(){
+						if(data.scrollhandleplayflag == 1){
+							autoscrollPlay()							
+						}else{
+							data.scrollhandleindex++
+							if(data.scrollhandleindex>slideScrollview.children.length-1){
+								data.scrollhandleindex = 0
+							}
+							scrollhandle.style.left = data.scrollhandleindex * scrollhandle.offsetWidth + 'px'
+							slideScrollview.style.left = -data.scrollhandleindex * slideScrollview.offsetWidth + 'px'
+							autoscrollPlay()							
+						}
+					},3000)
+				},
+				//下面的是监听
+				//滚动条轮播
+				scrollslideResize = function(){
+					var scrolldom = document.querySelectorAll('.scrollVertical')[0].children[0],
+						scrollhandle = document.getElementById('scrollhandle'),
+						scrollVertical = document.querySelectorAll('.scrollVertical')[0],
+						slideScrollview = document.getElementById('slideScrollview');
+					data.scrollhandleScale = slideScrollview.children[0].offsetWidth/scrollhandle.offsetWidth
+					scrolldom.style.width = scrollVertical.offsetWidth / slideScrollview.children.length + 'px'		
+					scrollhandle.style.left = data.scrollhandleindex * scrollhandle.offsetWidth + 'px'
+					slideScrollview.style.left = -data.scrollhandleindex * slideScrollview.offsetWidth + 'px'
+					if(scrollhandle.offsetLeft<0){
+						scrollhandle.style.left = 0
+					}else if(scrollhandle.offsetLeft>scrollVertical.offsetWidth-scrollhandle.offsetWidth){
+						scrollhandle.style.left = scrollVertical.offsetWidth-scrollhandle.offsetWidth + 'px'
+					}
+				},
+				//监听方法
+				listens = function(){
+					//滚动条轮播
+					scrollslideResize()
+					window.addEventListener('resize',function(){
+						//滚动条轮播
+						scrollslideResize()
+					})
+				},
+				//加载
+				loadFn = function(){
+					//滚动条轮播
+					initscrollslide()
+					autoscrollPlay()
+					//监听
+					listens()
+				};loadFn()
+			</script>
+		</div>
+	</body>
+</html>

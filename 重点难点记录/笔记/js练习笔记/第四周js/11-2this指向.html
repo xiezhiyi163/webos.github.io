@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+        	this:关联上下文,this指向的四种场景：
+        		1.普通函数中（非定时器，或者构造函数），this指向window，所有声明的全局变量都是window的属性
+        		2.普通对象中，this指向当前对象
+        		3.构造函数中，this指向实例化对象
+        		4.定时器中，this指向全局window
+        	修改this指向：call()和apply(),是function.prototype的方法；必须是函数指针调用；
+        		数组的push方法不能够添加一个集合
+        		function.prototype.call(对象)，把this指向对象，让函数来调用对象中的属性或方法给对象使用；如果是apply的话，后面跟的参数必须是参数集合
+        		例子：push进去：
+        			arr1 = [2,3,5]
+        			arr2 = [5,6,7]
+        			Array.prototype.push.call(arr1,5,6,7);
+        			Array.prototype.push.apply(arr1,arr2);
+        	
+-->	</body>
+</html>

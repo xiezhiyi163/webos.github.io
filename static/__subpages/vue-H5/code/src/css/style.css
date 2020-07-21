@@ -1,0 +1,118 @@
+/*public*/
+body {
+  background: #fff
+}
+
+div, i {
+  /*background-repeat: no-repeat !important*/
+}
+
+.view {
+  overflow-x: hidden;
+  top: 0;
+  min-height: 100vh;
+}
+.center{
+  position: relative;
+  top:50%;
+  margin-top: -10.826667rem;
+  height: 21.653333rem;
+}
+.sup {
+  text-align: center;
+  font-size: 0.346667rem;
+  bottom: 0.64rem;
+  color: #666;
+}
+
+.swiper-slide {
+  float: left;
+}
+
+.swiper-button-disabled {
+  opacity: .3
+}
+
+/*App.vue*/
+.music {
+  bottom: 4.12rem;
+  right: 0.91rem;
+}
+
+.music > .icon {
+  width: 0.88rem;
+  pointer-events: auto
+}
+
+.music > .play {
+  animation: play 1.5s linear infinite;
+  -webkit-animation: play 1.5s linear infinite;
+}
+
+@keyframes play {
+  to {
+    transform: rotateZ(360deg)
+  }
+}
+
+@-webkit-keyframes play {
+  to {
+    -webkit-transform: rotateZ(360deg);
+  }
+}
+
+.music > .stop {
+  background-position: 0 -0.786667rem;
+}
+
+.music > .bg {
+  width: 0.666667rem;
+  position: absolute;
+  top: -0.266667rem;
+  left: 0.266667rem;
+}
+
+.menu_btn {
+  width: 2.66rem;
+  top: 3.57rem;
+  right: 0.5rem;
+}
+
+.menu_mask {
+  background: #424242;
+  top: 0;
+  z-index: 8;
+  mix-blend-mode: multiply
+}
+
+.menu {
+  top: 0;
+  z-index: 999;
+  width: 10rem;
+	height: 21.65rem;
+  background: url(../../static/img/menu/menu.png) center/ 10rem auto;
+  left: -10rem;
+  transition: all .5s;
+  -webkit-transition: all .5s
+}
+
+.menu > .menu_inner {
+  position: absolute;
+  top: 44%;
+  transform: translateY(-50%);
+  margin-top: 0.8rem;
+}
+
+.menu_show {
+  transform: translate3d(9.92rem, 0, 0);
+  -webkit-transform: translate3d(9.92rem, 0, 0);
+}
+
+.menu > .menu_inner > div {
+  width: 5.84rem;
+  height: 2rem;
+}
+
+.com-wrap-bg{
+  background:url(../../static/img/common/com-wap-bg.png) repeat;
+}

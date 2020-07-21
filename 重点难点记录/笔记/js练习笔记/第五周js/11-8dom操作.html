@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			属性而已，并不是方法
+			1.parentNode:获取元素的直属父节点
+			2.childNode:获取元素的所有子节点，包括空格
+			3.children:获取元素的子元素节点，不包括空格
+			4.firstchild:获取第一个子级，包括空格
+			5.firstElementChild：获取第一个子级，不包括空格
+			6.lastchild：获取最后一个子级，包括空格
+			7.lastElementChild：获取最后一个子级，不包括空格
+			8.previousSibling：获取上一个兄弟节点
+			9.previousElementSibling：获取上一个兄弟节点，不包括空格
+			10.nextSibling:获取下一个兄弟节点
+			11.nextElementSibling:获取下一个兄弟节点，不包括空格
+			
+			DOM尺寸：
+			1.offsetwidth：获取元素的宽度值
+			2.offsetheight：获取元素的高度值
+			3.offsetleft：获取元素左边距离定位父元素左边的值
+			4.offsettop：获取元素顶部距离定位父元素顶边的值
+			5.getBoundingClientRect()：获取元素距离可视窗口的距离
+				ele.getBoundingClientRect().top：元素上边距离窗口的上边距离
+				ele.getBoundingClientRect().bottom：元素下边距离窗口的上边距离
+				ele.getBoundingClientRect().left：元素左边距离窗口的左边距离
+				ele.getBoundingClientRect().right：元素右边距离窗口的左边距离
+			这几个值要赋给style才能实现移动效果
+			6.window.innerWidth:窗口的可视宽度值，包括滚动条
+			7.window.innerHeight:窗口的可视高度值，包括滚动条
+			8.document.documentElement.clientWidth:获取窗口的可视宽度值，不包括滚动条
+			9.document.documentElement.clientHeight:获取窗口的可视高度值，不包括滚动条
+			
+			11-9
+			事件：
+				onload：网页加载完毕触发该事件
+				onclick：点击事件
+				ondblclick：双击事件
+				onchange：表单内容发生改变，触发该事件；需要失去焦点
+				oninput：表单输入时触发该事件
+				onresize：重置窗口大小时，触发该事件，window调用该事件
+				onerror：文档或者图片加载错误，触发该事件
+				onselect：表单内容被选中时触发该事件
+				onmouseover：鼠标悬浮事件
+				onmouseenter；鼠标进入时触发时该事件，不支持事件冒泡
+				onmouseout：鼠标离开事件
+				onmousedown：鼠标按下过程触发该事件
+				onmouseup：鼠标抬起过程触发该事件
+				onmousemove：鼠标移动事件
+			confirm：弹框确认事件
+			
+		-->
+		<div id="opo">
+			<p>
+				<span>11111</span>
+			</p>
+			<p>
+				<span>22222</span>
+			</p>
+			<p id="pop">
+				<span>33333</span>
+			</p>
+			<p>
+				<span>44444</span>
+			</p>
+			<p>
+				<span>55555</span>
+			</p>
+		</div>
+		<script type="text/javascript">
+			var box = document.getElementById("opo");
+			var pop = document.getElementById("pop");
+			var allchilds = box.getElementsByTagName("*");
+			var childArr = [];
+			for(var k=0;k<allchilds.length;k++){
+				console.log(allchilds[k].innerText)
+			}
+			//js获取指定父元素下的子元素长度
+//			function getAllchilds(node){
+//				if(node.children.length !== 0){//长度不等于0
+//					var child = node.children;//那就获取第一代
+//					for (var i=0;i<child.length;i++) {//然后遍历第一代的
+//						childArr.push(child[i]);//把第一代下的子元素push进去
+//						getAllchilds(child[i])//再用第一代的再调用函数自身，直到child下的子元素长度为0，即停止
+//					}
+//				}
+//				return childArr;
+//			}
+//			var boxchilds = getAllchilds(box);
+//			alert(childArr.length);
+			//定义siblings(),获取元素的所有兄弟元素节点(不包括自己)
+//			function siblings(ele){				
+//				parent = ele.parentNode;
+//				child = parent.children;
+//				for(var i=0;i<child.length;i++){
+//					if(child[i]!==ele){
+//						childArr.push(child[i])
+//					}
+//				}
+//				return childArr;
+//			}
+//			var boxchilds = siblings(pop);
+//			alert(childArr.length)
+			//定义previousSibling(),获取元素上面所有的兄弟元素节点
+//			function siblingprev(ele){
+//				var newArr = [];
+//				parent = ele.parentNode;
+//				child = parent.children;
+//				for(var i=0;i<child.length;i++){
+//					childArr.push(child[i]);
+//				}//
+//				var index = childArr.indexOf(ele);
+//				for(var j=0;j<index;j++){
+//					newArr.push(childArr[j])
+//				}
+//				return newArr
+//			}
+//			console.log(siblingprev(pop));
+			//定义nextiousSibling(),获取元素下面所有的兄弟元素节点
+			function siblingnext(ele){
+				var newArr = [];
+				parent = ele.parentNode;
+				child = parent.children;
+				for(var i=0;i<child.length;i++){
+					childArr.push(child[i]);
+				}//
+				var index = childArr.indexOf(ele);
+				for(var j=index+1;j<childArr.length;j++){
+					newArr.push(childArr[j])
+				}
+				return newArr
+			}
+			console.log(siblingnext(pop));
+			
+		</script>
+	</body>
+</html>

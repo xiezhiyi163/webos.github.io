@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/Pcss.css"/>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<textarea id="textarea" style="width: 100%;" rows="" cols="" placeholder="输入你想输入的任何内容"></textarea>
+	</body>
+	<script type="text/javascript">
+		document.getElementById('textarea').style.height = $(window).height()+'px'
+		window.addEventListener('resize',function(){
+			document.getElementById('textarea').style.height = $(window).height()+'px'
+		})
+	</script>
+</html>
+<!-- 
+移动端适配代码：
+fixsize:function(){
+	var dpr = window.devicePixelRatio;
+	var sca = dpr>1?1/dpr:dpr;
+	var head = document.getElementsByTagName('head')[0];
+	var meta = document.createElement('meta');
+	meta.name = 'viewport';
+	meta.content = 'width=device-width,user-scalable=no,initial-scale='+sca;
+	head.appendChild(meta);
+	var winwidth = document.documentElement.clientWidth;
+	var remroot = winwidth*100/750;
+	var html = document.getElementsByTagName('html')[0];
+	html.style.fontSize = remroot+'px';
+},
+setTimeout(function(){
+	fixsize();
+},0)
+
+给viewport的meta标签设置initial-scale为dpr
+窗口宽度*100/设计稿宽度
+
+判断是哪个设备的
+var os = function (){
+	var ua = navigator.userAgent,
+	isWindowsPhone = /(?:Windows Phone)/.test(ua),
+	isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+	isAndroid = /(?:Android)/.test(ua),
+	isFireFox = /(?:Firefox)/.test(ua),
+	isChrome = /(?:Chrome|CriOS)/.test(ua),
+	isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+	isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+	isPc = !isPhone && !isAndroid && !isSymbian;
+	return {
+		isTablet: isTablet,
+		isPhone: isPhone,
+		isAndroid: isAndroid,
+		isPc: isPc
+	};	
+}();
+
+if (os.isAndroid || os.isPhone) {   
+ //alert("手机" );
+
+} else if (os.isTablet) {
+    //alert("平板" );
+} else if (os.isPc) {
+
+    //alert("电脑" );
+}
+ -->

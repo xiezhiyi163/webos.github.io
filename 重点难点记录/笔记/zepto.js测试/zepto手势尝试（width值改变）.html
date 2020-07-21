@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="js/zeptotest.css" />
+		<title></title>
+	</head>
+	<body>
+
+
+		<div id="zepto" class="zepto">
+			<div class="pointer"></div>
+		</div>
+		
+
+		<script src="js/zepto.min.js"></script>
+		<script src="js/zeptoAni.js"></script>
+		<script>
+			//滑动方向判断
+			var EventUntil = {
+				addhander:function(obj,type,fn,bool){
+					if(obj.addEventListener){
+						obj.addEventListener(type,fn,bool)
+					}else{
+						obj.attachEvent("on"+type,fn)
+					}
+				},
+				removehander:function(obj,type,fn,bool){
+					if(obj.removeEventListener){
+						obj.removeEventListener(type,fn,bool)
+					}else{
+						obj.detachEvent("on"+type,fn)
+					}
+				}				
+			}			
+			function wheretoMove(objb) {
+				var startX, endX, startY, endY;
+				EventUntil.addhander(objb, 'touchstart', function(event) {
+					startX = event.touches[0].clientX;
+					startY = event.touches[0].clientY;
+				})
+				EventUntil.addhander(objb, 'touchmove', function(event) {
+					endX = event.touches[0].clientX;
+					endY = event.touches[0].clientY;
+					//
+					var x = endX - startX;
+					var y = endY - startY;
+					//
+					if(Math.abs(x) > Math.abs(y) && x > 0) {//300必须是元素的宽度
+						//console.log('右')
+						if($('.pointer').width()!=300){
+							$('.pointer').css({'width':x})
+							if(x>300){
+								$('.pointer').css({'width':300})
+							}
+						}else{
+							$('.pointer').css({'width':300})
+						}
+					} else if(Math.abs(x) > Math.abs(y) && x < 0) {//300必须是元素的宽度
+						//console.log('左')
+						if($('.pointer').width()!=0){
+							$('.pointer').css({'width':300+x})
+							if(x<-300){
+								$('.pointer').css({'width':0})
+							}
+						}else{
+							$('.pointer').css({'width':0})
+						}
+					} else if(Math.abs(x) < Math.abs(y) && y > 0) {
+						//console.log('下')
+					} else if(Math.abs(x) < Math.abs(y) && y < 0) {
+						//console.log('上')
+					}
+				})
+				EventUntil.addhander(objb, 'touchend', function(event) {
+					var x = endX - startX;
+					var y = endY - startY;
+					if(x<-150){
+						$('.pointer').animate({width:'0px'}, 500, 'ease-out')
+					}else{
+						$('.pointer').animate({width:'300px'}, 500, 'ease-out')
+					}
+				})
+			}
+			var body = $('.zepto').get(0)
+			wheretoMove(body)
+		</script>
+	</body>
+</html>

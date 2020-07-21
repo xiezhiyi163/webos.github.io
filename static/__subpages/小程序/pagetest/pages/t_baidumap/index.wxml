@@ -1,0 +1,27 @@
+<!--pages/t_baidumap/index.wxml-->
+<!-- 记得添加域名白名单api.map.baidu.com 
+同时在百度开放平台里面，创建有关小程序的百度开发应用并拿到对应的ak密钥
+app.json添加
+"permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的"
+    }
+  }-->
+<view style="padding:30rpx 0;">当前城市：{{markers2||'...'}}</view>
+<view class="map_container">
+  <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" show-location="true" markers="{{markers}}" bindmarkertap="makertap" ><!-- 放置map容器 --></map>
+  <view style="position:absolute;top:15rpx;left:25rpx;width:700rpx;height:50rpx;background-color:white;"><!--搜索-->
+    <input style="height:50rpx;width:680rpx;margin:0rpx 0 0 10rpx;font-size:20rpx;line-height:50rpx;" placeholder="输入关键词搜索地方" bindconfirm="searchmap" bindinput="setkeys"></input>
+    <view style="position:absolute;right:15rpx;top:12rpx;font-size:20rpx;color:skyblue;z-index:2" catchtap="searchhelp"><!--搜索帮助-->
+      搜索帮助
+    </view>
+  </view>
+</view>
+<view><!--显示地区选中信息-->
+  {{markers[0].address}}
+</view>
+<view class="place_info" wx:if="{{false}}"><!--显示周边选中信息-->
+  <text>{{placeData.title}}</text>
+  <text>{{placeData.address}}</text>
+  <text>{{placeData.telephone}}</text>
+</view>

@@ -1,0 +1,55 @@
+@charset "utf-8";
+#imgturn{
+	min-height: 55px;
+	position: relative;
+	margin: 0px 0 0 0;
+	background: burlywood;
+}
+	.imgdiv{
+		width: 100%;
+		height: 100%;
+	}
+	.imgdiv-in{
+		display: block;
+	}
+	.imgdiv>p{
+		width: 100%;
+		height: 100%;
+		display: none;
+	}
+	.imgdiv>p>img{
+		float: left;
+	}	
+	.tabturn{
+		width: 200px;
+		height: 30px;
+		position: absolute;
+		bottom: 30px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+	}
+	.tabturn>li{
+		width: 30px;
+		height: 30px;
+		float: left;
+		margin: 0 10px;
+		background: wheat;
+	}
+	.tabturn-in{
+		background: lightsteelblue !important;
+	}
+	.leftbtn,.rightbtn{
+		width: 40px;
+		height: 55px;
+		position: absolute;
+		top: 50%;
+		margin-top:-27.5px;
+		border: none;
+	}	
+	.leftbtn{
+		left: 0;
+	}
+	.rightbtn{
+		right: 0;
+	}

@@ -1,0 +1,168 @@
+<!--
+	vue方法：
+		$el:可以直接访问到实例挂载的标签
+		$data：访问data里面的数据
+		挂载的另外一种方法：$mount('#box')，并不需要el
+		都是以new Yue（{}）.$方法，，，的形式出现
+	生命周期：
+		钩子函数（相当于监听事件，带横线为常用）：
+			beforeCreate:function(){//实例创建之前的状态}无el无data
+			-created:function(){//实例创建之后的状态}无el有data
+			beforeMount:function(){//实例挂载之前的状态}都有
+			-mounted:function(){//实例挂载之后的状态}都有，有设置内存来进行复制的作用
+			updated:function(){//实例更新之后的状态}要在页面触发改变数据后才有效
+			destroy:function(){//实例销毁之后的状态}也是要手动触发
+		用法：页面渲染同时就去服务器请求数据
+	过滤器(自定义过滤器)：全局过滤器和局部过滤器，
+		全局：在实例之前Vue.filter('过滤器名字'，function(){...});
+			过滤器的使用，要优于实例之前创建,也就是放在全部实例之前
+		局部：实例里面filters:{‘过滤器名字’:function(){...}}
+		
+	计算属性：是实例里面的一个方法，computed:，它能动态的计算数据,计算属性不能传参数
+		表单的修饰符，v-model.number转为数字类型，.trim去除首尾空格，lazy让表单失去焦点
+		get和set:计算属性的完整方法，整个完整方法赋给一个例如c这个属性
+			get方法：根据外面的参数计算自身c的函数
+			set方法：根据自身来设置外面的值，传形参val
+			前提是外面被设置的字段一定要跟c里面设置改变的字段要匹配
+		可以单独get来设置函数进行运算，也可以搞个关联get和set两个函数的c对象
+	组件:有全局和局部，同样也是放在实例前面
+		1.组件构造
+		2.组件注册
+		3.使用组件
+		
+		组件构造：
+		全局：方法1：var obj=Vue.extend({}),比较古老的组件构造方法，到了2.0有更好的构造方法
+			注意的问题：template里面的最外层元素叫做根元素
+					data此时为一个函数，并不是一个对象
+					使用脚本工具时，app是默认id
+					js里面自定义标签驼峰命名之后，记得使用时用横杠链接，第二个大写变为小写
+			方法2：var obj = {}，比1.0要更便捷的组件，注意的问题也是同样的
+		局部：components:{'要自定义并使用的标签的名字':{}}
+			模板可以是挂载，也可以直接标签，挂载的话要在实例挂载过的标签之外进行挂载
+			内部构造格式：
+				{
+					'myCom1':{
+						template:'模板或者直接挂载',
+						data(){//注意的地方
+							return{...}
+						}
+						...
+					}
+				}
+		组件注册：Vue.component('要自定义并使用的标签的名字',obj);全局组件的注册
+		组件使用：body里面插入自定义的标签
+		每一个组件里面的data都是独立的，不能被共享，但可以通过特定方式共享
+		
+		<template id=‘。。’><div>。。。</div></template>------外部挂载，相当于template：‘#。。’，写在实例挂载过的标签之外的下面
+			前提是当前template所对应的自定义标签，得要在实例那挂载的id的标签里面使用了才可以，不然无效
+		components嵌套：components：{components：{}}，子组件可以通过创建props: ['自定义名字的属性']，这个对象，然后可以v-bind：自定义名字的属性=‘父组件或实例的data数据’，来实现父组件数据对子组件数据的共享(子组件在父组件的自定义标签里面)
+		子组件里的函数不能直接修改父组件的数据，但可以间接修改，
+			例如：子组件绑定一个自定义属性传的对象进去，然后子组件的函数可以修改这个对象当中某个属性的值，即真正要修改的数据（关联的绑定要写在自定义标签那里）
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script> 
+	</head>
+
+	<body>
+		<div id="box">
+			<!--{{msg}}
+			<p v-for='(v,index) in arr'>{{v}}</p>
+			{{k}}-->
+			本月工资为：<input type="text" v-model.number.trim='money' />
+			加上的补助：<input type="text" v-model.number.trim='c' />
+			{{c}}
+		</div>
+		<hr />
+		<div id="box2">
+			<!--{{msg}}
+			<p v-for='(v,index) in arr'>{{v}}</p>
+			{{d | thetime}}-->
+		</div>
+		<script>
+//			Vue.filter('haha',function(input){//全局过滤器
+//				return input<10?'0'+input:input
+//			})
+			var vm2=new Vue({
+				el:'#box2',
+				data:{
+//					msg:'222',
+//					arr:[1,3,5,7,9,31,21],
+//					d:Date.now()//相当于getDate（）
+				},
+				filters:{
+//					'thetime':function(input){//时间转化
+//						var thedate = new Date(input);
+//						return thedate.getFullYear()+'年'+(thedate.getMonth()+1)+'月'
+//					}
+				},
+				method:{
+					
+				}
+			})	
+			var vm=new Vue({
+				el:'#box',
+				data:{
+//					msg:'我是数据',
+//					arr:[1,3,5,7,9,31,21],
+//					k:new Date()
+					money:''
+				},
+				computed:{
+//					b:function(){//默认项，实际上b只是一个属性
+//						return this.money*0.82
+//					},
+					c:{
+						get:function(){//计算自身c的函数，就是上面b的默认项
+							return this.money+500
+						},
+						set:function(val){//根据自身的值来设置外面的值
+							this.money=val-500
+						}
+					}
+				},
+				methods:{
+					
+				},
+				
+//				beforeCreate:function(){
+//					console.log('实例创建之前');
+//					console.log('el:'+this.$el);//查看这个阶段有没有挂载
+//					console.log('data:'+this.$data);//查看这个阶段有没有数据
+//				},
+//				created:function(){
+//					console.log('实例创建成功');
+//					console.log('el:'+this.$el);//查看这个阶段有没有挂载
+//					console.log('data:'+this.$data);//查看这个阶段有没有数据
+//				},
+//				beforeMount:function(){
+//					console.log('实例挂载之前');
+//					console.log('el:'+this.$el);//查看这个阶段有没有挂载
+//					console.log('data:'+this.$data);//查看这个阶段有没有数据
+//				},
+//				mounted:function(){
+//					console.log('实例挂载之后');
+//					console.log('el:'+this.$el);//查看这个阶段有没有挂载
+//					console.log('data:'+this.$data);//查看这个阶段有没有数据
+//				},
+//				updated:function(){
+//					alert('a')
+//					console.log('实例更新之后');
+//					console.log('el:'+this.$el);//查看这个阶段有没有挂载
+//					console.log('data:'+this.$data);//查看这个阶段有没有数据
+//				},
+//				destroy:function(){
+//					console.log('实例销毁之后');
+//					console.log('el:'+this.$el);//查看这个阶段有没有挂载
+//					console.log('data:'+this.$data);//查看这个阶段有没有数据
+//				}
+			})	
+		</script>
+	</body>
+
+</html>

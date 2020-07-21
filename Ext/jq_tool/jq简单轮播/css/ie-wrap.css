@@ -1,0 +1,17 @@
+@charset "utf-8";
+body{
+	background: #eee;
+}
+.all-wrap{
+	width: 1000px;
+	margin: auto;
+	position: relative;
+	background: white;
+}
+.wrap{
+	padding: 0 0 0 0;
+}
+.wrap-box{
+	width: auto;
+	margin: 0px 20px 0 20px;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			#box1{
+				width: 300px;
+				height: 300px;
+				background: green;
+			}
+			#box2{
+				width: 100px;
+				height: 100px;
+				background: yellowgreen;
+			}
+			.box3{
+				width: 100%;
+				height: 40px;
+				margin: 10px 0 0 0;
+				background:burlywood;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+        	事件机制：
+        		事件流：
+        		三个阶段：事件捕获阶段---锁定目标阶段---事件冒泡阶段
+        			事件捕获：从外层元素逐渐往内层元素锁定（从外向内），Netscape网景提出
+        			锁定目标：锁定绑定该事件的最内层元素
+        			事件冒泡：事件从内层元素逐渐向外层元素扩散（从内向外），ie提出来的
+        		w3c组织将三个阶段合并称为“事件流”，当前主流浏览器均默认使用事件冒泡
+        		1级DOM：js只提供简单的DOM操作接口API（编写完善的属性和方法）
+        			1级DOM不支持事件捕获，还不支持addElementlistener和attachEvent
+        			例如：box.onclick = function(){}
+        			弊端：无法绑定多个同种事件
+        			绑定事件：box.onclick = move
+        					function move(){}
+        			移除事件：box.onclick = null
+        			优势：不必考虑绑定事件时的兼容性问题
+        		2级DOM和3级DOM：在一级DOM的基础上，添加了操作XML，XPath等语法的API
+        			支持事件捕获和事件冒泡
+        			弊端：要考虑兼容性
+        			绑定事件：
+        				非ie8：ele.addEventListener（‘事件类型（去掉on前缀）’，回调函数->函数名的话不带括号）
+        				ie8及以下的：ele.attachEvent('事件类型',function(){})
+        			移除事件：
+        				非ie8：ele.removeEventListener（‘事件类型（去掉on前缀）’，回调函数->函数名的话不带括号）
+        				ie8及以下：ele.detachEvent('事件类型',function(){})
+        		事件冒泡：浏览器默认的事件机制，可通过2级DOM的监听来修改事件机制
+        			ie8及以下只支持事件冒泡，不支持事件捕获
+        			非ie8及以下的事件捕获
+        				ele.addEventListener（‘事件类型（去掉on前缀）’，回调函数->函数名的话不带括号，布尔值）
+        				事件冒泡中，布尔值默认为false
+        				事件捕获中，布尔值为true，加在父元素的监听中的第三个参数
+        				-----window←---
+        			1	|	   |      |
+        				|	   ↓      | 9
+        				---→document←--
+        			2	|	   |      |
+        				|	   ↓      | 8
+        				-----→body←---
+        			3	|	   |     |
+        				|	   ↓     | 7
+        				-----→div←----
+        			4	|	   |     |
+        				|	   ↓     | 6
+        				------→p------
+        					|	 ↑
+        				5	|----|
+        	事件对象：event，用来操作鼠标或者键盘事件的
+        		event.type:返回事件的类型（去掉on），比如返回click
+        		event.target:返回目标事件源（绑定事件的最内层元素）
+        			ie8及以下是用event.srcElement
+        		event.preventDefault（）：阻止默认事件
+        			ie8及以下用event.returnValue = false
+        		event.stopPropagation（）：阻止事件冒泡
+        			ie8及以下是用event.cancelBubble = true
+        			
+        	事件委托：利用事件冒泡的原理，将子元素的事件委托给父元素执行
+        		事件源：是作为触发该事件的最底层元素
+        		原理：通过判断事件源是否为要执行父元素事件的子元素
+        	委托的优势：1.避免for循环，减少DOM操作，使动态添加的元素具有之前元素的事件及功能
+        	父级.addEventListener('click',function(event){
+        		var tar = event.target;
+        		if(tar.nodeName.toLowerCase() == "子标签"){
+	         		tar.style.background = "yellow";   			
+        		}
+        	})
+			
+			11-14
+			BOM（Browser Object Model）：浏览器对象模型，操作浏览器自身属性
+			BOM的核心是window（全局对象），定义的全局变量或者外部函数都是window的成员变量
+			全局变量称为window的属性，函数称为window的方法，document也是window的属性
+			window的常见属性：
+				onscroll：滚动条滚动事件
+				scrollHeight:滚动条可滚动的距离
+				document.body.scrollTop:滚动条距离顶部相对的距离（针对谷歌和Safari的）
+					document.documentElement.scrollTop:这个兼容火狐跟ie跟谷歌的
+				document.body.scrollLeft:滚动条距离左侧相对的距离（针对谷歌和Safari的）
+					document.documentElement.scrollLeft:这个兼容火狐跟ie的
+				距离直接跟值相加
+			window常见的方法:
+				1.open（）：打开新窗口；括号里面写网址，写下划线self，参数都加引号
+				2.close（）：关闭打开的新窗口
+				3.scrollTo（x，y）：将窗口滚动到指定的位置，时刻量
+				4.scrollBy（x，y）：将窗口滚动到指定的偏移量，是一个过程量，y可以是个负值
+				
+			鼠标距离文档顶部跟左侧的距离：event.pageX||event.clientX+scrollX  
+								  event.pageY||event.clientY+scrollY
+			
+			11-15
+			兼容ie的背景色透明
+				0.1-0.9： 19,33,4c,66,7f,99,b2,c8,e5
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
+
+			
+			-->
+        <div id="box1">
+	        <div id="box2"></div>
+	        <p class="box3"></p>
+	        <p class="box3"></p>
+	        <p class="box3"></p>
+        </div>
+        <script>
+        	var box1 = document.getElementById("box1");
+        	var box2 = document.getElementById("box2");
+        	box1.onclick = function(){
+        		console.log(11111);
+        	}
+        	box2.onclick = function(){
+        		console.log(22222);
+        	}
+        	box1.addEventListener('click',function(event){
+        		var tar = event.target;
+        		if(tar.nodeName.toLowerCase() == "p"){
+	         		tar.style.background = "yellow";   			
+        		}
+        	})
+        </script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="../../js/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+		<button onclick="fnuser()">user</button>
+		<div>
+			user:
+			<p id="user"></p>
+		</div>
+		<script type="text/javascript">
+			function fnuser(){
+				$.ajax({
+					type:'post',
+					url:'http://localhost:3000/users',
+					success:function(res){
+						console.log(res)
+						$('#user').html(res)
+					},fail:function(err){
+						console.log(err)
+						$('#user').html('fail:',err.result)
+					}
+				})				
+			}
+		</script>
+	</body>
+</html>

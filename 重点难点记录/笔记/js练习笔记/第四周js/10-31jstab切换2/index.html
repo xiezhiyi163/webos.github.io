@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			img{
+				border: none;
+				outline: none;
+			}
+			#imgwrap,#imgwrap2{
+				width: 750px;
+				height: 500px;
+				display: block;
+				margin: auto;
+				position: relative;
+			}
+			.leftbutton,.rightbutton{
+				position: absolute;
+				top: 48%;
+			}
+			.leftbutton{left: 40px;	}
+			.rightbutton{right: 40px;}
+			.tabturn{
+				width: 120px;
+				height: 25px;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 40px;
+				margin: 0 auto;
+			}
+			li{
+				width: 25px;
+				height: 25px;
+				float: left;
+				background: wheat;
+				margin: 0 7.5px;
+				border-radius: 50%;
+			}
+			.tab{
+				background: goldenrod;
+			}
+			div{
+				display: none;
+			}
+			.imgpage{
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+			#imgwrap>button,#imgwrap2>button{
+				width: 250px;
+				height: 50px;
+				float: left;
+			}
+			/**/
+		</style>
+	</head>
+	<body>
+		<div id="imgwrap">
+			<input type="submit" value="<" class="leftbutton"/>
+			<div class="imgpage"><img src="" width="100%" height="100%" style="background: greenyellow;"/></div>
+			<div><img src="" width="100%" height="100%" style="background: burlywood;"/></div>
+			<div><img src="" width="100%" height="100%" style="background: chocolate;"/></div>
+			<ul class="tabturn">
+				<li class="tab"></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<input type="submit" value=">" class="rightbutton"/>
+		</div>
+		<br style="clear: both;" />
+		<div id="imgwrap2">
+			<input type="submit" value="<" class="leftbutton"/>
+			<div class="imgpage"><img src="" width="100%" height="100%" style="background: greenyellow;"/></div>
+			<div><img src="" width="100%" height="100%" style="background: burlywood;"/></div>
+			<div><img src="" width="100%" height="100%" style="background: chocolate;"/></div>
+			<ul class="tabturn">
+				<li class="tab"></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<input type="submit" value=">" class="rightbutton"/>
+		</div>
+			<button>auto</button><button>stop</button><button>play</button>
+		<script type="text/javascript">
+				var btns = document.getElementsByTagName("button");
+			function Imgturn(id){
+				this.bigwrap = document.getElementById(id);
+				this.leftandright = this.bigwrap.getElementsByTagName("input");
+				this.tabturn = this.bigwrap.getElementsByTagName("li");
+				this.imgdiv = this.bigwrap.getElementsByTagName("div");
+				this.num = 0;
+			}
+				//
+				Imgturn.prototype.forxunhuan = function(){
+					var that = this;
+					for(var i=0;i<that.imgdiv.length;i++){
+						that.imgdiv[i].className="";
+						that.tabturn[i].className="";
+					}
+					that.imgdiv[that.num].className="imgpage";
+					that.tabturn[that.num].className="tab";	
+				}				
+				Imgturn.prototype.prev = function(){
+					var that = this;
+					this.leftandright[0].onclick = function(){//点击事件中的this不再指向实例化对象
+						that.num--;
+						if(that.num<0){
+							that.num=that.imgdiv.length-1
+						}
+						that.forxunhuan();
+					}
+				}
+				Imgturn.prototype.next = function(){
+					var that = this;
+					this.leftandright[1].onclick = function(){
+						that.num++;
+						if(that.num>that.imgdiv.length-1){
+							that.num=0;
+						}
+						that.forxunhuan();
+					}
+				}
+				//
+				Imgturn.prototype.tab1 = function(){
+					for(var k=0;k<this.tabturn.length;k++){
+						this.tabturn[k].zdy = k;
+						var that = this;
+						this.tabturn[k].onclick = function(){
+							for(var i=0;i<that.imgdiv.length;i++){
+								that.imgdiv[i].className="";
+								that.tabturn[i].className="";
+							}
+							that.imgdiv[this.zdy].className="imgpage";
+							that.tabturn[this.zdy].className="tab";
+							that.num = this.zdy;
+						}
+					}
+				}
+				//
+				Imgturn.prototype.setintervals = function(){
+					var that = this;
+					clearInterval(this.timer);
+					this.autoturn = function (){
+						that.num++;
+						if(that.num>that.imgdiv.length-1){
+							that.num=0;
+						}
+						that.forxunhuan();
+					}
+					this.timer = setInterval(this.autoturn,1000);
+				}
+				Imgturn.prototype.setintervalstop = function(){
+					clearInterval(this.timer);
+				}
+			var imgturn = new Imgturn("imgwrap");
+			var imgturn2 = new Imgturn("imgwrap2");
+			imgturn.prev();
+			imgturn.next();
+			imgturn.tab1();
+			imgturn2.prev();
+			imgturn2.next();
+			imgturn2.tab1();
+			btns[0].onclick = function(){
+						imgturn.setintervals();
+						imgturn2.setintervals();
+					}
+			btns[1].onclick = function(){
+						imgturn.setintervalstop();
+						imgturn2.setintervalstop();
+					}
+			btns[2].onclick = function(){
+						imgturn.setintervals();
+						imgturn2.setintervals();
+				}
+		</script>
+	</body>
+</html>

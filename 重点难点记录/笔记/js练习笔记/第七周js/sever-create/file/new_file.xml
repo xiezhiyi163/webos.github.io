@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<class>
+	<taga>
+		Mr.mando
+	</taga>
+	<taga>
+		Mrs.mando
+	</taga>
+	<stud>
+		david
+		<sex>
+			man
+		</sex>
+		<old-or-young>
+			young-35
+		</old-or-young>
+	</stud>
+</class>

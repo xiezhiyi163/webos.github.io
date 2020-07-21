@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Person(namea,agea){
+				this.name = namea;
+				this.age = agea;
+			}
+			Person.prototype.getName = function(){
+				return this.name;
+			}
+			Person.prototype.setName = function(namea){
+				this.name = namea;
+			}
+			Person.prototype.setAge = function(agea){
+				this.age = agea;
+			}
+			var person = new Person("john",18);
+			person.getName();
+			console.log(person.getName());
+			person.setName("fdgd")
+			console.log(person.getName());
+		</script>
+	</body>
+</html>

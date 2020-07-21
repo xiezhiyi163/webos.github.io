@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#imgturn{
+				width: 1000px;
+				height: 400px;
+				overflow: hidden;
+				position: relative;
+				background: wheat;
+			}
+			#imgturn>ul{
+				width:100%;
+				height:700000px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: grey;
+			}
+			#imgturn>ul>li{
+				/**/
+				width: 100%;
+				float: left;
+			}
+			#imgturn>ul>li>p{
+				width: 100%;
+				height: 100%;
+			}
+			#imgturn>div{
+				width: 150px;
+				height: 30px;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 30px;
+				margin: 0 auto;
+			}
+			#imgturn>div>p{
+				width: 30px;
+				height: 30px;
+				float: left;
+				margin: 0 10px;
+				background: wheat;
+			}
+			#imgturn>.leftbtn,#imgturn>.rightbtn{
+				width: 50px;
+				height: 70px;
+				border: none;
+				position: absolute;
+				top: 50%;
+				margin: -35px 0 0 0;
+			}
+			#imgturn>.leftbtn{left: 0;}
+			#imgturn>.rightbtn{right: 0;}
+			.tabturn-in{
+				background: burlywood !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="imgturn">
+			<ul>
+				<li><p style="background: goldenrod;"></p></li>
+				<li><p style="background: lightcoral;"></p></li>
+				<li><p style="background: rosybrown;"></p></li>
+			</ul>
+			<div>
+				<p class="tabturn-in"></p>
+				<p></p>
+				<p></p>
+			</div>
+			<button class="leftbtn"><</button>
+			<button class="rightbtn">></button>
+		</div>
+		<!--
+			///////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////
+		-->
+		<script src="../all-jQ/jquery-1.7.2.js"></script>
+		<script type="text/javascript">
+			var imgturn = document.getElementById("imgturn");
+			var imgturnheight = imgturn.offsetHeight;
+			$('#imgturn ul li').css({'height':imgturnheight});
+			//
+			$('#imgturn div p').click(function(){
+				$(this).addClass("#imgturn tabturn-in").siblings().removeClass("#imgturn tabturn-in");
+				$('#imgturn ul').animate({'top':-imgturnwidth*($(this).index())},700);
+			})
+			////-------
+			var num = 0;
+			var newli = $('#imgturn ul li').eq(0).clone();
+			$('#imgturn ul').append(newli);
+			var len = $('#imgturn ul li').length;
+			var onoff = true;//
+			//
+			function leftandright(){
+				if(num<0){
+					num = len-2;//回到第三屏
+					$('#imgturn ul').css({'top':-(len-1)*imgturnheight})//瞬间从第一屏左侧跳到第三屏右侧
+				}//left
+				if(num>len-1){
+					num = 1;
+					$('#imgturn ul').css({'top':0})
+				}//right
+				//
+				$('#imgturn ul').stop().animate({'top':imgturnheight*(-num)},700);
+				if(num == len-1){
+					$('#imgturn div p').eq(0).addClass("#imgturn tabturn-in").siblings().removeClass("#imgturn tabturn-in");
+				}else{
+				$('#imgturn div p').eq(num).addClass("#imgturn tabturn-in").siblings().removeClass("#imgturn tabturn-in");}
+			}
+			/////
+			$('#imgturn .leftbtn').click(function(){
+				if(onoff){
+					num--;
+					leftandright();
+					//
+					onoff=false;
+					setTimeout(function(){
+						onoff = !onoff;
+					},700);				
+				}
+			})
+			$('#imgturn .rightbtn').click(function(){
+				if(onoff){
+					num++;
+					leftandright();
+					//
+					onoff=false;
+					setTimeout(function(){
+						onoff = !onoff;
+					},700);				
+				}
+			})
+			////----------
+			var timer = null;
+			setInterval(function(){
+				num++;
+				leftandright();
+			},3000);
+			$('#imgturn div p').click(function(){
+				num=$(this).index();
+				leftandright();				
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" type="text/css" href="static/js/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="static/css/Pcss.css" />
+<link href="Ext/vide7.5.5/css/video-js.min.css" rel="stylesheet">
+<style id="videodomset" type="text/css"></style>
+<style type="text/css">
+	
+	.borderbottom{
+		border-bottom: 2px solid orchid;
+	}
+	.badgeSetposi {margin-left: 10px;position: relative;top:-1px}
+	.carousel-inner,.carousel-inner .item{height: 100%;}
+	.topnavwrap,.topnavwrap2{height: 80px;background-color: #333;}
+	.topnavwrap2,.topnavwrap3{		margin-top: 10px;	}
+	.topnavwrap2 {		height: auto;		background-color:transparent !important	}
+	.topnavwrap3 {/*列表对齐需要的外层容器样式*/		margin-right: 15px;	}
+	.topnavwrap3,.topnavwrap2 {/*设置外边距之后对外层容器进行居中对齐*/		position: relative;		left: 7px;	}
+	.topleft,.topright {		height: 100%;	}
+	.topleft {		background-color: #5C83B0;	}
+	.topnavwrap2 .item {		padding-left: 0 !important;	}
+	.topnavwrap2 .item div{		background-color: #333;		margin-top: 10px;	}
+	.dropdown-menu{		background-color: #666 !important;		border: 0 !important;		border-radius: 0 !important;	}
+	.dropdown-menu a{		color: white !important;	}
+	.navbar-collapse {		max-height: 223.5px;	}
+	.icon-bar {		background-color: #31B0D5;	}
+	
+	/*video样式修正*/
+	
+	#my-video{
+		width: 100%;
+		height: 100%;
+	}
+	.video-js .vjs-big-play-button{
+		top: auto !important;
+		left: auto !important;	
+		right: 20px !important;
+	}
+
+	.vjs-control-bar {
+		bottom: -30px ;
+		height: 30px !important;
+	}
+	
+	.vjs-paused .vjs-big-play-button,
+	.vjs-paused.vjs-has-started .vjs-big-play-button {
+	    display: block;
+	}
+	.video-js .vjs-time-control{
+		line-height: 30px !important;
+	}
+	.vjs-error .vjs-error-display:before{
+		content: '';
+	}
+	.video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-horizontal{
+		/*.video-js .vjs-volume-panel.vjs-volume-panel-horizontal:hover
+		 * transition: visibility 1s, opacity 1s, height 1s 1s, width 1s, left 1s 1s, top 1s 1s
+		 * 注释掉*/ 
+		position: absolute;
+		z-index: 1;
+		bottom: 30px;
+		background-color: rgba(43, 51, 63, .7);
+	}
+</style>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<title></title>
+	</head>
+	<body>
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/api.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 
+			##top##
+		 -->
+		<div class="topnav" style="height: 50px;">
+			<!-- 
+			变成浮动，js稍微控制下最大高度，完美，topnav高度为0 
+			-->
+			<div class="topnavwrap navbar-fixed-top navbar-inverse" style="height: auto;border-bottom: 1px solid #444;">
+				<!-- 
+				/.container-fluid 
+				-->
+				<div class="container-fluid">
+					<!-- 
+					Brand and toggle get grouped for better mobile display 
+					-->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand">Brand</a>
+						<form class="navbar-form navbar-left visible-xs" style="margin: 0 40px 0 55px;padding-top: 8px;padding-bottom: 2px;border: 0;box-shadow: none;">
+							<!-- 
+							/.col-lg-6 
+							-->
+							<div class="col-lg-6">
+								<!-- 
+								/input-group 
+								-->
+								<div class="input-group">
+									<!-- 
+									/btn-group 
+									-->
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+										<ul class="dropdown-menu" id="noactionwithBootstarp2">
+											<li><a>Action</a></li>
+											<li><a>Another action</a></li>
+											<li><a>Something else here</a></li>
+											<li role="separator" class="divider"></li>
+											<li><a>Separated link</a></li>
+										</ul>
+									</div>
+									<input type="text" class="form-control" placeholder="Search" aria-label="...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<!--
+					Collect the nav links, forms, and other content for toggling 
+					/.navbar-collapse 
+					-->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a>Link <span class="sr-only">(current)</span></a></li>
+							<li><a>Link</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span class="glyphicon glyphicon-tasks"></span></a>
+								<ul class="dropdown-menu">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>One more separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+						<form class="navbar-form navbar-left hidden-xs">
+							<div class="input-group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+								<ul class="dropdown-menu" id="noactionwithBootstarp">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+								</ul>
+								<div class="form-group" style="width: 130px;margin-left: -5px;">
+									<input type="text" style="width: 130px;" class="form-control" placeholder="Search">
+								</div>
+								<button type="submit" class="btn btn-default" style="border-radius: 0 5px 5px 0;">Go!</button>
+							</div>
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a>Link</a></li>
+							<li class="dropdown hidden-xs">
+								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<!--
+			##content##
+		 -->
+		<div>
+			<div class="container" style="margin-top: 30px;">
+				<div>
+					<div class="col-lg-8 col-sm-8 col-md-8 col-xs-12" style="padding-left: 0;padding-right: 0;">
+						<div data-videomodule style="background-color: #1d1d1d;" class="VPlay">
+							<div class="VPlayLeftdiv" id="VPlayLeftdiv">
+								<div id="VPlayLeftdivin" style="height: 100%;visibility: hidden;">
+									<video playsinline="true" webkit-playsinline="true" x5-video-orientation="portraint" x5-video-player-type="h5" x-webkit-airplay="true" x5-playsinline="" id="my-video" class="video-js" controls preload="auto" width="100%" height="100%"></video>									
+								</div>
+							</div>
+						</div>
+						<!-- mob tuijian+pinlun-->
+						<div class="visible-xs">
+							<div style="min-height: 300px;">
+								<div>
+									<p onclick="videoinfoclick()" id="videoinfo" style="float: left;width: 50%;text-align: center;padding: 15px 0;" class="borderbottom">视频信息</p>
+									<p onclick="disscussionclick()" id="disscussion" style="float: left;width: 50%;text-align: center;padding: 15px 0;">用户评论</p>
+									<div style="clear: both;"></div>
+								</div>
+							</div>	
+						</div>
+						<!-- pc pinlun -->
+						<div class="hidden-xs" style="min-height: 300px;display: none;" id="pcpinlun">
+							<div style='position: relative;margin-top: 30px;'>
+								<img style="position: absolute;top: 0;left: 0;width: 50px;height: 50px;background-color: #999;border-radius: 50%;" src="" alt="">
+								<div style="margin: 0 60px 0;height: 50px;">
+									<p>Title</p>
+									<p style="font-size: 14px;color: #999;overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">content</p>
+								</div>
+								<span style="position: absolute;right: 0;top: 0;height: 50px;line-height: 50px;padding: 0 30px 0;background-color: coral;color: white;border-radius: 7px;">
+									订阅
+								</span>
+							</div>
+							<div style="border-top: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8;padding: 30px 50px 30px 0;margin-top: 30px;position: relative;">
+								<span style="position: absolute;top: 30px;right: 0px;">举报</span>
+								<div>
+									the Content
+								</div>
+								<p style="margin-top: 30px;">
+									<span style="padding: 5px 10px;background-color: #e8e8e8;margin: 0 10px 10px 0;">TAG</span>
+									<span style="padding: 5px 10px;background-color: #e8e8e8;margin: 0 10px 10px 0;">TAG</span>
+									<span style="padding: 5px 10px;background-color: #e8e8e8;margin: 0 10px 10px 0;">TAG</span>
+								</p>								
+							</div>
+							<div style='position: relative;margin-top: 30px;border-bottom: 1px solid #e8e8e8;padding-bottom: 30px;'>
+								<img style="position: absolute;top: 0;left: 0;width: 50px;height: 50px;background-color: #999;border-radius: 50%;" src="" alt="">
+								<div style="margin: 0 100px 0 60px;min-height: 50px;background-color: #e8e8e8;">
+									<div style="min-height: 23px;border: 1px solid #00BDFF;padding: 10px;">
+										<textarea rows="" cols="" style="width: 100%;height: 23px;font-size: 12px;background-color: transparent;" placeholder="发表评论"></textarea>
+									</div>
+								</div>
+								<span style="position: absolute;right: 0;top: 0;height: 50px;line-height: 50px;padding: 0 30px 0;background-color: #66D9EF;color: white;border-radius: 7px;">
+									发送
+								</span>
+							</div>
+							<div style="padding-bottom: 30px;">
+								<div style='position: relative;margin-top: 30px;'>
+									<img style="position: absolute;top: 0;left: 0;width: 50px;height: 50px;background-color: #999;border-radius: 50%;" src="" alt="">
+									<div style="margin: 0 60px 0;">
+										<p>Title</p>
+										<p style="font-size: 14px;color: #999;overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">content</p>
+										<!--  -->
+										<div>
+											<!--  -->
+											<div style='position: relative;margin-top: 30px;'>
+												<img style="position: absolute;top: 0;left: 0;width: 30px;height: 30px;background-color: #999;border-radius: 50%;" src="" alt="">
+												<div style="margin: 0 40px 0;">
+													<p>Title</p>
+													<p style="font-size: 14px;color: #999;overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">content</p>
+												</div>
+											</div>
+											<div style='position: relative;margin-top: 30px;'>
+												<img style="position: absolute;top: 0;left: 0;width: 30px;height: 30px;background-color: #999;border-radius: 50%;" src="" alt="">
+												<div style="margin: 0 40px 0;">
+													<p>Title</p>
+													<p style="font-size: 14px;color: #999;overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">content</p>
+												</div>
+											</div>
+											<div style='position: relative;margin-top: 30px;'>
+												<img style="position: absolute;top: 0;left: 0;width: 30px;height: 30px;background-color: #999;border-radius: 50%;" src="" alt="">
+												<div style="margin: 0 40px 0;">
+													<p>Title</p>
+													<p style="font-size: 14px;color: #999;overflow: hidden;white-space: nowrap; text-overflow: ellipsis;">content</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--pc tuijian -->
+					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 hidden-xs" style="min-height: 300px;display: none;" id="pctuijian">
+						<div>
+							<p style="font-size: 16px;">
+								<span style="text-decoration: underline !important;">关闭</span>自动播放
+							</p>
+							<div style="padding-left: 100px;height: 68px;position: relative;margin-bottom: 30px;">
+								<p style="position: absolute;top: 0;left: 0;width: 90px;height: 68px;background-color: #999;"></p>
+								<div style="font-size: 12px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;height: 34px;">哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈</div>
+								<div>
+									<p style="font-size: 12px;color: #999;">测试</p>
+									<p style="font-size: 12px;color: #999;margin-top: -10px;">测试</p>
+								</div>
+							</div>
+							<div style="padding-left: 100px;height: 68px;position: relative;margin-bottom: 30px;">
+								<p style="position: absolute;top: 0;left: 0;width: 90px;height: 68px;background-color: #999;"></p>
+								<div style="font-size: 12px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;height: 34px;">哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈</div>
+								<div>
+									<p style="font-size: 12px;color: #999;">测试</p>
+									<p style="font-size: 12px;color: #999;margin-top: -10px;">测试</p>
+								</div>
+							</div>
+							<div style="padding-left: 100px;height: 68px;position: relative;margin-bottom: 30px;">
+								<p style="position: absolute;top: 0;left: 0;width: 90px;height: 68px;background-color: #999;"></p>
+								<div style="font-size: 12px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;height: 34px;">哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈</div>
+								<div>
+									<p style="font-size: 12px;color: #999;">测试</p>
+									<p style="font-size: 12px;color: #999;margin-top: -10px;">测试</p>
+								</div>
+							</div>
+							<div style="padding-left: 100px;height: 68px;position: relative;margin-bottom: 30px;">
+								<p style="position: absolute;top: 0;left: 0;width: 90px;height: 68px;background-color: #999;"></p>
+								<div style="font-size: 12px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;height: 34px;">哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈</div>
+								<div>
+									<p style="font-size: 12px;color: #999;">测试</p>
+									<p style="font-size: 12px;color: #999;margin-top: -10px;">测试</p>
+								</div>
+							</div>
+							<div style="padding-left: 100px;height: 68px;position: relative;margin-bottom: 30px;">
+								<p style="position: absolute;top: 0;left: 0;width: 90px;height: 68px;background-color: #999;"></p>
+								<div style="font-size: 12px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;height: 34px;">哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈</div>
+								<div>
+									<p style="font-size: 12px;color: #999;">测试</p>
+									<p style="font-size: 12px;color: #999;margin-top: -10px;">测试</p>
+								</div>
+							</div>
+							<div style="padding-left: 100px;height: 68px;position: relative;margin-bottom: 30px;">
+								<p style="position: absolute;top: 0;left: 0;width: 90px;height: 68px;background-color: #999;"></p>
+								<div style="font-size: 12px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;height: 34px;">哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈</div>
+								<div>
+									<p style="font-size: 12px;color: #999;">测试</p>
+									<p style="font-size: 12px;color: #999;margin-top: -10px;">测试</p>
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+		<script src="static/js/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="Ext/vide7.5.5/js/video.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.p_data = {
+				//video module
+				Fullscreenflag:0,
+				videolang: {
+					"Play": "播放",
+					"Pause": "暂停",
+					"Current Time": "当前时间",
+					"Duration": "时长",
+					"Remaining Time": "剩余时间",
+					"Stream Type": "媒体流类型",
+					"LIVE": "直播",
+					"Loaded": "加载完毕",
+					"Progress": "进度",
+					"Fullscreen": "全屏",
+					"Non-Fullscreen": "退出全屏",
+					"Mute": "静音",
+					"Unmute": "取消静音",
+					"Playback Rate": "播放速度",
+					"Subtitles": "字幕",
+					"subtitles off": "关闭字幕",
+					"Captions": "内嵌字幕",
+					"captions off": "关闭内嵌字幕",
+					"Chapters": "节目段落",
+					"Close Modal Dialog": "关闭弹窗",
+					"Descriptions": "描述",
+					"descriptions off": "关闭描述",
+					"Audio Track": "音轨",
+					"You aborted the media playback": "视频播放被终止",
+					"A network error caused the media download to fail part-way.": "网络错误导致视频下载中途失败。",
+					"The media could not be loaded, either because the server or network failed or because the format is not supported.": "视频因格式不支持或者服务器或网络的问题无法加载。",
+					"The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "由于视频文件损坏或是该视频使用了你的浏览器不支持的功能，播放终止。",
+					"No compatible source was found for this media.": "无法找到此视频兼容的源。",
+					"The media is encrypted and we do not have the keys to decrypt it.": "视频已加密，无法解密。",
+					"Play Video": "播放视频",
+					"Close": "关闭",
+					"Modal Window": "弹窗",
+					"This is a modal window": "这是一个弹窗",
+					"This modal can be closed by pressing the Escape key or activating the close button.": "可以按ESC按键或启用关闭按钮来关闭此弹窗。",
+					", opens captions settings dialog": ", 开启标题设置弹窗",
+					", opens subtitles settings dialog": ", 开启字幕设置弹窗",
+					", opens descriptions settings dialog": ", 开启描述设置弹窗",
+					", selected": ", 选择",
+					"captions settings": "字幕设定",
+					"Audio Player": "音频播放器",
+					"Video Player": "视频播放器",
+					"Replay": "重播",
+					"Progress Bar": "进度小节",
+					"Volume Level": "音量",
+					"subtitles settings": "字幕设定",
+					"descriptions settings": "描述设定",
+					"Text": "文字",
+					"White": "白",
+					"Black": "黑",
+					"Red": "红",
+					"Green": "绿",
+					"Blue": "蓝",
+					"Yellow": "黄",
+					"Magenta": "紫红",
+					"Cyan": "青",
+					"Background": "背景",
+					"Window": "视窗",
+					"Transparent": "透明",
+					"Semi-Transparent": "半透明",
+					"Opaque": "不透明",
+					"Font Size": "字体尺寸",
+					"Text Edge Style": "字体边缘样式",
+					"None": "无",
+					"Raised": "浮雕",
+					"Depressed": "压低",
+					"Uniform": "均匀",
+					"Dropshadow": "下阴影",
+					"Font Family": "字体库",
+					"Proportional Sans-Serif": "比例无细体",
+					"Monospace Sans-Serif": "单间隔无细体",
+					"Proportional Serif": "比例细体",
+					"Monospace Serif": "单间隔细体",
+					"Casual": "舒适",
+					"Script": "手写体",
+					"Small Caps": "小型大写字体",
+					"Reset": "重启",
+					"restore all settings to the default values": "恢复全部设定至预设值",
+					"Done": "完成",
+					"Caption Settings Dialog": "字幕设定视窗",
+					"Beginning of dialog window. Escape will cancel and close the window.": "开始对话视窗。离开会取消及关闭视窗",
+					"End of dialog window.": "结束对话视窗"
+				}
+			}
+			//public js
+			var systemsign = function() {
+				var UA = navigator.userAgent
+				if(UA.indexOf('Windows') != -1 || UA.indexOf('Macintosh') != -1) {
+					return 'win'
+				} else {
+					return 'mob'
+				}
+			}
+			//video handle
+			var videoinfoclick = function(){
+				$('#videoinfo').addClass('borderbottom')
+				$('#disscussion').removeClass('borderbottom')
+			}
+			var disscussionclick = function(){
+				$('#videoinfo').removeClass('borderbottom')
+				$('#disscussion').addClass('borderbottom')
+			}
+			//video module
+			var voicestopclick = function() {
+				if(event.cancelBubble)
+					event.cancelBubble = true;
+				else
+					event.stopPropagation();
+			}
+			var mobvideoboxsize = function(){
+				//尺寸调整				
+				$('#VPlayLeftdiv').css('min-height',0)
+				$('#VPlayLeftdiv video').css('min-height',0)
+				$('#VPlayLeftdivin').css('min-height',0)
+				$('#VPlayLeftdiv').css('height',($('#VPlayLeftdiv').width()/16)*9)			
+				$('#VPlayLeftdivin').css('height',($('#VPlayLeftdiv').width()/16)*9)			
+			}
+			
+			var pcheightfix = function(){
+				//尺寸调整
+				$('#VPlayLeftdiv').css('min-height',0)
+				$('#VPlayLeftdiv video').css('min-height',0)
+				$('#VPlayLeftdivin').css('min-height',0)
+				$('#VPlayLeftdiv').css('height',($('#VPlayLeftdiv').width()/16)*9)
+				$('#VPlayLeftdivin').css('height',(($('#VPlayLeftdiv').width()/16)*9)-30)
+			}
+			
+			var PCormoblistenfn = function(type){
+				if(type=='mob'){
+					mobvideoboxsize()
+					window.addEventListener('resize',mobvideoboxsize)
+					return;
+				}
+				
+				pcheightfix()
+				window.addEventListener('resize',pcheightfix)
+			}
+			//videomodule以同步线程运行，获取完数据之后，调用的方法
+			
+			
+			var Videomodule = function() {
+				var domstr = {
+					s0:'<div id="videotitle" style="position:absolute;top:0;left:0;width:100%;height:30px;line-height:30px;font-size:16px;background-color:rgba(0,0,0,.6);">title</div>',
+					s1:'<span style="position:absolute;top:0;left:0;width:100%;height:100%;" onclick="voicestopclick()"></span>',
+					s2:'<span id="stopclickpause" style="position:absolute;top:0;left:0;width:100%;" onclick="voicestopclick()"></span>',
+					s3:function(obj){
+						return '<div class="rightitemwrap">'+
+							'<img class="pcss_floatl pcss_bg-col-ccc" width="100" height="80" src="" alt="" />'+
+							'<div>'+
+								'<p class="rightitemwrap-title">title</p>'+
+								'<p class="rightitemwrap-cont">content</p>'+
+							'</div>'+
+						'</div>'
+					},
+					s4:'<i class="mbs pcss_clboth"></i>',
+				}
+				//设置中文
+				videojs.addLanguage('zh-CN', p_data.videolang);
+				//启动播放器逻辑
+				var dom = ''
+				//判断是否全屏
+				function ifFullscreenFn(type){
+					var ifFullscreen = function(){
+						if(type=='pc'){
+							if(p_data.Fullscreenflag == 1){
+								$('#videotitle').remove()
+								p_data.Fullscreenflag = 0
+								$('#videodomset').html('.VPlayLeftdiv .vjs-control-bar{opacity: 1 !important;height: 30px !important;}')
+								$('.vjs-control-bar').css('bottom','-30px');
+								$('.video-js .vjs-big-play-button').css('bottom','20px');
+								console.log('')
+							}else{
+								$('.vjs-control-bar').append(domstr.s0)
+								$('#videotitle').css('top',-$(window).height()+30)
+								p_data.Fullscreenflag = 1
+								$('#videodomset').html('')
+								$('.vjs-control-bar').css('bottom','0px');
+								$('.video-js .vjs-big-play-button').css('bottom','50px');
+							}							
+						}else{
+							$('.video-js .vjs-big-play-button').css('bottom','50px');
+							if(p_data.Fullscreenflag == 1){
+								$('#videotitle').remove()
+								p_data.Fullscreenflag = 0
+							}else{
+								$('.vjs-control-bar').append(domstr.s0)
+								$('#videotitle').css('top',-$(window).height()+30)
+								p_data.Fullscreenflag = 1
+							}				
+						}
+					}
+					var ifFullscreen2 = function(){
+						if(type=='pc'){
+							$('.vjs-control-bar').css('bottom','-30px');
+							$('.video-js .vjs-big-play-button').css('bottom','20px');							
+						}
+					}
+					setTimeout(function(){
+						ifFullscreen2()			
+					},0)
+					document.addEventListener("fullscreenchange", function(e) {
+					  console.log("fullscreenchange", e);
+					  ifFullscreen()
+					});
+					document.addEventListener("mozfullscreenchange", function(e) {
+					  console.log("mozfullscreenchange ", e);
+					  ifFullscreen()
+					});
+					document.addEventListener("webkitfullscreenchange", function(e) {
+					  console.log("webkitfullscreenchange", e);
+					  ifFullscreen()
+					});
+					document.addEventListener("msfullscreenchange", function(e) {
+					  console.log("msfullscreenchange", e);
+					  ifFullscreen()
+					});					
+				}
+				if(systemsign()=='mob'){
+					dom = 'my-video'
+					PCormoblistenfn('mob')
+					ifFullscreenFn('mob')
+				}else{
+					dom = 'my-video'
+					PCormoblistenfn('pc')
+					ifFullscreenFn('pc')
+				}
+				window.myPlayer = videojs(dom);
+				var playerready = function(){
+					myPlayer.ready(function() {
+						/* 小尺寸响应式或移动端需要视频浮动，可以把VPlayLeftdivin固定定位，或者给移动端cont评论区设置根据屏幕的高度进行处理的高度 */
+						$('#VPlayLeftdivin').css('visibility','visible')
+						//启动播放器
+						myPlayer.src('http://www.w3school.com.cn/example/html5/mov_bbb.mp4')
+						if(systemsign()=='mob'){
+							$('.video-js .vjs-big-play-button').css('bottom','50px');
+						}
+						$('.video-js .vjs-control-bar').css('display','flex')
+						//手机端阻止一键静音
+						$('.vjs-volume-panel').eq(0).css({
+							'position': 'relative'
+						});
+						$('.vjs-volume-panel').eq(0).append(domstr.s1);
+						//手机端阻止点击暂停
+						$('.video-js').eq(0).append(domstr.s2);
+						//遮罩尺寸适配
+						$('#stopclickpause').height($('.video-js').eq(0).height())
+						window.addEventListener('resize', function() {
+							$('#stopclickpause').height($('.video-js').eq(0).height())
+						})
+						//myPlayer.play()
+						//同步线程获取完数据之后，调用的方法
+						$('#pcpinlun').show()
+						$('#pctuijian').show()
+					});		
+				};
+				playerready()
+			};
+			Videomodule()
+		</script>
+	</body>
+</html>

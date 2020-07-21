@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 
+		 
+			往常一样先把react脚手架，不要去安装其他依赖一开始，先运行npm run eject，显示webpack配置，然后再继续下面的和安装其他依赖
+			
+			npm install --save antd 安装UI框架antd
+			antd的样式适配要在less文件里面重新用px单位进行适配，以下的步骤可以把加了px重新定义样式的antd组件进行移动端适配,
+			
+			下列步骤把540px宽度的屏幕以750设计图进行适配，底层固定好的最大html的fontsize的值
+						
+			less配置：
+				npm i less less-loader@5.0.0 --save
+				在webpack.config.js中找到===>const cssRegex = /\.css$/;
+				将.css变成.(css|less)
+				在{
+					loader: require.resolve('css-loader'),
+					options: cssOptions,
+				},后面添加
+				{
+					loader: require.resolve('less-loader'),
+					options: cssOptions,
+				},
+			
+			
+			安装依赖：
+			npm i lib-flexible sass-loader node-sass postcss-px2rem-exclude --save
+			
+			然后在依赖那里找到lib-flexible ->flexible.js
+			function refreshRem () {
+			    var width = docEl.getBoundingClientRect().width;
+			    if (width / dpr > 540) {
+			      width = 540 * dpr; //将540 改为width！！！！
+			    }
+			    var rem = width / 10;
+			    docEl.style.fontSize = rem + 'px';
+			    flexible.rem = win.rem = rem;
+			  }
+			
+			在webpack.config.js里面引入
+			const px2rem = require('postcss-px2rem-exclude');
+			并找到处理postcss-loader的地方
+			在options的plugins那里的结尾加入
+			 px2rem({remUnit:75,exclude: /node_modules/i})，
+			 
+			在入口文件index.js那里
+			import "lib-flexible"
+			
+			修改index.html：
+			<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
+			
+			之后全部用成less，px单位就行
+			
+		 -->
+	</body>
+</html>

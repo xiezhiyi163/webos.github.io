@@ -1,0 +1,11 @@
+@charset "utf-8";
+*{padding:0;margin: 0;}
+/*img切换控件样式*/
+#fine{width:780px;}
+#fine img{float: left;background-color: tan;}
+#fine>div{float:left;margin: 30px 0px 100px;position: relative;height: 200px;padding: 0 30px;}
+.img{height: 200px;cursor: pointer;}
+.tochange{position: absolute; bottom: -90px;left: 0;width: 100%;border-bottom:1px solid #ccc;border-top:1px solid #ccc;visibility: hidden;}
+.changeup{float: left;padding-right: 30px;cursor: pointer;padding: 10px 0 10px 10px;}
+.changedown{float: right;cursor: pointer;padding: 10px 10px 10px 0px;}
+.text{padding: 10px;position: absolute;left: 0;bottom: -43px;width: 100%;margin: 0 30px;}

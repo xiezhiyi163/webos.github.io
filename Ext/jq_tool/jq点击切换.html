@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>适配移动端的拖动效果</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			#picwrap {
+				height: 1000px;
+				margin: 60px;
+				position: relative;
+				background: tan;
+			}
+			/**/
+			.picwrap{
+				width: 50%;
+				height: 50%;
+				float: left;
+			}
+			.v0{background: pink;}
+			.v1{background: pink;}
+			.v2{background: pink;}
+			/**/
+			#div0,#div1,#div2 {
+				position: relative;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			#div0{
+				background: blueviolet;
+			}
+			#div1{
+				background: cornflowerblue;
+			}
+			#div2{
+				background: blue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="op" onclick="clicks(this)" style="width: 300px; height: 300px;">
+			<p></p>
+			<input type="radio" hidden="hidden" name="pop" />			
+		</div>
+		<div class="op" onclick="clicks(this)" style="width: 300px; height: 300px;">
+			<p></p>
+			<input type="radio" hidden="hidden" name="pop"  />			
+		</div>
+		<div class="op" onclick="clicks(this)" style="width: 300px; height: 300px;">
+			<p></p>
+			<input type="radio" hidden="hidden" name="pop" />			
+		</div>
+		<!--<ul id="picwrap">
+			<li class="picwrap v0">
+				<div id="div0"></div>				
+			</li>
+			<li class="picwrap v1">
+				<div id="div1"></div>
+			</li>
+			<li class="picwrap v2">
+				<div id="div2"></div>
+			</li>
+		</ul>-->
+		
+		<script src="all-jQ/jquery-1.7.2.js"></script>
+		<script type="text/javascript">
+			function clicks(val){
+				$('.op').eq($(val).index()).css('background','lightblue').siblings().css('background','none')
+				$('input[name="pop"]').eq($(val).index()).prop('checked',true)
+				console.log($('input[name="pop"]').eq($(val).index()).prop('checked'))
+			}
+			
+		</script>
+		<!--<script>
+			//配置//
+			/////////
+			/////////
+			var picwrap = document.getElementById('picwrap');
+			var lis = picwrap.getElementsByTagName('li');
+			picwrap.style.height = picwrap.offsetWidth+'px';
+			window.onresize = function(){
+				picwrap.style.height = picwrap.offsetWidth+'px';
+			}
+			var div0 = document.getElementById("div0");
+			var div1 = document.getElementById("div1");
+			var flag = false;
+			var cur = {
+				x: 0,
+				y: 0
+			};
+			var nx, ny, dx, dy, x, y;
+			//////////
+			function down(obj) {
+				html.style.overflow = 'hidden';
+				flag = true;
+				var touch;
+				if(event.touches) {
+					touch = event.touches[0];
+				} else {
+					touch = event;
+				}
+				cur.x = touch.clientX;
+				cur.y = touch.clientY;
+				dx = obj.offsetLeft;
+				dy = obj.offsetTop;
+			}
+
+			function move(obj) {
+				var th = this;
+				obj.style.position = 'absolute';
+				obj.style.width = '50%';
+				obj.style.height = '50%';
+				if(flag) {
+					var touch;
+					if(event.touches) {
+						touch = event.touches[0];
+					} else {
+						touch = event;
+					}
+					//
+					nx = touch.clientX - cur.x;
+					ny = touch.clientY - cur.y;
+					x = dx + nx;
+					y = dy + ny;
+					mw = picwrap.offsetWidth-obj.offsetWidth
+					mh = picwrap.offsetHeight-obj.offsetHeight
+					//↓重要部分
+					if(x<0){
+						x=0						
+					}else if(x>mw){
+						x=mw						
+					}
+					if(y<0){
+						y=0
+					}else if(y>mh){
+						y=mh
+					}
+					//
+					obj.style.left = x + "px";
+					obj.style.top = y + "px";
+					//阻止页面的滑动默认事件
+					document.addEventListener("touchmove", function() {
+//						event.preventDefault();
+					}, false);
+					//配置位置交换代码
+					
+				}
+			}
+			//鼠标释放时候的函数
+			function end(obj) {
+				html.style.overflow = 'auto';
+				obj.style.position = 'relative';
+				obj.style.left = '0px';
+				obj.style.top = '0px';
+				obj.style.width = '100%';
+				obj.style.height = '100%';
+				flag = false;
+			}
+			//调用//
+			//////////
+			//////////
+			div0.addEventListener("mousedown", function() {
+				down(div0);
+			}, false);
+			div0.addEventListener("touchstart", function() {
+				down(div0);
+			}, false)
+			div0.addEventListener("mousemove", function() {
+				move(div0);
+			}, false);
+			div0.addEventListener("touchmove", function() {
+				move(div0);
+			}, false)
+			document.body.addEventListener("mouseup", function() {
+				end(div0);
+			}, false);
+			div0.addEventListener("touchend", function() {
+				end(div0);
+			}, false);
+			//////////
+			div1.addEventListener("mousedown", function() {
+				down(div1);
+			}, false);
+			div1.addEventListener("touchstart", function() {
+				down(div1);
+			}, false)
+			div1.addEventListener("mousemove", function() {
+				move(div1);
+			}, false);
+			div1.addEventListener("touchmove", function() {
+				move(div1);
+			}, false)
+			document.body.addEventListener("mouseup", function() {
+				end(div1);
+			}, false);
+			div1.addEventListener("touchend", function() {
+				end(div1);
+			}, false);
+			//////////
+			div2.addEventListener("mousedown", function() {
+				down(div2);
+			}, false);
+			div2.addEventListener("touchstart", function() {
+				down(div2);
+			}, false)
+			div2.addEventListener("mousemove", function() {
+				move(div2);
+			}, false);
+			div2.addEventListener("touchmove", function() {
+				move(div2);
+			}, false)
+			document.body.addEventListener("mouseup", function() {
+				end(div2);
+			}, false);
+			div2.addEventListener("touchend", function() {
+				end(div2);
+			}, false);
+		</script>-->
+	</body>
+
+</html>

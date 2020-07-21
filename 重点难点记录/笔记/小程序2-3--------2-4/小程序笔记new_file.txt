@@ -1,0 +1,233 @@
+//弹性布局：主要用在移动端
+	传统盒模型：div+float浮动布局，设置浮动的元素需要清除浮动
+	css3推出弹性盒模型：display：flex||box
+		加-webkit-前缀来更好兼容浏览器
+	优势：避免浮动所带来的影响
+	
+原理：设置了display：flex的容器被隐形添加了两条坐标轴，子元素是一个项
+弊端：不再有浮动和vertical-align属性
+	
+属性：display：flex||box设置在父元素上
+	子元素：
+	flex-direction：row||column||row-reverse||column-reverse
+		row：默认横向排列，水平方向为主轴
+		column竖向排列，垂直方向为主轴
+		reverse为倒叙
+	flex-wrap：使子元素超出父元素换行
+		nowrap：默认不换行
+		wrap：超出父元素后换行
+		wrap-reverse：逆序换行
+	justify-content：在父元素中定义，定义子元素在父元素中的横向排列方式，优势：省了很多margin值
+		flex-start：子元素沿着主轴的起点排列，也就是左边排列，默认方式
+		flex-end：子元素沿着主轴的终点排列
+		center：子元素沿着主轴中心排列
+		space-between：第一个和最后一个子元素紧靠边缘，中间元素自动平分
+		space-around：子元素可以看成自带左右外边距
+	align-items：定义子元素在交叉轴的s排列方式
+		flex-start：子元素沿着交叉轴起点排列，默认值，横着排列
+		flex-end：子元素沿着交叉轴终点排列，横着排列
+		center：子元素在交叉轴的中间，横着排列
+		stretch：子元素高度继承父元素，前提子元素高度不设置
+		baseline：子元素文本底部对齐
+		order：默认为0，项的排列顺序，值越大越靠后,用在子元素中
+	小程序单位：1px=2rpx	，可响应式的单位
+使用开发工具：***微信小程序开发工具
+page目录：app.js：全局的js文件，配置公用的数据
+	全局数据：globaldata{userInfo：{}}
+	app.json：配置路由页面
+		page：[“”，“”]
+		默认打开放在第一的页面
+		
+小程序标签：
+	view：容器标签，相当于div，css方面的属性都一样的
+	text：文本标签，可换行
+	image：图片标签：默认宽高300/225，src：图片路径
+	icon：图标标签
+		size：图标大小
+		type：图标的类型
+			 'success', 成功图标
+			 'success_no_circle',成功图标不带外圈
+			  'info', 详情图标
+			  'warn', 警告图标
+			  'waiting', 时钟图标
+			  'cancel', 取消图标
+			  'download', 下载图标
+			  'search', 搜索图标
+			  'clear'，清除图标
+	swiper：轮播标签
+		indicator-dots：轮播切换项属性
+		indicator-color：轮播切换项默认颜色
+		indicator-active-color：当前的轮播切换项的颜色
+		autoplay：自动轮播
+		interval：时间间隔
+		circular：循环，指的是是否过渡到第一页
+		duration：轮播时长
+		vertical：垂直排列，为true
+	表单标签：
+		js当中修改data，用this.setData（{某个属性：“”}）
+					调用data，用this。setData（{某个属性：this.data.另外一个属性}）
+		button：按钮，默认宽为100%；
+			bindtap：点击事件
+			type：按钮样式
+				primary：绿色按钮
+				warn：警告按钮
+				default：默认按钮
+			plain：是否被掏空
+			disabled：打残
+			hover-class=“内名”：按下变颜色，前提是没有type属性
+			bindtouchstart：按下
+			bindtouchend：抬起
+	check-group：复选框组，里面包checkbox双标签
+		bindchange：监听复选框是否被选中，是check-group的属性
+			value：check-box的值
+			checked：是否被选中
+			disabled：是否可用
+			color：打勾的颜色
+	radio-group：单选框组，里面包的是radio双标签，这个radio不用加name
+		bindchange：监听复选框是否被选中，是check-group的属性
+			value：check-box的值
+			checked：是否被选中
+			disabled：是否可用
+			color：选中的颜色
+	input：输入框
+		value：输入框的值
+		type：输入框的类型，text，password和number
+		placeholder：提示信息
+		bindinput，相当于oninput，输入时触发该事件
+		bindfocus，相当于onfocus，输入框获取焦点事件
+		bindblur，相当于onblur，输入框失去焦点事件
+		confirm-hold：默认输入完后点击完成，键盘收起
+		bindconfirm：点击完成时触发事件
+	slider：滑动进度条
+		min：最小值，一般是0
+		max：最大值，一般是100
+		value：滑动的大小
+		color：默认颜色
+		select-color：滑动之后的颜色
+		show-value：显示数值
+		bindchange：拖动完松手后触发该事件
+		bindchanging：一直滑动一直触发
+	switch：开关组件
+		checked：是否被选中
+		color：选后的颜色
+		bindchange：开关状态改变时触发该事件
+			函数当中：e.detail.value，true时为打开，false时为关闭
+	for循环：属性当中：wx:for="{{list}}"，这个list时data里面的数据
+				然后里面用{{item}}代替list，{{item.数组中某一个对象的属性}}
+--------------------------------------------------------------
+	for循环以双标签block为基础，双括号不能省略，默认循环项为item，下表为index
+		自定义循环项和下标：wx：for-item=it，那么下面那里item可改为it，下标index也一样
+	指令：隐藏与显示：wx：if和hidden（hidden无前缀）
+		wx：if，true为显示，false为隐藏，里面是数据的话，要大括号包起来
+	navigator标签：地址前面加斜杠
+		url：跳转的目标地址，，open-type：navigate||switch，navigate跳转到指定该链接，只能跳转到非tabbar的页面，switch只能跳转到tabbar页面
+		路由参数：
+				当前页面：url="pages/index/index?id=123&name=David"
+				目标页面接受参数：参数存储在onLoad的参数options中,对象数组的形式
+				跳转过去后的页面，如果要出来结果，可以onLoad: function (options) {
+			        console.log(options.id+'+'+options.name)
+			    },
+		音频组件：audio
+				src:音频资源路径
+				controls:音频控件，默认不显示
+				author:是否显示音频作者
+				name：音频名称
+				poster:封面的路径资源
+				loop:是否循环播放
+				bindplay:音频开始播放触发该事件
+				bindpause:音频暂停播放触发该事件
+				bindend:音频播放完毕触发该事件将、
+				bindtimeupdate:音频播放进度改变触发该事件
+		视频组件：video
+				src:视频文件资源；路径
+				autoplay：自动播放
+				loop:循环播放
+				controls:显示控件
+				muted：是否静音播放
+				bindplay：视频播放时触发该事件
+				bindend:视频播放完毕触发该事件
+				bindtimeupdate:视频播放中触发该事件
+		地图：map,页面只能允许插入一个地图，
+			地图只在登陆之后才能用wx.getLocation获取地图上的位置
+			getlocal(){//按钮中通过点击事件来触发这个函数
+				 wx.getLocation({//要登陆操作，
+				      success:function(res){
+				        console.log('经度'+res.longitude)
+				        console.log('纬度'+res.latitude)
+				  }
+			}
+			longitude:经度值
+			latitude：纬度值			
+		获取全局数据：
+			首先在app.js中的globalData中定义全局数据
+			然后在需要使用的页面中使用getApp()获取全局数据
+			如何获取？一层一层找下去
+				比如：getApp().globalData.data.num
+			注意：getApp()不要在app.js中使用
+		模块化：
+			另起一个js，别在page页面暴露，在新的js文件暴露
+			新的js文件里面用对象的方法，然后module.exports.XXX=对象或对象当中的函数
+			在想要引入的页面，var XXX2 = require(暴露出来的js的路径)
+			要XXX2.XXX.对象或函数才可以
+			或者module.exports=对象或对象当中的函数
+			引入的页面，var XXX2 = require(暴露出来的js的路径)
+			直接XXX2.对象或函数
+		扫一扫：通过点击事件直接调出扫一扫窗口
+		  scran(){
+		    wx.scanCode({
+		      success(res){
+		        console.log(res.result)
+		      }
+		    })
+		  },
+		 选择图片接口;
+		 	wx.chooseImage({
+		 		count:1//默认选9张
+		 		sourceType:'album'||'camera'//是否允许相册和相机功能
+		 		success:function(res){
+		 			console.log(res.tempFilePaths)//tempFilePaths是微信后台暂时存储选择图片的地址的集合
+		 		}
+		 	})
+		路由接口：
+			1.跳转到非标签页面：wx.navigateTo({//支持行内形式的路由传参
+				url:''
+			})
+			2.跳到标签页：wx.switchTab({
+				url:''
+			}）
+		数据加载：前提是配置http类型的合法域名
+			wx.request({
+				url:'',
+				method:'get||post',
+				dataType:'json',
+				data:{},
+				success:function(res){
+					console.log(res)
+				}
+			})
+		滚动组建：小程序自带的：
+			onPageScroll:function(e){
+				//逻辑代码
+			}
+		获取dom节点方法：小程序：
+			queryMultipleNode:function(){
+				var query = wx.createSelectorQuery()
+				query.select('带符号的选择器').boundingClientRect()
+				query.selectViewport().scrollOffset()
+				query.exec(function(res){
+					//逻辑
+				})
+			}
+			
+小程序里面，引入的页面不能直接使用被引入页面的相关js和css，只能引入页面再引入相应的js和css才能正常使用
+			
+小程序的动画逻辑是数据双向绑定进行操作的，不像传统的js那样通过获取dom去改变，然后小程序的var变量是不会随着页面初始化的
+
+web-view跳回小程序示例代码（参数跟小程序一样）：
+	// <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+	
+	// javascript
+	wx.miniProgram.navigateTo({url: '/path/to/page'})
+	wx.miniProgram.postMessage({data: 'foo'})
+	wx.miniProgram.postMessage({data: {foo: 'bar'}})
+	wx.miniProgram.getEnv(function (res) { console.log(res.miniprogram) })

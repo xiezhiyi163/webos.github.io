@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 
+		
+			node使用总结，更深入的在笔记的node相关那里
+		
+			安装node跟mysql
+		
+			热更新支持：
+				npm i -g supervisor，npm install -g nodemon
+		
+			创建项目：
+				全局安装express：
+				npm install -g express  6.10版node以后还要npm install -g express-generator
+				express --view=ejs 项目名字，然后安装依赖就可以npm start
+				
+				有安装supervisor跟nodemon，那就‘nodemon 项目目录’来进行启动实时监听文件修改，不然代码已经更新了之后必须重启，就很繁琐
+				
+				如果要操作数据库，就安装mysql模块
+				npm i mysql --save
+				
+				出现有
+				> severtest@0.0.0 start D:\xamppSever_static\htdocs\qiantaiPage\sever\severTest
+				> node ./bin/www
+				说明启动成功
+				
+				默认端口3000，在package.json这个文件里面这样修改： "start": "set PORT=3001 && node ./bin/www"
+				
+				/ 
+				*
+				* 以下是入门逻辑编写以及方法说明 * 
+				*
+				/
+				
+				编写接口：
+					检查json并安装npm i mysql --save
+					然后安装npm i body-parser cookie-parser cors multer --save
+					routes里面的就是处理接口的，尽量都放在routes里面
+					
+					比如一个简单的接口：var express = require('express');
+										var router = express.Router();
+										router.get('/', function(req, res, next) {
+											/* 业务逻辑 */
+											res.send('respond with a resource');//后端响应回前端的一种方法
+										});
+										
+										module.exports = router;//暴露出去
+					app.js那里：var usersRouter = require('对应的js路径');
+								//在app下面那里对应的位置
+								app.use('/users', usersRouter);//users就是接口路径，就可以使用
+					如果一个js多个接口：复制一份或者用另外形式再写一个，但是接口路径必须要区分
+					
+				接口回调参数
+					req.query.接口参数，这个拿的是接口的参数的值
+					res.json({})多用于返回的是json格式的数据，也可以返回null，未定义
+					res.send('')返回的json，array，字符串，
+					res.render('index', { title: 'Express' });一个页面，不可用于接口请求，index指的是views下面的index页面的实际路径，对象指的是传进去页面展示的动态参数
+					
+				
+				跨域：
+					全局那里，app.js里面在app下面的那些路由后面加上：
+						app.all("*", function(req, res, next) {
+							res.header("Access-Control-Allow-Origin", "*");          //允许所有跨域请求
+							next();
+						})
+					局部：
+						接口回调开头加上
+							res.header("Access-Control-Allow-Origin", "*");
+							res.header("Access-control-Allow-Headers", "xCors");    //允许请求头中携带 xCors
+				
+				/
+				*
+				* ###node应用需求概览 *
+				*
+				/
+				
+				###文件上传处理（接口形式估计有改动，没有可用的服务器空间测试）
+					》》原生加npm插件：
+					统一安装fs模块
+					import * as fs from 'fs'
+					第一种：使用connect-multiparty中间件上传:npm i connect-multiparty --save
+						var mutipart= require('connect-multiparty');						
+						var mutipartMiddeware = mutipart();
+						全局app.use(mutipart({uploadDir:'指定的上传路径'}));
+						.post('/接口路径',mutipartMiddeware,回调）//通过rea.files接收
+					第二种：使用multer中间件：npm i multer --save
+						var multer  = require('multer')；
+						--简单的指定路径：
+							var upload = multer({ dest: '指定的上传路径' });
+						--复杂的指定路径：
+							var createFolder = function(folder){
+							 try{
+							  fs.accessSync(folder); 
+							 }catch(e){
+							  fs.mkdirSync(folder);
+							 } 
+							};
+							var uploadFolder = '指定的上传路径';
+							createFolder(uploadFolder);
+							// 通过 filename 属性定制
+							var storage = multer.diskStorage({
+							 destination: function (req, file, cb) {
+							  cb(null, uploadFolder); // 保存的路径，备注：需要自己创建
+							 },
+							 filename: function (req, file, cb) {
+							  // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943
+							  let suffix=file.mimetype.split('/')[1];//获取文件格式
+							  cb(null, file.fieldname + '-' + Date.now()+'.'+suffix); 
+							 }
+							});
+							// 通过 storage 选项来对 上传行为 进行定制化
+							var upload = multer({ storage: storage })
+						--接口编写
+							post('/profile',upload.single('file'),function(req,res,next){
+								//req.body contains the text fields
+								 console.log(req.file,'------',req.body,'-------',req.file.path);
+								 // res.end(req.file.buffer);
+								 // console.log(req.file.buffer.toString().length);
+								  
+								 res.end('ok');
+							})
+							
+							其中：upload.single('file')指的是单个input属性name为file的上传
+								  upload.array('file'，3)指的是多个input属性name为file的上传，相同input的数量不能少于3
+								  upload.fields([{name:'xxx'},{name:'yyy'}])指定的是不同的input属性name的值的上传
+								  前两种适合form，最后一个适合ajax，只需要拿到form的id，然后放进post的ajax的参数那里new FormData($('#id')[0])传进去即可，dataType: 'json',processData: false,contentType: false,
+						》》还可以用第三方处理上传的文件上传完，图片一般用于单图上传
+							七牛云：https://blog.csdn.net/liyi_mowu/article/details/86543622
+							又拍云：https://segmentfault.com/a/1190000016821821
+				###excel表格生成，以excel-export为例：
+					数据可以从mysql那里获取，以mysql为例
+					npm install sequelize
+					npm install excel-export
+					先引入数据库：
+						const Sequelize = require('sequelize')
+						连接mysql，用的Sequelize连接，第一个参数就是数据库
+					引入数据库表结构：
+						const mysql = require('mysql连接的封装路径')
+						const Sequelize = require('sequelize')
+						mysql.define方法去引入，第一个参数是拿的对应的表格
+						然后再暴露出来
+					获取表内容：
+						引入表结构，
+						展示列表：封装一个方法，并使用findAll方法，然后暴露出来
+					导出：
+						fs模块，然后
+						var excelPort = require('excel-export');
+						引入表内容，燃后
+						定义生成方法，然后
+						调用表内容暴露的方法并将拿到的数据传入进生成方法去生成
+					-------------------------------
+					https://www.cnblogs.com/yishifuping/p/9921545.html
+				###富文本插入图片等（没有真实的模拟环境）：
+					请求接口上传拿到返回的图片连接并自动插入到前端，
+					请求接口发送文章，拿到富文本内容的标签储存起来
+				###支付根据具体的api去进行对接就行
+		 -->
+	</body>
+</html>

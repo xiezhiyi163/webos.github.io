@@ -1,0 +1,267 @@
+@charset "utf-8";
+/*
+
+{
+	公共样式
+}
+
+*/
+*{
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+	text-decoration: none !important;
+	list-style: none;
+}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
+{
+  appearance: none;
+}
+input[type="number"]
+{
+  appearance: textfield;
+}
+button{
+	border-radius: 0;
+}
+
+
+.noselect{
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-moz-user-select: none;
+}
+#pcss_topwrap,#pcss_centerContWrap,.pcss_contwrap,#pcss_footer,#pcss_headerCenter,.pcss_center-cont{
+	position: relative;
+}
+.pcss_zeroimportant{
+	height: 0 !important;
+}
+.pcss_posi-rela{
+	position: relative;
+}
+.pcss_posi-abso{
+	position: absolute !important;
+}
+.pcss_floatl{
+	display: block;
+	float: left;
+}
+.pcss_floatr{
+	display: block;
+	float: right;
+}
+.pcss_hid{
+	position: relative;
+	overflow: hidden;
+}
+.pcss_vihid{
+	visibility: hidden;
+}
+.pcss_none{
+	display: none;
+}
+.pcss_noheight{
+	height: 0 !important;
+}
+.pcss_clboth{
+	display: block;
+	clear: both;
+}
+.pcss_bg-col-D5ECFF-aa{
+	background-color: #D5ECFFaa !important;
+	background-color: rgba(213,236,255,.67) !important;
+}
+.pcss_bg-col-d5ecff{
+	background-color: #d5ecff;
+}
+.pcss_bg-col-d0d9ea{
+	background-color: #d0d9ea;
+}
+.pcss_bg-col-fbcfe2{
+	background-color: #fbcfe2;
+}
+.pcss_bg-col-66A8CC{
+	background-color: #66A8CC;
+}
+.pcss_bg-col-lightsteelblue{
+	background-color: lightsteelblue;
+}
+.pcss_bg-col-333{
+	background-color: #333;
+}
+.pcss_bg-col-666{
+	background-color: #666;
+}
+.pcss_bg-col-bccbea{
+	background-color: #bccbea;
+}
+.pcss_bg-col-9fcaef{
+	background-color: #9fcaef;
+}
+.pcss_bg-col-000{
+	background-color: #00000077;
+}
+.pcss_bg-col-7f8fdc99{
+	background-color: rgba(127, 143, 220, 0.6);
+	background-color: #7f8fdc99;
+}
+.pcss_bg-col-eee{
+	background-color: #eee;
+}
+.pcss_bg-col-eee90{
+	background-color: #eee;
+	background-color: rgba(238,238,238,0.9);
+}
+.pcss_bg-col-ccc{
+	background-color: #ccc;
+}
+.pcss_bg-col-black{
+	background-color: black;
+}
+.pcss_bg-col-white{
+	background-color: white;
+}
+.pcss_col-white{
+	color: white;
+}
+.pcss_col-a0a0a0{
+	color: #a0a0a0;
+}
+.pcss_col-66A8CC{
+	color: #66A8CC;
+}
+.pcss_elps-3{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+}
+.pcss_borderB,.pcss_borderR{
+	position: absolute;
+	bottom: -5px;
+	right: -5px;
+}
+.pcss_borderB{
+	width: 100%;
+	height: 5px;
+}
+.pcss_borderR{
+	height: 100%;
+	width: 5px;
+}
+.pcss_width1245{
+	width: 1245px;
+}
+.pcss_width1205{
+	width: 1205px;
+}
+.pcss_width1065{
+	width: 1065px;
+}
+.pcss_hFull{
+	height: 100%;
+}
+/**/
+#pcss_topwrap{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+}
+.pcss_topnavs{
+	position: absolute;
+	top: 55px;
+	left: 0;
+	width: 100%;
+	height: 140px;
+	padding-top: 10px;
+	display: none;
+}
+.pcss_topnavs>div{
+	margin: 0 15px 0 20px;
+	border-right: 5px solid #ccc;
+	border-bottom: 5px solid #ccc;
+}
+.pcss_topnavsleftwrap{
+	padding-top:20px;
+	margin-right:330px;
+}
+.pcss_topnavsleftwrap>span{
+	display: inline-block;
+	padding: 10px 15px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+.pcss_topnavsads{
+	width: 310px;
+	height: 90px;
+	margin-top: 25px;
+	border-left: 1px solid #333;
+}
+.pcss_header{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	border-bottom: 5px solid #ccc;
+	z-index: 2;
+}
+.pcss_headerCenter{
+	height: 100%;
+	margin: auto;
+}
+.pcss_headerCenter-logo,
+.pcss_headerCenter-search,
+.pcss_headerCenter-headimg,
+.pcss_headerCenter-more
+{
+	height: 40px;
+	margin-top: 10px;
+}
+.pcss_headerCenter-more,.pcss_headerCenter-index{
+	margin-left: 10px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+.pcss_headerCenter-logo{
+	width: 130px;
+}
+#pcss_toindex{
+	margin-top: 10px;
+}
+#pcss_toindex>span{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+.pcss_headerCenter-search{
+	margin-left: 10px;
+	width: 280px;
+}
+.pcss_headerCenter-headimg{
+	width:40px;
+	margin-right: -5px;
+}
+.pcss_contwrap{
+	padding-top: 60px;
+}
+#pcss_centerContWrap{
+	margin: auto;
+}
+.pcss_center-cont{	
+	padding: 0 20px;
+	margin-right: 5px;
+}
+.pcss_center-cont2{
+	min-height: 600px;
+	margin-top: 20px;
+}
+#pcss_footer{
+	margin-top: 20px;
+	height: 300px;
+}

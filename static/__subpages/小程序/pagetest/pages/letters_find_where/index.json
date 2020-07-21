@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "letterfind":"../common/weapp-address-book-master/weapp-address-book-master/component/alphabet"
+  }
+}

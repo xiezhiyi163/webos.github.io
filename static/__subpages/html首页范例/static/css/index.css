@@ -1,0 +1,251 @@
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+	text-decoration: none !important;
+	list-style: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	appearance: none;
+}
+
+input[type="number"] {
+	appearance: textfield;
+}
+
+button {
+	border-radius: 0;
+}
+
+/* 伪类 */
+.top:after,
+.logo_menu:after,
+.menu>div,
+.bannerwrap,
+.bannerright,
+.item,
+.itemleft>div,
+.itemleft>div>div{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+/* vue */
+#app {
+	min-width: 1000px;
+}
+
+/* 顶部导航 */
+.top {
+	display: table;
+	width: 100%;
+	height: 60px;
+	background-color: #999;
+}
+
+.topleftwrap,
+.topcenterwrap,
+.toprightwrap {
+	display: table-cell;
+	height: 100%;
+}
+
+.topcenterwrap {
+	width: 100%;
+}
+
+.topcenterwrap>div {
+	float: left;
+	height: 100%;
+	width: 100%;
+}
+
+.topleftwrap,
+.toprightwrap {
+	float: left;
+	width: 300px;
+	background-color: #888;
+}
+
+.toprightwrap {
+	width: 350px;
+	float: right;
+	background-color: #888;
+}
+
+/* 内容 */
+.contwrap {
+	margin: auto;
+	width: 1200px;
+}
+
+/* logo_menu */
+.logo_menu {
+	margin-top: 60px;
+	width: 100%;
+	height: 60px;
+	display: table;
+}
+
+.logo,
+.menu,
+.toparea {
+	height: 100%;
+}
+
+.logo {
+	width: 150px;
+	display: table-cell;
+	float: left;
+	background-color: #eee;
+}
+
+.logo>h1 {
+	font-size: 45px;
+}
+
+.menu {
+	width: 100%;
+	display: table-cell;
+}
+
+.menu>div {
+	float: left;
+	height: 100%;
+	width: 100%;
+}
+
+.menu>div span{
+	float: left;
+	width: 14.285%;
+	text-align: center;
+	padding-bottom: 7px;
+	position: relative;
+	margin-top: 3px;
+}
+
+.toparea {
+	width: 230px;
+	display: table-cell;
+	float: right;
+}
+
+.toparea span{
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	margin-left: 10px;
+	background-color: #eee;
+	position: relative;
+	left: 10px;
+}
+/* banner焦点图 */
+.bannerwrap {
+	margin-top: 15px;
+	height: 260px;
+	display: table;
+	width: 100%;
+}
+.bannerleft,.bannerright {
+	height: 250px;
+	float: left;
+	display: table-cell;
+}
+.bannerleft {
+	width: 400px;
+	background-color: #eee;
+}
+.bannerright {
+	float: none;
+	width: 100%;
+	height: 100%;
+}
+.bannerright>div{
+	width: 25%;
+	height: 50%;
+	float: left;
+}
+.bannerright>div>div{
+	margin-left: 10px;
+	height: 120px;
+	background-color: #eee;
+}
+/* 长辐banner */
+.longbanner{
+	width: 100%;
+	height: 90px;
+	background-color: #eee;
+	margin-bottom: 10px;
+}
+/* item公共样式 */
+.item{
+	width: 100%;
+	height: 450px;
+	display: table;
+}
+.itemleft,.itemright {
+	display: table-cell;
+	height: 100%;
+}
+.itemleft{
+	width: 100%;
+}
+.itemleft>div{
+	width: 100%;
+	float: left;
+}
+.itemleft>div>p{
+	font-size: 18px;
+	line-height: 50px;
+	height: 50px;
+}
+.smallitem{
+	float: left;
+	width: 20%;
+	padding-bottom: 10px;
+}
+.smallitem>div{
+	height: 190px;
+	margin-right: 10px;
+	background-color: #eee;
+}
+.smallitem>div>p{
+	height: 120px;
+	background-color: #ccc;
+}
+.itemright{
+	width: 280px;
+	float: right;
+}
+.itemright>div{
+	height: 440px;
+	background-color: #eee;
+}
+
+/* media */
+@media (min-width:1200px) {
+	.contwrap {
+		width: 1200px;
+	}
+	.bannerright>div {
+		width: 25%;
+	}
+	.smallitem{
+		width: 20%;
+	}
+}
+@media (max-width:1200px) {
+	.contwrap {
+		width: 1000px;
+	}
+	.bannerright>div {
+		width: 33.333%;
+	}
+	.smallitem{
+		width: 25%;
+	}
+}

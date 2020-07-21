@@ -1,0 +1,91 @@
+<!--
+	组件的数据传递原理：
+		父子：数据从父级到子级传递  v-bind：xxx=‘’     xxx是通过props在子组件里面创造的
+		子父：数据从子级到父级传递，需要使用事件来将数据传递
+		兄弟：平级地传递数据
+	$emit：事件发射器
+		例如：send(){this.$emit('child',this.son1)}
+		son1数据传递到父级：
+		通过子组件send函数触发$emit事件发射器，把$emit第一个参数绑定到本身自定义标签的v-on那里，
+		然后子组件标签v-on触发child事件回调父组件里的带形参a的函数，
+		此时形参a就是传的子组件的数据，传上去之后就可以赋给父级任何一个地方使用，
+		怎么传？子组件搞个点击事件按钮，触发send函数，就可以
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
+	</head>
+
+	<body>
+		<div id="box">
+			<my-com1></my-com1><!--必要-->
+		</div>
+		<!--关联自定义标签的template标签-->
+		<template id="com1">
+			<div>
+				<h1>4</h1>
+				<!--{{msg}}-->
+				<div style="width: 200px;height: 200px;background: #8A2BE2;" v-if="show"></div>
+				<com-son1 v-on:child='getson'>有了child事件，立刻执行父组件的getson函数</com-son1><!--必要-->
+			</div>
+		</template>
+		<template id="com2"><!--关联自定义标签的template标签-->
+			<div>
+<!--				{{son1}}-->
+				<button @click="send">此按钮可以将下级的数据发送给上级</button>
+			</div>
+		</template>
+		<script>
+			var vm=new Vue({
+				el:'#box',
+				data:{
+					
+				},
+				methods:{
+					
+				},
+				components: {
+					'myCom1': {
+						template: '#com1',
+						data() {
+							return {
+//								msg:'dsfsddf',//--
+								show:true
+							}
+						},
+						methods:{
+							getson(a){
+//								this.msg=a,//--
+								this.show=a
+							}
+						},
+						components:{
+							'comSon1':{
+								template:'#com2',
+								data(){
+									return{
+//										son1:'我还是个18岁的孩子',//--
+										ctrlshow:false
+									}
+								},
+								methods:{
+									send(){
+										this.ctrlshow=!this.ctrlshow
+										this.$emit('child',!this.ctrlshow)//son1数据通过子组件send函数触发$emit事件发射器，绑定到本身的v-on那里，然后子组件标签v-on触发child事件回调父组件里的带形参a的函数，此时形参a就是传的数据，传上去之后就可以赋给父级然后一个地方使用
+										//标签的v-on绑定在子组件的标签上
+									}
+								}
+							}
+						}
+					}
+				}
+			})	
+		</script>
+	</body>
+
+</html>

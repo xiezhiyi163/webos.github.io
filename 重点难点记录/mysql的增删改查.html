@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 
+			
+			》》原生连接：
+			const connection = mysql.createConnection({
+			  host: 'localhost',
+			  user: 'root',
+			  password: 'root',
+			  port: '3306',
+			  database: 'zhou'
+			});
+			connection.connect(function (err) {
+			  if (err) {
+			    console.log('[connection connect failed] ' + err);
+			    return;
+			  }
+			  console.log('[connection connect succeed]')
+			});
+			增删改查：
+			查：
+			const selectSql = 'SELECT name FROM mytable where id=1';
+			connection.query(selectSql, function (err, result) {
+			  if(err) {
+			    console.log('[SELECT ERROR]', err.message);
+			    return;
+			  }
+			  console.log('-------------------SELECT-----------------------');
+			  // node环境下显示返回值带有RowDataPacket
+			  // 用下面的方法可以显示正确的独享
+			  // 实际上可以使用结果对变量赋值
+			  console.log(JSON.parse(JSON.stringify(result)));
+			  console.log('------------------------------------------------------------\n\n');
+			});
+			增:
+			const addSql = 'INSERT INTO mytable(id, name, sex, birth, birtharrd) VALUES (0,?,?, ?, ?)';
+			const addSqlParams = ['周2', 'f', '1990-09-09', 'Beijing'];
+			connection.query(addSql, addSqlParams, function (err, result) {
+			  if(err) {
+			    console.log('[INSERT ERROR]', err.message);
+			    return;
+			  }
+			  console.log('-------------------INSERT-----------------------');
+			  console.log(JSON.parse(JSON.stringify(result)));
+			  console.log('------------------------------------------------------------\n\n');
+			});
+			改：
+			const modSql = 'UPDATE mytable SET name = ?, sex = ? WHERE id = ?';
+			const modSqlParam = ['周杰伦', 'a', 6];
+			connection.query(modSql, modSqlParam, function (err, result) {
+			  if(err) {
+			    console.log('[UPDATE ERROR]', err.message);
+			    return;
+			  }
+			  console.log('-------------------UPDATE-----------------------');
+			  console.log(JSON.parse(JSON.stringify(result)));
+			  console.log('------------------------------------------------------------\n\n');
+			});
+			删：
+			const delSql = 'DELETE FROM mytable WHERE id = ?';
+			const delSqlParam = [1];
+			connection.query(delSql, delSqlParam, function (err, result) {
+			  if(err) {
+			    console.log('[DELETE ERROR]', err.message);
+			    return;
+			  }
+			  console.log('-------------------DELETE-----------------------');
+			  console.log(JSON.parse(JSON.stringify(result)));
+			  console.log('------------------------------------------------------------\n\n');
+			});
+			*
+			*
+			*
+			*
+			*
+			*
+			》》使用Sequelize进行连接
+			var config = {
+			    database: 'test', // 使用哪个数据库
+			    username: 'www', // 用户名
+			    password: 'www', // 口令
+			    host: 'localhost', // 主机名
+			    port: 3306 // 端口号，MySQL默认3306
+			};
+			const sequelize = new Sequelize(config.database, config.username, config.password, {
+			  host: config.host,
+			  dialect: 'mysql',
+			  pool: {
+			    max: 5,
+			    min: 0,
+			    idle: 30000
+			  }
+			});
+			定义Modal映射,user是表，如果重新指定数据库，加第三个参数{ tableName: 'mytable'}
+			const User = sequelize.define('user', {
+			  id: {
+			    type: Sequelize.STRING(50),
+			    primaryKey: true
+			  },
+			  name: Sequelize.STRING(100),
+			  gender: Sequelize.BOOLEAN,
+			  birth: Sequelize.STRING(10),
+			  createdAt: Sequelize.BIGINT,
+			  updatedAt: Sequelize.BIGINT,
+			  version: Sequelize.BIGINT
+			}, {
+			  timestamps: false
+			});
+			查：
+			myTable.find({
+			  attributes: ['name', 'sex'],
+			  where: {
+			    id: 5
+			  }
+			}).then(res => {
+			  console.log('查询', JSON.parse(JSON.stringify(res)))
+			}).catch(e => {
+			  console.log(e)
+			});
+			增：
+			(async () => {
+			  try {
+			    const res = await myTable.create({
+			      name: '闹啥类',
+			    });
+			    console.log(res)
+			  } catch (e) {
+			    console.log('添加失败', e)
+			  }
+			})();
+			改：
+			// 更新
+			myTable.find({
+			  where: {
+			    id: 2
+			  }
+			}).then(d => {
+			  d.name = '娃哈哈';
+			  return d.save()
+			}).then(res => {console.log('更新', res)});
+			删：
+			myTable.find({
+			  where: {
+			    id: 3
+			  }
+			}).then(d => {
+			  return d.destroy()
+			}).then(res => {console.log('删除', res)});
+			
+			数据类型对照表
+			Sequelize.STRING                      
+			// VARCHAR(255)                  类型：字符串 最大值： 65535个字符
+			Sequelize.STRING(1234)                
+			// VARCHAR(1234)                 类型：变长 最大值： 65535个字符
+			Sequelize.TEXT                        
+			// TEXT                          类型：字符串 最大值：65535个字符
+			Sequelize.TEXT('tiny')                
+			// TINYTEXT                      类型：字符串 最大值：255个字符
+			 
+			Sequelize.INTEGER                     
+			// INTEGER                       类型：整型 最大值：范围(-2147483648~2147483647)
+			Sequelize.BIGINT                      
+			// BIGINT                        类型：整型 最大值：范围(+-9.22*10的18次方)
+			Sequelize.BIGINT(11)                  
+			// BIGINT(11)                    类型：整型 最大值：范围(+-9.22*10的18次方)
+			 
+			Sequelize.FLOAT                       
+			// FLOAT                         类型：单精度浮点型  8位精度(4字节)
+			Sequelize.FLOAT(11)                   
+			// FLOAT(11)                     类型：单精度浮点型 8位精度(4字节)
+			Sequelize.FLOAT(11, 12)               
+			// FLOAT(11,12)                  类型：精度浮点型 8位精度(4字节) m总个数，d小数位
+			 
+			 
+			Sequelize.DOUBLE                      
+			// DOUBLE                        类型：双精度浮点型 16位精度(8字节) 
+			Sequelize.DOUBLE(11)                  
+			// DOUBLE(11)                    类型：双精度浮点型 16位精度(8字节) 
+			Sequelize.DOUBLE(11, 12)              
+			// DOUBLE(11,12)                 类型：双精度浮点型 16位精度(8字节) m总个数，d小数位
+			 
+			Sequelize.DECIMAL                     
+			// DECIMAL                       类型：定点数型
+			Sequelize.DECIMAL(10, 2)              
+			// DECIMAL(10,2)                 类型：定点数型 参数m<65 是总个数，d<30且 d<m 是小数位
+			 
+			Sequelize.DATE                        
+			// DATETIME                      类型：日期时间类型 范例：'2009-05-12 02:31:44'
+			Sequelize.DATE(6)                     
+			// DATETIME(6)    
+			Sequelize.DATEONLY                    
+			// DATE without time.
+			Sequelize.BOOLEAN                     
+			// TINYINT(1)                    类型：整型 范围(-128~127)
+			 
+			Sequelize.ENUM('value 1', 'value 2')  
+			// ENUM                          类型：枚举
+			 
+			Sequelize.BLOB                        
+			// BLOB                          类型：二进制数据
+			Sequelize.BLOB('tiny')                
+			// TINYBLOB                      类型：二进制数据 
+			*
+			*
+			*
+			*
+			*
+			*
+			*
+			》》重连：
+			function handleError (err) {
+			  if (err) {
+			    // 如果是连接断开，自动重新连接
+			    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+			      connect();
+			    } else {
+			      console.error(err.stack || err);
+			    }
+			  }
+			}
+			
+			// 连接数据库
+			function connect () {
+			  db = mysql.createConnection(config);
+			  db.connect(handleError);
+			  db.on('error', handleError);
+			}
+			
+			var db;
+			connect();
+		 -->
+	</body>
+</html>

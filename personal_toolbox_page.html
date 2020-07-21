@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/Pcss.css"/>
+	</head>
+	<body>
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<div id="wrap" style="background-color: #31708F;position: relative;">
+			<span style="position: absolute;top: 0;left: 0px;width: 30px;height: 30px;line-height: 30px;text-align: center;" onclick="javascript:window.history.go(-1)"><</span>
+			<div style="margin-left: 30px;height: 100%;background-color: #fff;">
+				<iframe id="frime" style="height: 100%;width: 100%;" iframeborder='0' src="" width="" height=""></iframe>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.addEventListener('resize',function(){
+			$('#wrap').height($(window).height())
+		})
+		$('#wrap').height($(window).height())
+		$('#frime').attr('src','.'+location.href.split('?')[1]+'?v='+(new Date().getTime()))
+	</script>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			canvas{
+				/*background: greenyellow;*/
+			}
+		</style>
+	</head>
+	<!--
+		canvas默认宽高为300，150，画板是由一个个像素构成的
+		用法：通过js来控制图案
+		
+		路径：该路径（是条线段）是由不同的点组成的
+		路径的绘制步骤：
+			1.beginPath（），创建一条路径
+			2.moveTo（x,y），路径的开始位置
+			3.lineTo（x，y），路径的终点
+			4.fill（），关闭这条路径，不是必须的，当lineTo结束时自动关闭该路径
+			
+		圆：arc(x,y,r,startAngle,endAngle,bool),从点的位置开始画的
+			x:圆点的横坐标
+			y：圆点的纵坐标
+			r：半径
+			startAngle：起始弧度，以x轴为参考
+			endAngle：结束弧度
+			弧度和角度的换算关系：Math.PI*(角度/180)
+			bool:默认值为顺时针方向true，
+			
+	-->
+	<body>
+		<!--canvas的宽高只能自身属性设置-->
+		<canvas id="mycan" width="320" height="320"></canvas>
+		<script>
+			var canvas = document.getElementById('mycan')
+			if(canvas.getContext){//判断浏览器兼容,下面的ctx才是真正操作画图案的
+				var ctx = canvas.getContext('2d');//创建画笔
+//				ctx.fillStyle = "#00B7FF"//这是画笔的颜色，放在rect的前面
+//				ctx.fillRect(110,110,100,100)//前两个参数是位置坐标下x,y，后两个是宽高坐标
+//				ctx.strokeRect(115,115,100,100)//x,y,w,h,接着画上去的
+//				ctx.clearRect(100,100,70,70)//清空画板区域
+				//
+//				ctx.beginPath();
+//				ctx.moveTo(10,10);
+//				ctx.lineTo(300,300);
+//				ctx.strokeStyle = '#4169E1'//线的填充
+//				ctx.lineWidth = 10;//线的宽度
+//				ctx.stroke();//线的填充
+//				ctx.setLineDash([5,10])//设置虚线路径，第一个值代表每一小段的长度，
+				//
+//				ctx.beginPath();
+//				ctx.arc(100,100,50,Math.PI*1.5,Math.PI*2,true)
+//				ctx.stroke();//线
+				
+//				ctx.beginPath();
+////				ctx.moveTo(100,100)
+//				ctx.arc(100,100,50,0,Math.PI*2,true)
+//				
+//				ctx.moveTo(125,100)
+//				ctx.arc(100,100,25,0,Math.PI,false)
+//				ctx.moveTo(125,75)
+//				ctx.arc(120,75,5,0,Math.PI*2,true)
+//				ctx.moveTo(80,75)
+//				ctx.arc(75,75,5,0,Math.PI*2,true)
+//				
+////				ctx.moveTo(130,130)
+////				ctx.arc(100,100,30,0,Math.PI,false)
+//	
+//				ctx.stroke()
+				//
+//				var str = "你好";
+//				ctx.textBaseline = "top"//让文字的顶部和canvas的顶部对齐
+//				ctx.font = "italic bold 28px 微软雅黑"
+//				ctx.fillStyle = "#FF0000"
+//				ctx.fillText(str,20,20)
+				//
+				var img = new Image();
+				img.src = 'img/111.png';
+				img.onload = function(){
+					ctx.drawImage(img,20,20)
+				}				
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.pp{
+				width: 300px;
+				height: 50px;
+				background: #00B7FF;
+			}
+			.cl{
+				background: #808080;
+			}
+		</style>
+		<script src="node_modules/jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="node_modules/vue/dist/vue.js"></script>
+	</head>
+
+	<body >
+		<!--<h1 id="app">{{message}}</h1>-->
+		<!---->
+		<!---->
+		<!---->
+		<!--双向数据绑定-->
+		<!--<div id="box">-->
+			<!--<h1>{{msg}}</h1>-->
+			<!--msg时刻反映着data里面的数据的状态-->
+			<!--<input type="text" v-model="msg"/>-->
+			<!--将数据里面的msg直接绑定到当前标签的value属性上面-->
+			<!--<hr />-->
+			<!--<h1>使用双向数据绑定</h1>-->
+			<!--<input type="radio" value="eating" v-model='picked' />-->
+			<!--<p>当我选中上面按钮的时候，选中的值是{{picked}}</p>-->
+			<!--<input type="checkbox" value="having" v-model='check' />-->
+			<!--<p>选中时的值为：{{check}}</p>-->			
+		<!--</div>-->
+		<!---->
+		<!---->
+		<!---->
+		<!---->
+		<!--双向绑定数据，v-model绑定多个标签以及元素隐藏和出现以及v-else和v-else-if的用法-->
+		<div id="box2">
+			<!--<input type="checkbox" value="馒头" v-model='message' />
+			<input type="checkbox" value="包子" v-model='message' />
+			选中的是：{{message}}-->
+			<!--显示和隐藏-->
+			<!--<h1 v-if="ifs">65156165</h1>
+			<h1 v-show="shows">65156165</h1>-->
+			
+			<!--<input type="checkbox" v-model='checked' />
+			<div v-if='checked'>5414651541</div>-->
+			
+			<!--<h3 v-if='age>20'>if的显示隐藏</h3>
+			<h3 v-else-if='age==20'>20</h3>
+			<h3 v-else>20以下</h3>-->
+			
+			<!--输入框内容赋给元素，两个input跟元素的if，else搞定，然后输入框的inp的v-model跟元素的字段挂钩就可以-->
+			<!--<input type="checkbox" v-model='checked' />
+			<input type="text" value="132123132" v-if='checked' v-model='inpval'/>
+			<span v-else>{{inpval}}</span>-->
+			
+			<!--vue循环-->
+			<!--<p v-for='(value,index) in reps'>{{value}}:{{index}}</p>
+			<hr />
+			<p v-for='i in reps'>{{i}}</p>
+			<hr />
+			<p v-for='i in arr'>{{i.name}}:{{i.age}}</p>
+			<hr />
+			<p v-for='(value,key,index) in people'>{{value}}是我的{{key}}，排行{{index+1}}</p>-->
+			
+			<!--事件-->
+			<!--<input type="text" v-model='people'/>
+			<button v-on:click="alerta(people)">点击</button>
+			<button v-on:keyup.13="alertb">点击</button>//es6写法-->
+			
+			<!--v-bind-->
+			
+			<a v-bind:href="herf">
+				<img v-bind:src="src" alt="" style="display:block;background: #00B7FF;width: 300px; height: 50px;"/>
+			</a>
+			<div class="pp" v-bind:class='{cl:true}'></div>
+			<div style="background: #8A2BE2;width: 300px;height: 80px;" v-bind:style='{border:"1px solid red"}'>
+				sdsf
+			</div>
+			<button v-on:click='hide'>dianji</button>
+			<div v-if='isShow' v-bind:style='zzc'>
+				
+			</div>
+		</div>		
+		
+		
+		
+		
+		
+		<script type="text/javascript">
+//			var vm = new Vue({//VUE的实例 VM薄片层
+//				el:'#app',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+//				data:{
+//					message:'这是vue的M，数据层'
+//				}
+//			})
+//			//双向数据绑定
+//			var vm = new Vue({//VUE的实例 VM薄片层
+//				el:'#box',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+//				data:{
+//					msg:'这是vue的M，数据层',
+//					picked:[],
+//					check:[]
+//				}
+//			})
+			//v-model绑定多个标签
+//			var vm = new Vue({//VUE的实例 VM薄片层
+//				el:'#box2',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+//				data:{
+//					message:[],
+//					ifs:true,
+//					shows:true,
+//					checked:false,
+//					age:18,
+//					inpval:'safsfsd'
+//				}
+//			})
+			//vue循环
+//			var vm = new Vue({//VUE的实例 VM薄片层
+//				el:'#box2',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+//				data:{
+//					reps:['asd','asdsad','老王'],
+//					arr:[
+//						{
+//							name:'sad',
+//							age:15
+//						},
+//						{
+//							name:'asfdsa',
+//							age:20
+//						},
+//						{
+//							name:'老王',
+//							age:18
+//						}
+//					],
+//					people:{
+//						'大舅哥':'小强',
+//						'二舅哥':'大强',
+//						'小舅子':'阿强'
+//					}
+//				}
+//			})
+			//事件
+//			var vm = new Vue({//VUE的实例 VM薄片层
+//				el:'#box2',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+//				data:{
+//					people:'sdfdsf'
+//				},
+//				methods:{//给实例上的元素提供方法的地方
+//					alerta:function(asd){
+//						alert(asd)
+//					},
+//					alertb(){//es6写法
+//						alert('asd')
+//					}
+//				}
+//			})			
+			//v-bind绑定命令
+			var vm = new Vue({//VUE的实例 VM薄片层
+				el:'#box2',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+				data:{
+					src:'',
+					herf:'http://www.baidu.com',
+					
+					isShow:false,
+					zzc:{
+						'background': '#8A2BE2','width':'480px','top':0,'bottom': 0,'left':0,'position': 'fixed'
+					}
+				},
+				methods:{//给实例上的元素提供方法的地方
+					hide(){
+						this.isShow=true;//关联data的字段并修改字段
+					}
+				}
+			})
+		</script>		
+	</body>
+
+</html>

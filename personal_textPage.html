@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<!-- 上 -->
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/Pcss.css"/>
+	</head>
+	<body>
+		<script src="Ext/jq_tool/all-jQ/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 中 -->
+		<style type="text/css">
+			html{
+				/* overflow: hidden; */
+				position: relative;
+			}
+			body{
+				/* overflow: hidden; */
+			}
+			.left{
+				width: 220px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				background-color: #e8e8e8;
+				overflow-y;auto;
+			}
+			.item{
+				padding: 30px 30px 0;
+			}
+			.right{
+				margin: 0 0 0 220px;
+			}
+			.frametop{
+				height: 60px;
+			}
+		</style>
+		<div class="left">
+			<div id="disk">
+				<!-- item -->				
+			</div>
+		</div>
+		<div class="right">
+			<div class="frametop">
+				<div style="padding: 20px;background-color: #eee;" onclick="frameback()"><<span style="float:right;" onclick="reload()">刷新</span></div>
+			</div>
+			<div id="framewrap" style="overflow: hidden;position: relative;">
+				<iframe id="frame" style="position: absolute;top: 0;left: 0;" src="" width="100%" height="" frameborder="0"></iframe>
+			</div>			
+		</div>
+		<script type="text/javascript">
+			$('html').height($(window).height())
+			$('body').height($(window).height())
+			$('.left').height($(window).height())
+			$('.right').height($(window).height())
+			$('#framewrap').css('height',$(window).height()-60)
+			$('#frame').attr('height',$(window).height()-60)
+			var p = ['testpage']
+			var setnum = function(){
+				$('#disk').empty()
+				for(var i=0;i<1;i++){
+					$('#disk').append('<div class="item"><span style="width:30px;height:10px;background-color:#fff;margin-right:20px;display:inline-block;"></span>'+p[i]+'</div>')
+				}
+			}
+			setnum()
+			var frameback = function(){
+				document.getElementById('frame').contentWindow.history.go(-1)
+			}
+			$('#frame').attr('src','personal_testpagelist.html?v='+(new Date().getTime()))
+			var reload = function(){
+				$('#frame').attr('src',$('#frame').attr('src').indexOf('&')==-1?$('#frame').attr('src')+'&'+(new Date().getTime()):$('#frame').attr('src').split('&')[0]+'&'+(new Date().getTime()))
+			}
+			window.addEventListener('resize',function(){
+				$('html').height($(window).height())
+				$('body').height($(window).height())
+				$('.left').height($(window).height())
+				$('.right').height($(window).height())
+				$('#framewrap').css('height',$(window).height()-60)
+				$('#frame').attr('height',$(window).height()-60)
+			})
+		</script>
+		<!-- 下 -->
+	</body>
+</html>

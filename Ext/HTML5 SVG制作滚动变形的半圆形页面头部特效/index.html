@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>HTML5 SVG制作滚动变形的半圆形页面头部特效|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/default.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+	</head>
+	<body>
+		<figure class="intro">
+			<img src="img/diver2.jpg" alt="" />
+			<figcaption class="caption">
+				<h1>Invasion</h1>
+			</figcaption>
+			<span class="overlay">
+				<svg version="1.1" id="circle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+				 y="0px" viewBox="0 0 500 250" enable-background="new 0 0 500 250" xml:space="preserve" PreserveAspectRatio="none">
+					<path fill="#FFFFFF" d="M250,246.5c-97.85,0-186.344-40.044-250-104.633V250h500V141.867C436.344,206.456,347.85,246.5,250,246.5z" />
+				</svg>
+			</span>
+		</figure>
+		<article class="copy">
+			<header class="htmleaf-header">
+				<h1>HTML5 SVG制作滚动变形的半圆形页面头部特效 <span>A curved cut header image effect</span></h1>
+				<div class="htmleaf-links">
+					<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span>
+							jQuery之家</span></a>
+					<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/html5/SVG/201508302493.html"
+					 title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+				</div>
+			</header>
+			<p class="teaser">Scroll down to see the effect. Actually I just wanted to code a layout idea with a curved cut
+				header image, but ended up with this one. Even though it looks fine and performance quite good, I dislike the idea
+				of having an inline svg in the markup, that only has an asthetic/design function. Any ideas on how to improve this
+				pen are welcome.</p>
+			<p>If you browsing with Chrome, make sure you have the "experimental Web Platform features" enabled (go to
+				chrome://flags/), to see image's mix-blend-mode effect.</p>
+		</article>
+
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<script>
+			function inViewport($el) {
+				var H = $(window).height(),
+					r = $el[0].getBoundingClientRect(),
+					t = r.top,
+					b = r.bottom;
+				return Math.max(0, t > 0 ? H - t : b < H ? b : H);
+			}
+			$(window).on('scroll resize', function() {
+				var window_offset = inViewport($('.intro'));
+				$('.overlay').height(window_offset);
+				$('.caption').css('bottom', window_offset / 4);
+			});
+		</script>
+	</body>
+</html>

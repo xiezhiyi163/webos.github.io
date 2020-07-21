@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/Ext/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="static/Ext/swiper-5.4.1/package/css/swiper.css"/>
+		<link rel="stylesheet" type="text/css" href="static/Ext/font-awesome-4.7.0/css/font-awesome.css"/>
+		<link rel="stylesheet" type="text/css" href="static/Ext/vide7.5.5/css/video-js.min.css"/>
+		<link rel="stylesheet" type="text/css" href="static/css/detail.css"/>
+	</head>
+	<!--[if lt ie 10]>
+	<body style='display:none'>
+	<[!endif]-->
+	<!--[if gte ie 10]>
+	<body>
+	<[!endif]-->
+	<!--[if !ie]>
+	<body>
+	<[!endif]-->
+		<script src="static/Ext/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 
+		==
+		top
+		== -->
+		<div class="topnav" style="height: 50px;">
+			<!-- 
+			变成浮动，js稍微控制下最大高度，完美，topnav高度为0 
+			-->
+			<div class="topnavwrap navbar-fixed-top navbar-inverse" style="height: auto;border-bottom: 1px solid #444;">
+				<!-- 
+				/.container-fluid 
+				-->
+				<div class="container-fluid">
+					<!-- 
+					Brand and toggle get grouped for better mobile display 
+					-->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand">Brand</a>
+						<form class="navbar-form navbar-left visible-xs" style="margin: 0 40px 0 55px;padding-top: 8px;padding-bottom: 2px;border: 0;box-shadow: none;">
+							<!-- 
+							/.col-lg-6 
+							-->
+							<div class="col-lg-6">
+								<!-- 
+								/input-group 
+								-->
+								<div class="input-group">
+									<!-- 
+									/btn-group 
+									-->
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+										<ul class="dropdown-menu" id="noactionwithBootstarp2">
+											<li><a>Action</a></li>
+											<li><a>Another action</a></li>
+											<li><a>Something else here</a></li>
+											<li role="separator" class="divider"></li>
+											<li><a>Separated link</a></li>
+										</ul>
+									</div>
+									<input type="text" class="form-control" placeholder="Search" aria-label="...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<!--
+					Collect the nav links, forms, and other content for toggling 
+					/.navbar-collapse 
+					-->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="active"><a>Link <span class="sr-only">(current)</span></a></li>
+							<li><a>Link</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span class="glyphicon glyphicon-tasks"></span></a>
+								<ul class="dropdown-menu">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>One more separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+						<form class="navbar-form navbar-left hidden-xs">
+							<div class="input-group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+								<ul class="dropdown-menu" id="noactionwithBootstarp">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+								</ul>
+								<div class="form-group" style="width: 130px;margin-left: -5px;">
+									<input type="text" style="width: 130px;" class="form-control" placeholder="Search">
+								</div>
+								<button type="submit" class="btn btn-default" style="border-radius: 0 5px 5px 0;">Go!</button>
+							</div>
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a>Link</a></li>
+							<li class="dropdown hidden-xs">
+								<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a>Action</a></li>
+									<li><a>Another action</a></li>
+									<li><a>Something else here</a></li>
+									<li role="separator" class="divider"></li>
+									<li><a>Separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<!--
+		==
+		content
+		== -->
+		<div id="shop">
+			<!-- 商铺的顶栏预设容器，该容器的高度将增加到滚动距离那里 -->
+			<div style="height: 200px;background-color: #eee;text-align: center;line-height: 200px;color: #ccc;font-size: 80px;">
+				shop				
+			</div>
+			<div id="swiper-container2" style="height: 40px;background-color:#F0C78A;">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">1</div>
+					<div class="swiper-slide">1</div>
+					<div class="swiper-slide">1</div>
+					<div class="swiper-slide">1333</div>
+					<div class="swiper-slide">1</div>
+					<div class="swiper-slide">1000</div>
+					<div class="swiper-slide">1</div>
+					<div class="swiper-slide">1</div>
+					<div class="swiper-slide">1</div>
+				</div>
+			</div>
+		</div>
+		<div style="max-width: 1200px;margin: auto;padding-bottom: 63px;" id="wrap">
+			<div class="topnavwrap topnavwrap3" id="maininfo" style="margin:0 5px 0 0;background-color: transparent;visibility: hidden;">
+				<!-- 放大镜（可设置或取消固定定位） -->
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 0;max-width: 379px;" id="leftcont">
+					<div id="topleft" class="topleft" style="margin:10px 10px 0 0;max-width: 379px;z-index: 1;">
+						<!-- cont -->
+						<div class="topleftTitle" style="padding:20px 20px;border-bottom: 1px solid #eee;">
+							<span>title</span>><span>title</span>><span>title</span>
+						</div>
+						<div>
+							<!-- mirror -->
+							<div id="mirrorWrap_" style="width:100%;background-color: #f8f8f8;margin: 0 auto;">
+								<div id="small-to-big">
+									<div class="small">
+										<img src="static/img/26436247p0.jpg" height="100%" />
+										<p></p>
+									</div>
+									<div class="big">
+										<div class="big2">
+											<img height="100%" src="static/img/26436247p0.jpg" />											
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- swiper slider -->
+							<div class="swiper-container" style="margin-top:5px;width: 100%;height: 100px;transform: scale(1.012);">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<div class="swiper-slidediv">1</div>
+									</div>
+									<div class="swiper-slide">
+										<div>2</div>
+									</div>
+									<div class="swiper-slide">
+										<div>3</div>
+									</div>
+									<div class="swiper-slide">
+										<div>4</div>
+									</div>
+									<div class="swiper-slide">
+										<div>5</div>
+									</div>
+									<div class="swiper-slide">
+										<div>6</div>
+									</div>
+									<div class="swiper-slide">
+										<div>7</div>
+									</div>
+									<div class="swiper-slide">
+										<div>8</div>
+									</div>
+									<div class="swiper-slide">
+										<div>9</div>
+									</div>
+									<div class="swiper-slide">
+										<div>10</div>
+									</div>
+								</div>
+								<!-- Add Pagination -->
+								<!-- <div class="swiper-pagination"></div> -->									
+								<!-- Add Arrows -->
+								<div class="swiper-button-next"></div>
+								<div class="swiper-button-prev"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 右边信息 -->
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding: 0;" id="rightCont">
+					<div class="topleft" style="margin:10px 10px 0 0;">
+						<!-- cont -->
+						<div>
+							<div class="rightContTitle" style="padding: 10px;margin-bottom: 0px;">
+								<span>title</span>><span>title</span>><span>title</span>
+							</div>
+							<div id="rightContin" style="padding: 0 10px 0 20px;">
+								<div style="position: relative;">
+									<span style="float: right;">分享</span>
+									<h3 style="margin-top: 0;font-weight: bolder;">shoptitle</h3>
+								</div>
+								<div>
+									<p style="color: #666;">简介：这里是简介</p>
+									<p style="color: #666;">商家承若：这里是商家承若</p>
+									<p style="background-color: #ffd7bb;padding: 15px;font-size: 24px;font-weight: bolder;color: #ff5200;">
+										<span>10.00</span>-19.00
+									</p>
+									<p>分类：</p>
+									<div>
+										<div class="btn-group btn-group-xs" role="group" aria-label="type">
+											<button type="button" class="btn btn-default bottommargin">Left</button>
+											<button type="button" class="btn btn-default bottommargin">Middle</button>
+											<button type="button" class="btn btn-default bottommargin">Right</button>
+										</div>
+									</div>
+									<!-- 计数 -->
+									<p>数量：<span style="height:30px;line-height:30px;background-color: #eee;display: inline-block;padding: 0 10px;">+</span>
+									<input type="number" min="1" value="1" style="padding: 4px 0;border: 1px solid #eee;margin-left: -5px;width: 70px;text-align: center;">
+									<span style="height:30px;line-height:30px;background-color: #eee;display: inline-block;padding: 0 10px;margin-left: -5px;">-</span></p>
+								</div>
+								<!-- 购物车pc -->
+								<div id="shopcar" style="font-size: 16px;margin-top: 20px;">
+									<button style="color: #ff5200;border: 1px solid #ff5200;background-color: #ffe1cb;padding:10px 35px;">立即购买</button>
+									<span id="tocarboxbutton" style="background-color: #ff5200;color: white;border: 1px solid #ff5200;padding:12.5px 38px;position: relative;" onclick="tocarboxFn()">加入购物车
+										<a id="tocarbox" style="width: 40px;height: 40px;position: absolute;background-color: #F0AD4E;top: -20px;left: 50%;margin-left:-20px;border-radius: 50%;display: none;"></a>
+									</span>
+									<p id="PCfixshopcarbutton" style="position: fixed;right: 30px;bottom: 80px;width: 60px;height: 60px;background-color: #F0AD4E;border-radius: 50%;z-index: 1;"></p>
+								</div>
+								<!-- 购物车移动端 -->
+								<div id="fixshopcar" style="position: fixed;left: 0;bottom: 0;width: 100%;padding: 10px 0;background-color: #fff;z-index: 1;display: table;box-shadow: 0 0 10px 0px #ccc;">
+									<div style="width: 130px;display: table-cell;font-size: 12px;vertical-align: bottom;text-align: center;">
+										<div style="float: left;padding: 0 0 0 8px;">
+											<img src="" alt="" class="mobfixleftbutton" style="">
+											<p style="width: 30px;margin: 0;">店铺</p>
+										</div>
+										<div style="float: left;padding: 0 0 0 8px;">
+											<img src="" alt="" class="mobfixleftbutton" style="">
+											<p style="width: 30px;margin: 0;">客服</p>
+										</div>
+										<div style="float: left;padding: 0 0 0 8px;">
+											<img src="" alt="" class="mobfixleftbutton" style="">
+											<p style="width: 30px;margin: 0;">收藏</p>
+										</div>
+										<div style="clear: both;"></div>
+									</div>
+									<div style="display: table-cell;padding-right: 10px;">
+										<button style="color: #ff5200;border: 1px solid #ff5200;background-color: #ffe1cb;padding:10px 0;width: 50%;">立即购买</button>
+										<span style="background-color: #ff5200;color: white;border: 1px solid #ff5200;padding:10px 0;width: 50%;display: inline-block;margin-left: -5px;text-align: center;">加入购物车</span>				
+									</div>
+								</div>
+								<!-- detail -->
+								<div>
+									<div id="detail" style="height: 50px;background-color: #eee;margin: 20px 0px;text-align: center;color: #aaa;font-weight: bolder;line-height: 50px;width: 100%;">
+										<i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 20px;"></i> - 查看详情 - 
+									</div>									
+								</div>
+								<div id="videos">
+									<div data-videomodule style="background-color: #1d1d1d;" class="VPlay">
+										<div class="VPlayLeftdiv" id="VPlayLeftdiv">
+											<div id="VPlayLeftdivin" style="height: 100%;visibility: hidden;">
+												<video playsinline="true" webkit-playsinline="true" x5-video-orientation="portraint" x5-video-player-type="h5" x-webkit-airplay="true" x5-playsinline="" id="my-video" class="video-js" controls preload="auto" width="100%" height="100%"></video>									
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="detailwrap">
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+									<img style="width: 100%;min-height: 300px;" >
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<div style="min-height: 700px;background-color: #ccc;">
+			<div>
+				<div id="recommend" style="height: 50px;background-color: #eee;margin: 20px 0px;text-align: center;color: #aaa;font-weight: bolder;line-height: 50px;width: 100%;">
+					<i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 20px;"></i> - 其他推荐 - 
+				</div>									
+			</div>
+			<div id="itemwrap" style="overflow: hidden;max-width: 1180px;position: relative;margin: auto;">
+				<div id="itemwrapin">
+					<!-- 
+					////////template:
+					<div style="height: 300px;padding-left: 0;margin-bottom: 20px;" class="col-lg-3 col-md-4 col-xs-6">
+						<div style="height: 100%;margin-right: 5px;background-color: #0099FF;"></div>
+					</div> 
+					 -->
+				</div> 
+			</div>
+			<div>
+				<div id="loading" style="height: 50px;background-color: #eee;margin: 20px 0px 0;text-align: center;color: #aaa;font-weight: bolder;line-height: 50px;width: 100%;padding-bottom: 120px;">
+					- 正在加载 - 
+				</div>									
+			</div>
+		</div>
+		<script src="static/Ext/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/Ext/swiper-5.4.1/package/js/swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/Ext/jq.fly.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/Ext/vide7.5.5/js/video.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/detail.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

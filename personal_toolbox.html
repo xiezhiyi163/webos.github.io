@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/Pcss.css" />
+		<style type="text/css">
+			.wrapin {
+				padding-top: 30px;
+				padding-left: 30px;
+			}
+
+			.wrapin a {
+				display: inline-block;
+				padding: 0 30px 30px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<div style="padding: 30px;text-align: center;background-color: #5C83B0;color: white;">
+			toolbox<br/><br/>（全局框架开发推荐一开始用px，然后安装第三方适配移动端,日历插件--移动端另外引入适合移动端的插件就行）
+		</div>
+		<div id="wrap">
+			<!-- datas -->
+		</div>
+		<a id="toolboxjsonJs"></a>
+		<script type="text/javascript">
+			var time = new Date().getTime()
+			$('#toolboxjsonJs').append('<script src="static/js/_personal_toolboxjson.js?v='+time+'" type="text/javascript" charset="utf-8"></\script>')
+			var dataobj0 = {
+				datas: []
+			}
+			dataobj0.datas = toolbox
+			var setdata = function() {
+				for (var i = 0; i < dataobj0.datas.length; i++) {
+					if (!document.getElementById(dataobj0.datas[i].type)) {
+						$('#wrap').append('<p style="padding: 10px;border-bottom: 1px solid #ccc;border-top: 1px solid #ccc;background-color:#ccc"><a style="display:inline-block;margin-right:10px">·</a> ' +dataobj0.datas[i].typename + '</p>' + '<div class="wrapin" id="' + dataobj0.datas[i].type + '"></div>')
+						if(dataobj0.datas[i].link.indexOf('view-source:')!=-1){
+							$('#' + dataobj0.datas[i].type).append('<a href="' + dataobj0.datas[i].link+'?v='+(new Date().getTime()) + '" target="_blank">' + dataobj0.datas[i].name + '</a>')
+						}else{
+							if(dataobj0.datas[i].link.indexOf('http')!=-1){
+								$('#' + dataobj0.datas[i].type).append('<a href="' + dataobj0.datas[i].link+'?v='+(new Date().getTime()) + '" target="_blank">' + dataobj0.datas[i].name + '</a>')
+							}else{
+								$('#' + dataobj0.datas[i].type).append('<a href="' + dataobj0.datas[i].link+'?v='+(new Date().getTime()) + '">' + dataobj0.datas[i].name + '</a>')
+							}							
+						}
+					} else {
+						if(dataobj0.datas[i].link.indexOf('view-source:')!=-1){
+							$('#' + dataobj0.datas[i].type).append('<a href="' + dataobj0.datas[i].link+'?v='+(new Date().getTime()) + '" target="_blank">' + dataobj0.datas[i].name + '</a>')
+						}else{
+							if(dataobj0.datas[i].link.indexOf('http')!=-1){
+								$('#' + dataobj0.datas[i].type).append('<a href="' + dataobj0.datas[i].link+'?v='+(new Date().getTime()) + '" target="_blank">' + dataobj0.datas[i].name + '</a>')
+							}else{
+								$('#' + dataobj0.datas[i].type).append('<a href="' + dataobj0.datas[i].link+'?v='+(new Date().getTime()) + '">' + dataobj0.datas[i].name + '</a>')
+							}							
+						}
+					}
+				}
+			};
+			setdata();
+		</script>
+	</body>
+</html>

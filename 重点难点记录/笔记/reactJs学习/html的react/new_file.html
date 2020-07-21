@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Hello React!</title>
+	</head>
+
+	<body>
+		
+		<script src="jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+
+		<div id="example"></div>
+		<script type="text/babel">
+			
+			//父传子：子组件接收父组件使用该组件时传进来的属性来获取值
+			//子传父：父组件把一个带参数的函数结构赋值给不带变量符的变量，传到子组件，让子组件调用，然后传参数进去，就ok
+			//兄弟组件：子传父再父传子2
+			//React.createClass当前版本已废除，无法使用
+			//classDom名字必须开头大写
+			class Clock extends React.Component {
+			    render() {//return里面的，this.props.属性为组件使用时要接收的内容
+				    return (
+				        <div>
+					        <h1>Hello, world!</h1>
+					        <h2>我是: {this.props.names}</h2>
+				        </div>
+				    );
+			    }
+			};
+			class Test extends React.Component {
+				//**data
+			  constructor(props) {
+			    super(props);//下面的方法可用this.props来获取该class使用时传进来的属性并获得值
+			    this.state = {
+			    	namet: 362,
+			    	arrs:[0,5,2,6,1,3,5,2]
+			    };
+			  }
+			  //**methods
+			  pclick(m){
+			  	console.log(m)
+			  }
+			  newNamet(){
+			  	this.setState({namet:521});			  	
+			  }
+			  tes = function(){
+			  	alert('var定义的构造函数里面的方法')
+			  }
+			  //**mounted
+			  componentDidMount() {//组件存在时触发的方法
+			  	this.newNamet()
+			  }
+			  componentWillUnmount() {//组件销毁时触发的方法，最好放到触发方法的后面
+			  	alert('组件已移除')
+			  }
+			  render() {
+			  	var _this = this;
+			    return (
+			      <div>
+			        <Test2 fn={this.tes}/>
+			        <div id='testDom'>{this.state.arrs.map(function(data,i){//for循环必须加k属性,标签的事件绑定必须要用箭头函数去绑定要引用的方法，或者function(){。。。逻辑或要用的方法}
+			        	return(<p key={i} onClick={()=>_this.pclick(data)}>{data}</p>)
+			        })}</div>
+			      </div>
+			    );
+			  }
+			};
+			class Test2 extends React.Component {
+				//**data
+			  constructor(props) {
+			    super(props);//下面的方法可用this.props来获取该class使用时传进来的属性并获得值
+			    this.state = {namet: 362};
+			  }
+			  //**methods
+			  newNamet(){
+			  	this.setState({namet:521})
+			  	this.props.fn()//调用了父组件的函数
+			  }
+			  //**mounted
+			  componentDidMount() {//组件存在时触发的方法
+			  	this.newNamet()
+//			  	setTimeout(function(){//组件通过定时器移除
+//			  		ReactDOM.unmountComponentAtNode(document.getElementById('example'));
+//			  	},300)
+			  }
+			  componentWillUnmount() {//组件销毁时触发的方法，最好放到触发方法的后面
+			  	alert('组件已移除')
+			  }
+			  render() {
+			    return (
+			      <div>
+			        <h2>这是 {this.state.namet}</h2>
+			      </div>
+			    );
+			  }
+			};
+			/*
+			 * 
+			 * 函数Dom名字也必须开头大写
+			 * 
+			 */
+			function Appv(props){
+				return(
+					<div>
+						<Clock names={props.namev}/>
+						<Test/>
+					</div>					
+				);
+			};
+			ReactDOM.render(//这是一个组件
+				<Appv namev='nsp'/>, 
+				document.getElementById('example') 
+			);
+		</script>
+		<script src="react.js"></script>
+		<script src="reactDom.js"></script>
+		<script src="babel.js"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				outline: 0;
+				border: 0;
+				text-decoration: none !important;
+				list-style: none;
+				appearance:none;
+				-webkit-appearance:none;
+			}
+			
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				appearance: none;
+			}
+			
+			input[type="number"] {
+				appearance: textfield;
+			}
+			
+			button {
+				border-radius: 0;
+			}
+			/*  */
+			#area{
+				position: fixed;
+				bottom: 0;
+				left:0;
+				width: 100%;
+				height: 390px;
+				background-color: #e8e8e8;
+				overflow: hidden;
+			}
+			#area>div {
+				margin: 20px;
+			}
+			#area>div:after {
+				display: block;
+				content: '';
+				clear: both;
+			}
+			#area>div>div{
+				float: left;
+				width: 33.333%;
+				text-align: center;
+				padding-bottom: 15px;
+			}
+			.areaitem{
+				height: 300px;
+				overflow-y:auto ;
+			}
+			.areaitem>div{
+				width: 100% !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" style="visibility: hidden;">
+			<div @click="showarea = 1;itemchange = 'pro'">
+				点击弹出
+			</div>
+			<div style="position: fixed;width: 100%;left:0;bottom:0;background-color: rgba(0,0,0,.7);" :style="showarea?'height:100%':'height:0'" @click="showarea = 0">
+				<div id="area" :style="showarea?'height:390px':'height:0'" @click.stop=''>
+					<div>
+						<div @click="prochoose()" :style="itemchange == 'pro'?'border-bottom:1px solid coral':''">省</div>
+						<div @click="citychoose()" :style="itemchange == 'city'?'border-bottom:1px solid coral':''">市</div>
+						<div @click="areachoose()" :style="itemchange == 'area'?'border-bottom:1px solid coral':''">区</div>
+					</div>
+					<div class="areaitem" :style="itemchange == 'pro'?'height:300px':'height:0;'">
+						<div v-for='(v,i) in proArr' @click="proselect(i)" :style="v.name==pro?'color:coral':''">{{v.name}}</div>
+					</div>
+					<div class="areaitem" :style="itemchange == 'city'?'height:300px;margin:-20px 0 0 0':'height:0'">
+						<div v-for="(v,i) in ec" @click="cityselect(i)" :style="v.split('#')[1]==city?'color:coral':''">{{v.split('#')[1]}}</div>
+					</div>
+					<div class="areaitem" :style="itemchange == 'area'?'height:300px;margin:-40px 0 0 0':'height:0'">
+						<div v-for="(v,i) in ec2" @click="area = v;showarea = 0" :style="v==area?'color:coral':''">{{v}}</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<script src="static/common/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/common/area_normal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var datas = {
+					//联动相关数据
+					showarea:0,
+					placedata:areas,//台湾[],香港,澳门没放在里面
+					proArr:[],
+					cityObj:{},
+					counObj:{},
+					pro:'',//记录选中后的name
+					city:'',//记录选中后的name
+					cityid:'',//记录选中后的cityid
+					area:'',//记录选中后的name
+					itemchange:'pro',
+					ec:[],
+					ec2:[],
+				},
+				//联动相关				
+				resetAreaArr = function($vue){//数组初始化到三个数组
+					var placedataProInd = 0
+					for(x in $vue.placedata){
+						placedataProInd++
+						$vue.proArr.push({"id":placedataProInd,"name":x})
+						$vue.cityObj[''+placedataProInd+''] = []
+						placedataCityInd = 0
+						for(y in $vue.placedata[x]){
+							placedataCityInd++
+							$vue.cityObj[''+placedataProInd+''].push(''+placedataProInd+'0'+placedataCityInd+'#'=='101#'?'101#北京市':(''+placedataProInd+'0'+placedataCityInd+'#' == '201#'?'201#天津市':''+placedataProInd+'0'+placedataCityInd+'#'+y));
+							placedataCounInd = 0
+							$vue.counObj[''+placedataProInd+'0'+placedataCityInd] = []
+							for(k in $vue.placedata[x][y]){
+								placedataCounInd++
+								$vue.counObj[''+placedataProInd+'0'+placedataCityInd].push($vue.placedata[x][y][k])
+							}
+						}
+					}
+					console.log($vue.proArr)
+				},				
+				prochoose_ = function($vue){//联动的分类切换
+					$vue.itemchange = 'pro'
+				},
+				citychoose_ = function($vue){//联动的分类切换
+					if($vue.pro == ''){
+						return;
+					}
+					$vue.itemchange = 'city'
+				},
+				areachoose_ = function($vue){//联动的分类切换
+					if($vue.city == ''){
+						return;
+					}
+					if($vue.pro == ''){
+						return;
+					}
+					$vue.itemchange = 'area'
+				},
+				
+				proselect_ = function($vue,i){//联动选择
+					var t = $vue.pro
+					$vue.pro = $vue.proArr[i].name
+					$vue.ec = $vue.cityObj[i+1]
+					$vue.itemchange = 'city'
+					if(t != $vue.pro){
+						$vue.city = ''
+						$vue.cityid = ''
+						$vue.area = ''
+					}
+				},
+				cityselect_ = function($vue,i){//联动选择
+					$vue.city = $vue.ec[i].split('#')[1]
+					$vue.cityid = $vue.ec[i].split('#')[0]
+					$vue.ec2 = $vue.counObj[$vue.cityid]
+					$vue.itemchange = 'area'
+				}
+				//监听
+				listens = function(){
+					
+				},
+				vue = new Vue({
+					el:'#app',
+					data:datas,
+					methods:{
+						//联动相关						
+						prochoose:function(){//联动的分类切换
+							prochoose_(this)
+						},citychoose:function(){//联动的分类切换
+							citychoose_(this)
+						},areachoose:function(){//联动的分类切换
+							areachoose_(this)
+						},
+						proselect:function(i){//联动选择
+							proselect_(this,i)
+						},
+						cityselect:function(i){//联动选择
+							cityselect_(this,i)
+						}
+					},
+					mounted() {
+						document.getElementById('app').style.cssText = 'visibility: visible;'
+						//联动相关
+						resetAreaArr(this)//数组初始化到三个数组
+						//监听
+						listens()
+					}
+				})
+		</script>
+	</body>
+</html>

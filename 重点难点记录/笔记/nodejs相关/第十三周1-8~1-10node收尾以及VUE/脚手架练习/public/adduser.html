@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>添加人员</h1>
+		<form action="/VueHandler/student?action=addstu" method="post">
+			<p>用户：<input type="text" name="name"/></p>
+			<p>密码：<input type="password" name="pasw"/></p>
+			<p>手机：<input type="text" name="phone"/></p>
+			<p>姓名：<input type="text" name="turename"/></p>
+			<input type="submit" value="提交" />
+		</form>
+		<form action="/VueHandler/student?action=usershow" method="post">
+			<input type="text" name="name" />
+			<input type="text" name="phone" />
+			<input type="text" name="truename" />
+			<input type="text" name="pageStart" />
+			<input type="submit" value="提交" />
+		</form>
+	</body>
+</html>

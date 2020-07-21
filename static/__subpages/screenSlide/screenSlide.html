@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				outline: 0;
+				border: 0;
+				text-decoration: none !important;
+				list-style: none;
+			}
+			input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
+			{
+			  appearance: none;
+			}
+			input[type="number"]
+			{
+			  appearance: textfield;
+			}
+			button{
+				border-radius: 0;
+			}
+			/* 滚屏 */
+			html,body {
+				position:relative;
+				overflow: hidden;
+			}
+			#scrollScreen {
+				background-color: #ccc;
+			}
+			#scrollScreenWrap div {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: #ddd;
+			}
+			#lastcontwrap div {
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="scrollScreen">
+			<div id="scrollScreenWrap">
+				<div>1</div>
+				<div>2</div>
+				<div>3</div>
+				<div>4</div>
+				<div data-scroll='1' style="overflow-y: auto;overflow-x:hidden" id="lastcontwrap">
+					<div style="height: 1350px;"></div>
+					<div style="height: 100px;background-color: #47B5CA;"></div>
+				</div>
+			</div>
+			<div>
+				
+			</div>
+		</div>
+		<script type="text/javascript">
+			var data = {
+				winheights:window.innerHeight?window.innerHeight:document.documentElement.clientHeight?document.documentElement.clientHeight:document.body.clientHeight,
+				//滚屏
+				scrollScreen:document.getElementById('scrollScreen'),
+				scrollScreenWrap:document.getElementById('scrollScreenWrap'),
+				scrollScreenindex:0,
+				scrollScreenflag:0,
+				//
+				scrollScreenActiveScroll:'no',
+			},
+			//滚屏
+			scrollScreeninit = function(){
+				for(var i=0;i<data.scrollScreenWrap.children.length-1;i++){
+					data.scrollScreenWrap.children[i].style.zIndex = data.scrollScreenWrap.children.length-i
+				}
+			},
+			//监听
+			//滚屏的监听
+			scrollScreenResize = function(){
+				data.winheights = window.innerHeight?window.innerHeight:document.documentElement.clientHeight?document.documentElement.clientHeight:document.body.clientHeight
+				data.scrollScreen.style.height = data.winheights + 'px'
+				data.scrollScreenWrap.style.height = data.winheights + 'px'
+			},
+			scrollScreen = function(ewd){//滚屏基本逻辑
+				if(ewd<0){
+					data.scrollScreenindex++
+					if(data.scrollScreenindex>data.scrollScreenWrap.children.length-1){
+						data.scrollScreenindex = data.scrollScreenWrap.children.length-1
+					}
+					scrollScreenactiveindex()
+				}
+				if(ewd>0){
+					data.scrollScreenindex--
+					if(data.scrollScreenindex<0){
+						data.scrollScreenindex = 0
+					}
+					scrollScreenactiveindex()
+				}
+			},
+			scrollScreenactiveindex = function(){//找到可滚动容器并监听来设置是否滚屏			
+				for(var i=0;i<data.scrollScreenWrap.children.length-1;i++){
+					if(data.scrollScreenindex == i){
+						data.scrollScreenWrap.children[i].style.top = 0
+					}else{
+						data.scrollScreenWrap.children[i].style.top = -data.winheights + 'px'
+					}
+				}
+			},
+			scrollScreenSlide = function(event){//滚屏基本逻辑
+				if(data.scrollScreenflag == 1){					
+					return;
+				}
+				data.scrollScreenflag = 1
+				var ewd = '',
+					nowindex = data.scrollScreenindex;
+				if(!event.wheelDelta){
+					ewd = event.detail/-3*120
+				}else{
+					ewd = event.wheelDelta
+				}
+				//
+				if(data.scrollScreenWrap.children[data.scrollScreenindex].scrollTop != 0&&
+				data.scrollScreenWrap.children[data.scrollScreenindex].dataset.scroll == 1){
+					data.scrollScreenflag = 0
+					return;
+				}
+				setTimeout(function(){
+					//
+					scrollScreen(ewd)
+					data.scrollScreenflag = 0
+				},1500)
+			},
+			listens = function(){
+				//滚屏的监听
+				scrollScreenResize()
+				window.addEventListener('resize',function(){
+					scrollScreenResize()
+				})
+				window.addEventListener('mousewheel',function(){
+					scrollScreenSlide(event)
+				})
+				window.addEventListener('DOMMouseScroll',function(){
+					scrollScreenSlide(event)
+				})
+			},
+			//加载
+			loadFn = function(){
+				//滚屏
+				scrollScreeninit()
+				//监听
+				listens()
+			};loadFn()
+		</script>
+	</body>
+</html>

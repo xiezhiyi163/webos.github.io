@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<style>
+	*{margin: 0;padding: 0;list-style: none;border: 0;outline: none;text-decoration: 0;}
+</style>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+	</head>
+	<body>
+		<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<div style="padding: 40px;">
+			任务管理器
+			<ul id="list" style="margin-top:30px;">
+				<!--data-->
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var tms = ''
+			var addlist = function(){
+				clearTimeout(tms)
+				$('#list').empty()
+				var str = function(obj){
+					return '<li id="'+obj.openid+'" style="height: 60px;">'+
+						'<img width="30" height="30" style="background-color: #eee;border-radius: 50%;display: inline-block;margin-right:15px" />'+
+						'<span style="display: inline-block;white-space:nowrap;overflow:hidden;width:190px">'+obj.name+'</span>'+
+						'<span style="float: right;cursor:pointer;" onclick="closewindow(\''+obj.openid+'\')">结束任务</span>'+
+						(obj.name=='任务管理器'?'':'<span style="float: right;cursor:pointer;margin-right:30px" onclick="resetposition(\''+obj.openid+'\')">初始化位置</span>')+
+					'</li>'
+				}
+				for(var i=0;i<window.parent.p_data.windowdata.length;i++){
+					if(window.parent.p_data.windowdata[i].name!='设置'){
+						$('#list').append(str(window.parent.p_data.windowdata[i]))
+					}
+				}
+				tms = setTimeout(addlist,1500)
+			};
+			var closewindow = function(obj){
+				$('#'+obj).remove();
+				window.parent.windowboxclose(obj)
+			};
+			var resetposition = function(obj){
+				window.parent.resetpositions(obj)
+			};
+			(function(){
+				addlist()
+			})()
+			
+		</script>
+	</body>
+</html>

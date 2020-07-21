@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<!--
+		{
+			@内嵌页面，独立css
+		}
+	-->
+	<head>
+		<meta charset="UTF-8">
+		<META    HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		
+		<META    HTTP-EQUIV="Expires" CONTENT="0">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+	</head>
+	<!--
+		{*************************
+			@pjs为公共js
+			然后就是独立的正文部分dom跟js
+		}
+	-->
+	<body>
+		<strong pjs>
+			<script src="static/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+			<script src="static/js/api.js" type="text/javascript" charset="utf-8"></script>			
+		</strong>
+		<link rel="stylesheet" type="text/css" href="static/css/_personal_mvc_os.css"/>
+		<div>
+			<div id="topinputwrap" class="topinputwrap">
+				<div>
+					<input type="text" class="topinput" placeholder="输入要查询的内容"/>
+				</div>
+			</div>
+			<ul id="leftwrap">
+				<li>
+					<img/>
+					<span>桌面壁纸更换</span>
+					<!-- 切换逻辑：桌面先放一张原生的，然后搞两个绝对定位的元素，先定一张为出现的，然后轮流写入，轮流同时渐变出现和消失就行 -->
+				</li>
+				<li>
+					<img/>
+					<span>已安装的应用</span>
+				</li>
+				<li>
+					<img/>
+					<span>应用商店</span>
+				</li>
+			</ul>
+			<!-- // -->
+			<div id="contwrap">
+				<div class="contwraptop">
+					<div>
+						<div>
+							sort							
+						</div>
+					</div>
+				</div>
+				<div id="cont" style="padding: 0px 0 10px 0;">
+					<div>
+						<div class="iconwrap">
+							<img/>
+							<p>范特西专辑一览</p>
+						</div>						
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+			</div>
+			<!-- // -->
+			<div class="bottominfo">
+				<img src="" alt="" />
+				<div>
+					<p>TITLE</p>
+					<p class="btiDec">33232sdf</p>
+				</div>
+			</div>
+		</div>
+		<strong>
+			<script type="text/javascript" src="static/js/_personal_mvc_os.js"></script>
+		</strong>
+	</body>
+</html>
