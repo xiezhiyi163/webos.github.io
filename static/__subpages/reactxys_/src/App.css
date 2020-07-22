@@ -1,0 +1,11 @@
+.App{
+	overflow-x: hidden;
+	width: 100%;
+}
+.logo {
+  width: 120px;
+  height: 31px;
+  background: #eee;
+  margin: 8.5px 24px 8.5px 15px;
+  float: left;
+}
