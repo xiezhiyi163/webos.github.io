@@ -60,11 +60,11 @@ var deskinitdata = function(type,p_data,callback){
 				g: '微信小程序api', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
-				a: "'bilibili','1','http://www.bilibili.com/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1100px','height:600px','indexmax'", 
+				a: "'bilibili','1','https://www.bilibili.com/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1100px','height:600px','indexmax'", 
 				g: 'bilibili', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
-				a: "'baidu','1','//baidu.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1253px','height:640px','indexmax'", 
+				a: "'baidu','1','https://baidu.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1253px','height:640px','indexmax'", 
 				g: 'baidu', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:1,ifmetro:0
 			},
 			{ 
@@ -92,7 +92,7 @@ var deskinitdata = function(type,p_data,callback){
 				g: 'VPlay', ac: 0,ifresize:1 ,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
-				a: "'Bstatic','1','http://bowlroll.net/file/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'Bstatic','1','https://bowlroll.net/file/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: 'B碗', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
@@ -104,7 +104,7 @@ var deskinitdata = function(type,p_data,callback){
 				g: '使用或开发指南', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
-				a: "'lanhuApp','1','//lanhuapp.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'lanhuApp','1','https://lanhuapp.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: '蓝湖app', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
