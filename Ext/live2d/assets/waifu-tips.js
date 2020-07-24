@@ -173,6 +173,17 @@ function hideMessage(timeout){
     $('.waifu-tips').delay(timeout).fadeTo(200, 0);
 }
 
+//设备标识获取
+var systemsign = function() {
+	//=========
+	var UA = navigator.userAgent
+	if(UA.indexOf('Windows') != -1 || UA.indexOf('Macintosh') != -1) {
+		return 'win'
+	} else {
+		return 'mob'
+	}
+}
+
 function initModel(waifuPath){
     
     if (waifuPath === undefined) waifuPath = '';
@@ -222,7 +233,18 @@ function initModel(waifuPath){
                     showMessage(text, 6000, true);
                 }
             });
-        }
+        },
+		fail:function(){
+			document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'none';
+			systemsign()=='mob'?'':spop({
+				template:popdom('text',{
+					texts:'live2d初始化失败，后台人员似乎打了瞌睡并把服务器干了一番',
+				}),
+				style:'info',
+				position:'top-center',
+				autoclose:11500,
+			})
+		}
     });
 }
 
@@ -250,7 +272,18 @@ function loadRandModel(){
                 showMessage('我的新衣服好看嘛', 3000, true);
             }
             loadModel(modelId, result.textures['id']);
-        }
+        },
+		fail:function(){
+			document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'none';
+			systemsign()=='mob'?'':spop({
+				template:popdom('text',{
+					texts:'live2d初始化失败，后台人员似乎打了瞌睡并把服务器干了一番',
+				}),
+				style:'info',
+				position:'top-center',
+				autoclose:11500,
+			})
+		}
     });
 }
 
@@ -266,7 +299,18 @@ function loadOtherModel(){
         success: function (result){
             loadModel(result.model['id']);
             showMessage(result.model['message'], 3000, true);
-        }
+        },
+		fail:function(){
+			document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'none';
+			systemsign()=='mob'?'':spop({
+				template:popdom('text',{
+					texts:'live2d初始化失败，后台人员似乎打了瞌睡并把服务器干了一番',
+				}),
+				style:'info',
+				position:'top-center',
+				autoclose:11500,
+			})
+		}
     });
 }
 //qiantaiPage/Ext/live2d/assets/live2d-phpStatic

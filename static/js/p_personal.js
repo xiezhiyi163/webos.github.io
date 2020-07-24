@@ -134,6 +134,15 @@ var IframeOnClick = {
 	}
 };
 
+//返回窗口宽度
+var getwinSize = function(){
+	var i = window.innerWidth,
+		dc = document.documentElement.clientWidth,
+		bc = document.body.clientWidth,
+		t = i?i:dc?dc:bc
+	return t
+}
+
 /* //@重置桌面布局,桌面尺寸，连接状态） */
 var sizefn = function() {
 	//屏幕尺寸调整
@@ -1344,6 +1353,10 @@ var dianyuan = function() {
 //live2d
 
 var live2d = function(){
+	if(systemsign()=='mob'){
+		document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'none';		
+		return;
+	}
 	initModel("Ext/live2d/assets/waifu-tips.json")
 	if(sessionStorage.live2dshow == 0){
 		document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'visible';document.getElementById('live2DBoxclose').style.display = 'none';
