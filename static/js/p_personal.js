@@ -192,7 +192,7 @@ var startmenuright = function() {
 			if(sessionStorage.citieicons.indexOf && sessionStorage.citieicons.indexOf(obj.icons[i].a.split(',')[0].split('\'')[1] + '|') != -1) {
 				substr+='<li class="pcss_floatl pcss_bg-col-66A8CC pcss_col-white pcss_posi-rela" style="'+c+'" onclick="clickicon(' + obj.icons[i].a + ',\''+ obj.icons[i].g + '\',' + obj.icons[i].ifresize + ',' + ((obj.iconUrl==''||obj.iconUrl==null||!obj.iconUrl)?'\'-\'':obj.iconUrl) + ',' + ((obj.color==''||obj.color==null||!obj.color)?'\'-\'':obj.color) + ',null)">'
 				substr+='	<p>' 
-				substr+='		<img src="" alt="" width="30" height="30" class="pcss_bg-col-eee pcss_posi-rela"/>'
+				substr+='		<img alt="" width="30" height="30" class="pcss_bg-col-eee pcss_posi-rela"/>'
 				substr+='	</p>'
 				substr+='	<span class="pcss_posi-abso" style="left:2px;bottom:2px;z-index:1;font-weight:bold;width:86px;">' + obj.icons[i].g + '</span>'
 				substr+='	<span class="pcss_posi-abso" style="left:3px;bottom:3px;color:#0e0e0e;font-weight:bold;width:86px;">' + obj.icons[i].g + '</span>'
@@ -222,7 +222,7 @@ var disetfnAndMlisetfn = function() { //统一处理图标显示的地方
 		var dom = ''
 		dom+= '<li class="pcss_posi-rela" onclick="clickicon(' + strs.a + ',\''+ strs.g + '\',' + strs.ifresize + ',' + ((strs.iconUrl==''||strs.iconUrl==null||!strs.iconUrl)?'\'-\'':strs.iconUrl) + ',' + ((strs.color==''||strs.color==null||!strs.color)?'\'-\'':strs.color) + ',null)">'
 		dom+='	<div>'
-		dom+='		<img src="" alt="" width="40" height="40" class="pcss_bg-col-eee" />'
+		dom+='		<img alt="" width="40" height="40" class="pcss_bg-col-eee" />'
 		dom+='	</div>'
 		dom+='	<p class="pcss_posi-rela">'
 		dom+='		'+strs.g
@@ -235,7 +235,7 @@ var disetfnAndMlisetfn = function() { //统一处理图标显示的地方
 		//===========
 		var dom = ''
 		dom+='<li onclick="clickicon(' + obj.a + ',\''+ obj.g + '\',' + obj.ifresize + ',' + ((obj.iconUrl==''||obj.iconUrl==null||!obj.iconUrl)?'\'-\'':obj.iconUrl) + ',' + ((obj.color==''||obj.color==null||!obj.color)?'\'-\'':obj.color )+ ',null)">'
-		dom+='	<img class="pcss_bg-col-white pcss_posi-rela" src="" alt="" width="20" height="20" />'
+		dom+='	<img class="pcss_bg-col-white pcss_posi-rela" alt="" width="20" height="20" />'
 		dom+='	'+obj.g
 		dom+='</li>'
 		return dom
