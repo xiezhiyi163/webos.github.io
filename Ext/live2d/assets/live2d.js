@@ -3993,7 +3993,16 @@ default = r;
 				i(e.response);
 				break;
 			default:
-				console.error("Failed to load (" + e.status + ") : " + t)
+				console.error("Failed to load (" + e.status + ") : " + t);
+				document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'none';
+				systemsign()=='mob'?'':spop({
+					template:popdom('text',{
+						texts:'live2d初始化失败，后台人员似乎打了瞌睡并把服务器干了一番',
+					}),
+					style:'info',
+					position:'top-center',
+					autoclose:11500,
+				})
 			}
 		}, e.send(null)
 	}, r.prototype.loadString = function(t) {
