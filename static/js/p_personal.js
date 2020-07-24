@@ -625,7 +625,7 @@ var bottomWrapIcon = function(obj) { //任务栏按钮追加
 		str1: function(objs) {
 			var dom = ''
 			dom+='<span class="pcss_bg-col-7f8fdc99 iconbox" id="' + obj.openid + '_b" onclick="windowboxifshow(\'' + obj.openid + '\',\'0\')">'
-			dom+='<img class="pcss_bg-col-white" src="" alt="" />'
+			dom+='<img class="pcss_bg-col-white" alt="" />'
 			dom+='</span>'
 			return dom
 		}
