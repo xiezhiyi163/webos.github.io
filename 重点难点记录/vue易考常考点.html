@@ -119,7 +119,11 @@
 			vue的keep-alive标签：
 				include:'a,b',要缓存的组件的name属性的值，组件当中要设置name属性并与data同级
 				exclude：不需要缓存的组件
-				使用keep-alive标签包裹的组件或标签，都会被缓存起来，但是组件的话，组件里面会多出activated 与 deactivated两个钩子函数，要想再次显示时触发函数，就使用activated来进行触发，如果停用组件，就用deactivated
+				使用keep-alive标签包裹的组件或标签，都会被缓存起来，但是组件的话，组件里面会多出activated 与 deactivated两个钩子函数，要想再次显示时触发函数，就使用activated来进行触发，如果停用组件，就用deactivated；
+			vue阻止页面离开：
+				beforeRouteLeave(to, from, next) {
+					//保存与否的flag来判断next()可跳转跟为保存时弹框确定next()和取消next(false)
+				}
 		-->
 	</body>
 </html>

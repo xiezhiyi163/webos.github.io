@@ -72,6 +72,16 @@
 					浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任一不同，都是跨域
 					解决：1.jsonp跨域 2.nginx方向代理（后台的事）3.PHP端修改header（后台的事）
 					jsonp：追加一个带有key=Fn函数这个参数的script脚本（key后台沟通（默认是callback），Fn可以任意），并调用函数，传入res参数，获取参数里面的东西
+				阻止页面刷新和后退离开该html，限定后退离开的是html才会又触发：
+					window.onbeforeunload = function(e){
+						e = e || window.event;
+						// 兼容IE8和Firefox 4之前的版本
+						if (e) {
+							e.returnValue = '关闭提示';
+						}
+						// Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+						return '关闭提示';
+					}
 				克隆的概念：
 					浅度克隆：是复制引用，复制后的引用都是指向同一个对象的实例，彼此之间的操作会互相影响。
 					for(var prop in origin){

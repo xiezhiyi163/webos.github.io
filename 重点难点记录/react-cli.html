@@ -117,7 +117,9 @@
 		                 //域名重定向到首页的时候上面的Route结构都还是需要用到的，route加个属性exact，表示当前路径只显示当前路径组件内容
 		             </Router>
 		     子路由：
-		         页面里面加入{renderRoutes(封装的路由js.children)}这个入口，以及在state里面加上：route:props.route
+		         在state里面加上：route:props.route,前提是state对象在constructor里面,
+				 页面里面加入{renderRoutes(this.state.route.children)}这个入口,
+				 父级路由不能有exact对象
 		     js实现页面跳转：
 		         historys = createHashHistory()
 		         函数里面historys.push('路径'),因为不允许添加相同的path，所以推荐使用window.location.hash代替
@@ -150,7 +152,7 @@
 		         }
 		         }
 		         然后只需要在其他使用路由跳转的页面引入懒加载组件，调用如下方法并传入加载的组件路径：引入的组件名(()=>import('组件路径'))
-		         阻止页面离开：当前页面的react-router的引入加个Prompt对象，然后<Prompt message="你确定要离开嘛?" />
+		         阻止页面离开：当前页面的react-router的引入加个Prompt对象，然后<Prompt message="你确定要离开嘛?" />,但不要放在任何组件里面，父级的所有标签只能够是纯粹的原生标签，不能有其他包着
 		 
 		 组件传值：
 		     父到子：父:给子组件某个元素传个自定义属性（原生怎么传就怎么传，记得加{}）
@@ -196,11 +198,11 @@
 				}
 				
 				export default combineReducers({
-				    setLog_s,
+				    定义的方法,
 				})
 			 action.js===>
 				import store from 'store实例的位置'
-				设定一个触发机制的函数，传入data参数，然后返回一个带dispatch，getState参数的箭头函数，里面时查找标识的dispatch启动函数，例如：
+				设定一个触发机制的函数，传入data参数，然后返回一个带dispatch，getState参数的箭头函数，里面是查找标识的dispatch启动函数，例如：
 					dispatch({ type: 'log', data: data })
 					查找reducer文件里面哪个函数有这个标识，就运行该标识对应的逻辑
 		     store.js===>
@@ -212,20 +214,27 @@
 				    applyMiddleware(thunk)
 				)
 				export default store
-			//
-			index.js里面import { connect } from 'react-redux'和store实例的位置，React.StrictMode这个标签变为
+			//----------------------------------
+			index.js里面import { Provider  } from 'react-redux'和store实例的位置，React.StrictMode这个标签变为
 			<Provider store={store}>
 			    <App />
 			  </Provider>
-			store其实是一个数据对象
-			使用的时候，组件页面记得引入import { connect } from 'react-redux'和action对应的方法{方法或函数}
+			store其实是一个数据对象;
+			store.subscribe(() => {
+				setTimeout(function(){
+					console.log('状态管理的数据修改了')
+				},0)
+			})
+			这个逻辑放在index.js里面，全局监听state变化；
+			//--------------------------------------
+			其他页面引入redux使用的时候，组件页面记得引入import { connect } from 'react-redux'和action对应的方法{方法或函数}
 			组件页面把export default 最终展示的组件，变成
 			export default connect((state) => {
-				return {setLog_s:state返回的全部方法，拿其中一个出来赋给它}
-			},(dispatch, ownProps) => {//将dispatch映射到组件的props当中
+				return {setLog_s:state/*返回的全部方法，要用哪个就拿哪个出来赋给它，必须要对应reducers里面的方法名*/}
+			},(dispatch, ownProps) => {//将dispatch映射到组件的props当中,页面调用比如this.props.setLog_a_fn(data)
 				return {
 					setLog_a_fn (data) {//自定义属性，然后方法传入data，去触发action的dispatch并获取之前state存在的reducer里面有对应的方法，以便调用
-						dispatch(setLog_a(data))
+						dispatch(action里面想调用的方法(data))
 					},
 				}
 			})(最终展示的组件)
@@ -251,15 +260,16 @@
 		         import ReactEcharts from 'echarts-for-react';
 		 
 		页面缓存
-		第一种：
+		第一种（倾向这种）：
 			npm install react-router-cache-route --save
-			import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
+			 import CacheRoute, { CacheSwitch,dropByCacheKey, getCachingKeys } from 'react-router-cache-route'
 			写法：
 			<CacheSwitch>
-				<CacheRoute exact path="/list" component={List} when="always" /> 
+				<CacheRoute exact path="/list" component={List} when="always" cacheKey="demoName"/> 
 			</CacheSwitch>
 			when有三个值：[forward, back, always]，默认：forward
-		第二种（倾向这种）：
+			cacheKey属性用来记录缓存模块，清除缓存用dropByCacheKey('demoName')清除
+		第二种：
 			npm install react-keeper
 			import { HashRouter as cacheRouter, Route as cacheRoute } from 'react-keeper'，
 			给route标签加cache属性，比如：
