@@ -74,7 +74,7 @@
 		//
 		//---------------动态添加的代码
 		function inittable(){
-			//判断是否与type相等，若不相等，重建tr时另外合并td
+			//判断是否与type相等，若不相等，重建tr时另外合并td,如果是vue的话,只需要把合并项的个数记录下来,然后dom渲染的时候,利用filter去把记录那里存在的删掉就行,react写个过滤函数然后跟着vue那样思路去搞就行
 			var num = 1;
 			var clnum = 0;
 			var bon = 'block';
