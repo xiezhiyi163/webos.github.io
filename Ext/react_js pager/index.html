@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="static/css/pcss.css"/>
+		<style type="text/css">
+			.pg-span {
+			    display: inline-block;
+			    padding: 2px 0;
+			    width: 30px;
+			    margin: 0 5px;
+			    cursor: pointer;
+			    background: #f4f4f5;
+			    color: #606266;
+			    text-align: center;
+			}
+			.active {
+			    background: #409eff;
+			    color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script src="static/Ext/react.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/Ext/react-dom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/Ext/babel.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/Ext/babel_polyfill.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/babel">
+			class Pagination extends  React.Component {
+				constructor (props) {
+					super(props);
+				}
+				handleClick (item) {
+					this.props.cb(item);
+				}
+				render () {
+					let {cur, space, all} = this.props;
+					let pgObj = [];
+					const checkClass = (role, active) => {
+						const defaultClass = 'pg-span';
+						if (active) {
+							return	`${defaultClass} active`
+						}
+						switch (role) {
+							case 0: {
+								return `${defaultClass}`
+							}
+							case 1: {
+								return `${defaultClass}`
+							}
+							default: {
+							
+							}
+						}
+					}
+					if (all < space) {
+						all =  space
+					}
+					if (cur <= 0) {
+						cur = 0
+					}
+			    if (cur > all) {
+			      cur = all
+			    }
+					if (cur < space) {
+						if (space === all) {
+							for (let i = 1; i <= space; i++) {
+								pgObj.push({
+									page: i,
+									role: 0,
+									key: i
+								})
+							}
+						} else {
+							for (let i = 1; i <= space; i ++) {
+								pgObj.push({
+									page: i,
+									role: 0,
+									key: i
+								})
+							}
+							pgObj.push({
+								page: '...',
+								role: 1,
+								key: 'next'
+							})
+							pgObj.push({
+								page: all,
+								role: 0,
+								key: all
+							})
+						}
+					} else if (cur >= space && cur <= all - space + 1) {
+						let odd = parseInt(space / 2);
+						pgObj.push({
+							page: 1,
+							role: 0,
+							key: 1
+						});
+						pgObj.push({
+							page: '...',
+							role: 1,
+							key: 'pre'
+						});
+						for (let i = cur - odd; i <= cur + odd ; i ++) {
+							pgObj.push({
+								page: i,
+								role: 1,
+								key: i
+							})
+						}
+						pgObj.push({
+							page: '...',
+							role: 1,
+							key: 'next'
+						});
+						pgObj.push({
+							page: all,
+							role: 1,
+							key: all
+						})
+					} else {
+						pgObj.push({
+							page: 1,
+							role: 0,
+							key: 1
+						});
+						pgObj.push({
+							page: '...',
+							role: 1,
+							key: 'pre'
+						});
+						for (let i = all - space + 1; i <= all; i ++) {
+							pgObj.push({
+								page: i,
+								role: 0,
+								key: i
+							})
+						};
+					}
+					return (
+						<div>
+							{
+								pgObj.map(item =>
+									(<span key={item.key}
+									       className={checkClass(item.role, item.page === cur)}
+									       onClick={() => {this.handleClick(item)}}
+									>
+									{item.page}
+									</span>))
+							}
+						</div>
+					)
+				}
+				
+			}
+			class Root extends React.Component {
+			  constructor (props) {
+			      super(props);
+			      this.state = {
+			        cur: 1,
+					all:100
+			      };
+			      this.handlePagination = this.handlePagination.bind(this);
+			  }
+			  handlePagination (item) {
+				//请求数据拿到总数处理all，比对并处理cur，
+				  const isNumber = (num) => {
+				      return typeof num === 'number';
+				  }
+			      const page = item.page;
+			      if (isNumber(page)) {
+				      this.setState({
+					      cur: page,
+				      })
+			      }
+			  }
+			  
+			  fn(){
+				  //这里是初始化数据数据处理all
+			  }
+			  render() {
+			    return  (
+			      <div>
+			         <Pagination cur={this.state.cur} all={this.state.all} space={5} cb={this.handlePagination} />
+			      </div>
+			    )
+			  }
+			};
+			ReactDOM.render(
+			  <Root></Root>,
+			  document.getElementById('app')
+			);
+		</script>
+	</body>
+</html>
