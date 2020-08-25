@@ -20,11 +20,17 @@
 	position: relative;
 	text-align: center;
 	line-height: 400px;
+	display: inline-block;
 }
 #photowrap img {	
 	display: inline-block;
 }
-
+#lastphotoview{
+	width: 150px;
+	height: 93.75px;
+	border: 1px solid #00BFFF;
+	vertical-align: bottom;
+}
 #photobase{
 	width: 100%;
 }

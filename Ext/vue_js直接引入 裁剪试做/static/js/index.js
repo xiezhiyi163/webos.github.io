@@ -6,37 +6,28 @@ var showpage = function($vue){
 //监听
 var listens = function($vue){
 	window.addEventListener('resize',function(){
-		// 图片裁剪V1_0
-		var id1 = document.getElementById('clipbox'),
-			id1a = document.getElementById('photowrap'),
-			id2 = document.getElementById('photobase'),
-			id2a = document.getElementById('photobase2');
-		if(id2.offsetWidth>=id1a.offsetWidth-2){
-			id2.style.width = '100%'
-			id2.style.height = 'auto'
-			id2.style.marginTop = (id1a.offsetHeight-2-id2.offsetHeight) / 2 + 'px'
-		}
-		if(id2.offsetHeight>=id1a.offsetHeight-2){
-			id2.style.height = '100%'
-			id2.style.width = 'auto'
-			id2.style.marginTop = 'auto'
-		}
-		if(id2a.offsetWidth>=id1a.offsetWidth-2){
-			id2a.style.width = id2.offsetWidth + 'px'
-			id2a.style.height = 'auto'
-			id2a.style.top = id2.offsetTop + 'px'
-		}
-		if(id2a.offsetHeight>=id1a.offsetHeight-2){
-			id2a.style.height = '100%'
-			id2a.style.width = 'auto'
-		}
-		id2a.style.left = id2.offsetLeft + 'px';
+		
 	})
 }
 
 //图片裁剪V1_0
 
-var clipboxmove = function($vue){
+var clipforCanvas = function($vue){
+	var id1a = document.getElementById('photowrap'),
+		id1 = document.getElementById('clipbox')
+		id2 = document.getElementById('photobase'),
+		id2a = document.getElementById('photobase2'),
+		idview = document.getElementById('photoView'),
+		cvsDom = document.getElementById('lastphotoview'),
+		cvs = cvsDom.getContext('2d'),
+		left = (id1.offsetLeft-id2a.offsetLeft)/id2a.offsetWidth*idview.offsetWidth,
+		tops = (id1.offsetTop-id2a.offsetTop)/id2a.offsetHeight*idview.offsetHeight,
+		widths = (id1.offsetWidth/id2.offsetWidth)*idview.offsetWidth,
+		console.log(left,tops)
+	cvs.drawImage(idview,left,tops,widths,widths*(12.82/16),0,0,cvsDom.offsetWidth*2,cvsDom.offsetHeight*2)
+}
+
+var clipboxmove = function($vue){//这里是真正获取图片的
 	var id1a = document.getElementById('photowrap'),
 		id1 = document.getElementById('clipbox')
 		id2 = document.getElementById('photobase'),
@@ -85,6 +76,8 @@ var clipboxmove = function($vue){
 			//裁剪区域操作
 			id2a.style.clip = 'rect('+(id1.offsetTop-oft1)+'px,'+(id1.offsetWidth+(id1.offsetLeft-ofl1))+'px,'+
 			(id1.offsetHeight+(id1.offsetTop-oft1))+'px,'+(id1.offsetLeft-ofl1)+'px)'
+			//最终生成图片
+			clipforCanvas($vue)
 		}
 	}
 	////改变裁剪大小（右下角）
@@ -115,6 +108,10 @@ var clipboxmove = function($vue){
 			id1.style.width = ofw1 + (stxlast2-stx2) + 'px'
 			id1.style.height = id1.offsetWidth / 1.6 + 'px'
 			if(ofw/ofh>16/10){
+				if(ofw+ofl1<id1.offsetWidth+ofl){
+					id1.style.width = ofw+ofl1-ofl-2 + 'px'
+					id1.style.height = id1.offsetWidth / 16 * 10 + 'px'
+				}
 				if(ofh+oft1<id1.offsetHeight+oft){
 					id1.style.height = ofh+oft1-oft-2 + 'px'
 					id1.style.width = id1.offsetHeight * 1.6 + 'px'
@@ -127,10 +124,18 @@ var clipboxmove = function($vue){
 					id1.style.width = id1.offsetHeight * 1.6 + 'px'
 				}				
 			}else{
+				if(ofh+oft1<id1.offsetHeight+oft){
+					id1.style.height = ofh+oft1-oft-2 + 'px'
+					id1.style.width = id1.offsetHeight * 1.6 + 'px'
+				}
+				if(ofw+ofl1<id1.offsetWidth+ofl){
+					id1.style.width = ofw+ofl1-ofl-2 + 'px'
+					id1.style.height = id1.offsetWidth / 16 * 10 + 'px'
+				}
 				if(ofw1 + (stxlast2-stx2)<150){
 					id1.style.width = 150 + 'px'
 					id1.style.height = 150/1.6 + 'px'
-				}else if(id1.offsetHeight >ofw){
+				}else if(id1.offsetWidth >ofw){
 					id1.style.width = ofw + 'px'
 					id1.style.height = id1.offsetWidth / 1.6 + 'px'
 				}
@@ -138,6 +143,8 @@ var clipboxmove = function($vue){
 			//裁剪区域操作
 			id2a.style.clip = 'rect('+(id1.offsetTop-oft1)+'px,'+(id1.offsetWidth+(id1.offsetLeft-ofl1))+'px,'+
 			(id1.offsetHeight+(id1.offsetTop-oft1))+'px,'+(id1.offsetLeft-ofl1)+'px)'
+			//最终生成图片
+			clipforCanvas($vue)
 		}
 	}
 	id1a.onmouseup = function(event){
@@ -150,55 +157,71 @@ var getphoto = function($vue){
 	var id1 = document.getElementById('clipbox'),
 		id1a = document.getElementById('photowrap'),
 		id2 = document.getElementById('photobase'),
-		id2a = document.getElementById('photobase2');
-	id2.src = $vue.imgsrc
-	id2.onload = function(){
-		if(id2.offsetWidth>=id1a.offsetWidth-2){
-			id2.style.width = '100%'
-			id2.style.height = 'auto'
-			id2.style.marginTop = (id1a.offsetHeight-2-id2.offsetHeight) / 2 + 'px'
+		id2a = document.getElementById('photobase2'),
+		idview = document.getElementById('photoView');
+	if(!id2a.style.clip){
+		alert('当前浏览器不支持裁剪操作')
+		return;
+	}
+	idview.src = $vue.imgsrc
+	idview.onload = function(){
+		//这里只是举例，正常来讲应该不能少于600或以下
+		if(idview.offsetWidth<150||idview.offsetHeight<150/16*10){
+			alert('图片尺寸过小');
+			return;
 		}
-		if(id2.offsetHeight>=id1a.offsetHeight-2){
-			id2.style.height = '100%'
-			id2.style.width = 'auto'
-			id2.style.marginTop = 'auto'
-		}
-		id2a.src = $vue.imgsrc
-		id2a.onload = function(){
-			if(id2a.offsetWidth>=id1a.offsetWidth-2){
-				id2a.style.width = id2.offsetWidth + 'px'
-				id2a.style.height = 'auto'
-				id2a.style.top = id2.offsetTop + 'px'
+		//
+		document.getElementById('showclip').style.display = 'block'
+		id2.src = $vue.imgsrc
+		id2.onload = function(){
+			if(id2.offsetWidth>=id1a.offsetWidth-2){
+				id2.style.width = '100%'
+				id2.style.height = 'auto'
+				id2.style.marginTop = (id1a.offsetHeight-2-id2.offsetHeight) / 2 + 'px'
 			}
-			if(id2a.offsetHeight>=id1a.offsetHeight-2){
-				id2a.style.height = '100%'
-				id2a.style.width = 'auto'
-			}					
-			id2a.style.left = id2.offsetLeft + 'px';
-			//裁剪大小和位置初始化
-			$vue.widths_height = id2a.offsetWidth-200
-			$vue.lastlong = $vue.widths_height>800?800:$vue.widths_height//w
-			$vue.lastshort = ($vue.lastlong/1.6)//h
-				//
-			$vue.tops = (id2a.offsetHeight - $vue.lastshort) / 2
-			$vue.topsa = (id2a.offsetHeight - $vue.lastshort) / 2
-				//
-			$vue.lefts = (id2a.offsetWidth - $vue.lastlong) / 2
-			$vue.leftsa = (id2a.offsetWidth - $vue.lastlong) / 2
-				//
-			id2a.style.clip = 
-			'rect('+$vue.tops+'px,'+
-			($vue.lastlong+$vue.leftsa)+
-			'px,'+
-			($vue.lastshort+$vue.topsa)+
-			'px,'+$vue.lefts+'px)';			
-			//裁剪容器大小位置初始化
-			setTimeout(function(){
-				id1.style.width = $vue.lastlong + 'px'
-				id1.style.height = $vue.lastshort + 'px'
-				id1.style.top = ($vue.tops+id2.offsetTop)+'px'
-				id1.style.left = $vue.lefts+'px'			
-			},0)
+			if(id2.offsetHeight>=id1a.offsetHeight-2){
+				id2.style.height = '100%'
+				id2.style.width = 'auto'
+				id2.style.marginTop = 'auto'
+			}
+			id2a.src = $vue.imgsrc
+			id2a.onload = function(){
+				if(id2a.offsetWidth>=id1a.offsetWidth-2){
+					id2a.style.width = id2.offsetWidth + 'px'
+					id2a.style.height = 'auto'
+					id2a.style.top = id2.offsetTop + 'px'
+				}
+				if(id2a.offsetHeight>=id1a.offsetHeight-2){
+					id2a.style.height = '100%'
+					id2a.style.width = 'auto'
+				}					
+				id2a.style.left = id2.offsetLeft + 'px';
+				//裁剪大小和位置初始化
+				$vue.widths_height = id2a.offsetWidth-(id2a.offsetWidth*0.2)
+				$vue.lastlong = $vue.widths_height>800?800:$vue.widths_height//w
+				$vue.lastshort = ($vue.lastlong/1.6)//h
+					//
+				$vue.tops = (id2a.offsetHeight - $vue.lastshort) / 2
+				$vue.topsa = (id2a.offsetHeight - $vue.lastshort) / 2
+					//
+				$vue.lefts = (id2a.offsetWidth - $vue.lastlong) / 2
+				$vue.leftsa = (id2a.offsetWidth - $vue.lastlong) / 2
+					//
+				id2a.style.clip = 
+				'rect('+$vue.tops+'px,'+
+				($vue.lastlong+$vue.leftsa+2)+
+				'px,'+
+				($vue.lastshort+$vue.topsa+1)+
+				'px,'+$vue.lefts+'px)';			
+				//裁剪容器大小位置初始化
+				setTimeout(function(){
+					id1.style.width = $vue.lastlong + 'px'
+					id1.style.height = $vue.lastshort + 'px'
+					id1.style.top = ($vue.tops+id2.offsetTop)+'px'
+					id1.style.left = ($vue.lefts+id2.offsetLeft)+'px'			
+					clipboxmove($vue)//裁剪逻辑
+				},0)
+			}
 		}
 	}
 }
@@ -210,7 +233,8 @@ window.vue = new Vue({
 		moveflag:0,
 		moveflag2:0,
 		//
-		imgsrc:'static/img/57bd4126660e7.jpg',
+		/* imgsrc:'static/img/57bd4126660e7.jpg', */
+		imgsrc:'static/img/Eb6G_qCUMAAAYN3.jpg',
 		widths_height:'',
 		lastlong:'',
 		lastshort:'',
@@ -224,8 +248,7 @@ window.vue = new Vue({
 	mounted:function(){
 		showpage(this)
 		//图片裁剪V1_0
-		getphoto(this)
-		clipboxmove(this)
+		getphoto(this)		
 		//监听
 		listens(this)
 	}

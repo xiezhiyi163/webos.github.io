@@ -8,14 +8,22 @@
 	</head>
 	<body>
 		<div id="app">
-			<!-- //图片裁剪V1_0 -->
-			<div id="photowrap">
-				<div class="photowrap_blackalpha"></div>
-				<img id="photobase" src="" >
-				<img id="photobase2" src="" >
-				<div id="clipbox">
-					<span class="resizebutton r_rb" id="r_rb"></span>
-					<div style="height: 100%;width: 100%;position: relative;z-index: 1;background-color: #fff;opacity: 0;"></div>
+			<!-- //图片裁剪V1_0，支持ie9或以上 -->
+			<div>
+				<div id="showclip" style="display: none;">
+					<div id="photowrap">
+						<div class="photowrap_blackalpha"></div>
+						<img id="photobase" src="" >
+						<img id="photobase2" src="" >
+						<div id="clipbox">
+							<span class="resizebutton r_rb" id="r_rb"></span>
+							<div style="height: 100%;width: 100%;position: relative;z-index: 1;background-color: #fff;opacity: 0;"></div>
+						</div>
+					</div>
+					<canvas id="lastphotoview"></canvas>					
+				</div>
+				<div style="overflow: hidden;position: relative;width: 0;height: 0;">
+					<img id="photoView" src="" >
 				</div>
 			</div>
 		</div>
