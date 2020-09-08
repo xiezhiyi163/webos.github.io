@@ -1,0 +1,40 @@
+@charset "utf-8";
+/*  */
+.table {
+	display:table;
+	width: 100%;
+	min-height: 60px;
+}
+.table-cell,.table-celll,.table-cellr{
+	vertical-align: top;
+}
+.table-cell {
+	width: 100%;
+	display: table-cell;
+}
+.table-celll {
+	display: table-cell;
+}
+.table-cellr {
+	display: table-cell;
+}/**/
+.tm>div,.tl>div,.tr>div{
+	background-color: pink;
+}
+.tm>div{
+	height: 120px;
+}
+.tm>div>p,.tl>div>p{
+	height: 30px;
+	background-color: aqua;
+}.tl>div>p{
+	background-color: pink;
+}.tl>div{
+	width: 200px;
+	height: 80px;
+	background-color: coral;
+}.tr>div{
+	width: 220px;
+	height: 40px;
+	background-color: coral;
+}
