@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="static/css/pcss.css"/>
+		<style type="text/css">
+			.item{
+				height:600px;
+			}
+			.item p {
+				height: 30px;
+				padding: 10px 0;
+				color: white;
+				text-align: center;
+			}
+			.item1 p{
+				background-color: lightsteelblue;
+			}
+			.item2 p{
+				background-color: lightcoral;
+			}
+			.item3 p{
+				background-color: lightpink;
+			}
+			.item4 p{
+				background-color: lightsteelblue;
+			}
+			.fixitem {
+				position: fixed;
+				width: 100%;
+				left: 0;
+				bottom: 0;
+			}
+			.fixitem1{
+				z-index: 0;
+				background-color: orange;
+			}
+			.fixitem2{
+				z-index: 1;
+				background-color: royalblue;
+			}
+			.fixitem3{
+				z-index: 2;
+				background-color: coral;
+			}
+			.fixitem4{
+				z-index: 3;
+				background-color: lightblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div style="z-index: 5;position: relative;">
+				<div v-for='(v,i) in 4' :class="'item'+(i+1)+' item'">
+					<p>link{{i+1}}</p>
+				</div>
+			</div>
+			<div v-for='(v,i) in 4' :class="'fixitem'+(i+1)+' fixitem'"></div>
+		</div>
+		<script src="static/common/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//编程思路:对象,钩子
+			var this_m = '',
+				created_m = function(){
+					this_m = this;
+				},
+				datas_m = {
+					
+				},
+				methods_m = {
+					//监听
+					wheelDeltaGet:function(event){/* 获取滚动方向 */
+						var ewd = '',scrollT = '',dds = document.documentElement.scrollTop,dbs = document.body.scrollTop;
+						if(!event.wheelDelta){
+							ewd = event.detail/-3*120
+						}else{
+							ewd = event.wheelDelta
+						}
+						if(dds){
+							scrollT = dds
+						}else{
+							scrollT = dbs
+						}
+						return [ewd?ewd:0,scrollT?scrollT:0]
+					},
+					/* 一些功能 */
+					getitem:function(){
+						var obj = {},
+							fixobj = {};
+						for(var i = 0 ; i<document.querySelectorAll('.item').length; i++){
+							obj['i'+(i+1)] = document.querySelector(".item"+(i+1))
+						}
+						for(var i = 0 ; i<document.querySelectorAll('.fixitem').length; i++){
+							fixobj['fi'+(i+1)] = document.querySelector(".fixitem"+(i+1))
+						}
+						return [obj,fixobj]
+					},
+					itemscrollTop:function(wd){
+						var togetitem = this_m.getitem()[0],
+							togetfixitem = this_m.getitem()[1];
+						for(var i in togetitem){
+							var wi = window.innerHeight,
+								dbch = document.body.clientHeight,
+								ddch = document.documentElement.clientHeight,
+								winheight = wi?wi:dbch?dbch:ddch;
+							if(wd){
+								if(togetitem[i].offsetTop-wd[1]<winheight){
+									togetfixitem['f'+i].style.height = winheight - (togetitem[i].offsetTop-wd[1]) + 'px'
+								}else{
+									togetfixitem['f'+i].style.height = 0
+								}							
+							}else{
+								if(togetitem[i].offsetTop-0<winheight){
+									togetfixitem['f'+i].style.height = winheight - togetitem[i].offsetTop + 'px'
+								}else{
+									togetfixitem['f'+i].style.height = 0
+								}
+							}
+						}
+					},
+					listens:function(){
+						this_m.itemscrollTop()
+						window.addEventListener('scroll',function(event){
+							this_m.itemscrollTop(this_m.wheelDeltaGet(event))
+						})
+					}
+				},
+				mounted_m = function(){
+					this_m.listens()
+				},
+				vueobj_m = {
+					el:'#app',
+					data:datas_m,
+					methods:methods_m,
+					created:created_m,
+					mounted:mounted_m,
+				},
+				vue = new Vue(vueobj_m)
+		</script>
+	</body>
+</html>

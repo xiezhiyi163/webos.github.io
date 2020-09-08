@@ -23,8 +23,8 @@ var clipforCanvas = function($vue){
 		left = (id1.offsetLeft-id2a.offsetLeft)/id2a.offsetWidth*idview.offsetWidth,
 		tops = (id1.offsetTop-id2a.offsetTop)/id2a.offsetHeight*idview.offsetHeight,
 		widths = (id1.offsetWidth/id2.offsetWidth)*idview.offsetWidth,
-		console.log(left,tops)
 	cvs.drawImage(idview,left,tops,widths,widths*(12.82/16),0,0,cvsDom.offsetWidth*2,cvsDom.offsetHeight*2)
+	console.log(cvsDom.toDataURL("image/png"))
 }
 
 var clipboxmove = function($vue){//这里是真正获取图片的
@@ -158,8 +158,9 @@ var getphoto = function($vue){
 		id1a = document.getElementById('photowrap'),
 		id2 = document.getElementById('photobase'),
 		id2a = document.getElementById('photobase2'),
-		idview = document.getElementById('photoView');
-	if(!id2a.style.clip){
+		idview = document.getElementById('photoView'),
+		cvsDom = document.getElementById('lastphotoview');
+	if(!cvsDom.getContext){
 		alert('当前浏览器不支持裁剪操作')
 		return;
 	}
