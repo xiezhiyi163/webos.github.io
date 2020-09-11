@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+		.mescroll{
+			position: fixed;top:0;bottom: 0;height:auto;background-color: #282c34;
+		}
+		.mescroll-downwarp {
+			overflow: hidden;
+			position: relative;
+			height: 0px;
+		}
