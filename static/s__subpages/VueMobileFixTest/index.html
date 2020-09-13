@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>vue_mobile_fix_test</title>
     <style>
       *{
@@ -19,14 +19,13 @@
     <script type="text/javascript">
       /* 动态设置根字体大小！一段简单的js，放在开头*/
       (function() {
-          function autoRootFontSize() {
-              document.documentElement.style.fontSize =        Math.min(screen.width>750?750:screen.width,
-              document.documentElement.getBoundingClientRect().width>750?750:document.documentElement.getBoundingClientRect().width)  /  750 * 32 + 'px';
-                // 取screen.width和document.documentElement.getBoundingClientRect().width的最小值；除以750，乘以32；懂的起撒，就是原本是750大小的32px;如果屏幕大小变成了375px,那么字体就是16px;也就是根字体fontSize大小和屏幕大小成正比变化！
-          }
-          //1rem = 32px
-          window.addEventListener('resize', autoRootFontSize);
-          autoRootFontSize();
+        function autoRootFontSize() {
+          document.documentElement.style.fontSize =        Math.min(screen.width>750?750:screen.width,
+          document.documentElement.getBoundingClientRect().width>750?750:document.documentElement.getBoundingClientRect().width)  /  750 * 100 + 'px';// 取screen.width和document.documentElement.getBoundingClientRect().width的最小值；除以750，乘以100；懂的起撒，就是原本是750大小的100px;如果屏幕大小变成了375px,那么字体就是50px;也就是根字体fontSize大小和屏幕大小成正比变化！
+        }
+        //1rem = 100px
+        window.addEventListener('resize', autoRootFontSize);
+        autoRootFontSize();
       })();
     </script>
     <div id="app"></div>
@@ -35,13 +34,14 @@
 </html>
 
 <!--
-  市面上的移动端适配（直接安装好就行，有用的是前面那段代码）：
+  市面上的移动端适配（前面代码是管根元素的，安装的px2rem-loader管的UI框架转换的，另外的是管style标签样式里面的px转换的）：
   安装postcss，postcss-pxtorem，postcss-loader，postcss-import，postcss-url；到json检查发现前面那两个没有安装，就在要安装的内容前面加--save-dev就行
   在项目根目录下添加.postcssrc.js文件，在里面写上module.exports = { plugins: { 'postcss-pxtorem': { rootValue: 32, propList: ['*'], minPixelValue: 2 } }};
   /*
     rootValue，这里就是根目录的字体大小是32px，这里为啥设置成32呢，因为一般设计稿是750，比iphone6的大一倍，所以设置成16的两倍，就是32px;proplist就是那些属性需要转换成rem，这里是全部的意思；
     比如你可选择设置； propList: ['font', 'font-size', 'line-height', 'letter-spacing']
     minPixelValue就是最小转换单位，这是最小转换单位是2px的意思；
+    现在这里把value改成100
   */
   element 移动端适配：
   安装px2rem-loader，
@@ -49,7 +49,7 @@
   var px2remLoader = {
     loader: 'px2rem-loader',
     options: {
-      remUnit: 75     // (这里是指设计稿的宽度为 750 / 10)
+      remUnit: 100   // (这里是指设计稿的宽度为 750 / 7.5)
     }
   }
   然后在generateLoaders函数里面插入px2remLoader

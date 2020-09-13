@@ -1,6 +1,6 @@
 <template>
   <div style="font-size: 1rem;">
-    1 <el-button>提交</el-button>
+    1 <el-button class="buttontest">提交</el-button>
     <div class="swiper-container" style="height: 4rem;">
       <div class="swiper-wrapper">
         <div class="swiper-slide">Slide 1</div>
@@ -46,5 +46,8 @@
 <style scoped="scoped">
   .swiper-slide{
     background-color: #01FF70;
+  }
+  .buttontest{
+    font-size: 14px;
   }
 </style>

@@ -26,6 +26,18 @@
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 		<div id="root"></div>
+		<script type="text/javascript">
+		  /* 动态设置根字体大小！一段简单的js，放在开头*/
+		  (function() {
+		    function autoRootFontSize() {
+		      document.documentElement.style.fontSize =        Math.min(screen.width>750?750:screen.width,
+		      document.documentElement.getBoundingClientRect().width>750?750:document.documentElement.getBoundingClientRect().width)  /  750 * 100 + 'px';// 取screen.width和document.documentElement.getBoundingClientRect().width的最小值；除以750，乘以100；懂的起撒，就是原本是750大小的100px;如果屏幕大小变成了375px,那么字体就是50px;也就是根字体fontSize大小和屏幕大小成正比变化！
+		    }
+		    //1rem = 100px
+		    window.addEventListener('resize', autoRootFontSize);
+		    autoRootFontSize();
+		  })();
+		</script>
 		<!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

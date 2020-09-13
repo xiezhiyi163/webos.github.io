@@ -17,7 +17,7 @@
           <p style="text-align: center;">标题</p>
         </div>
         <!-- 焦点图 -->
-        <div class="swiper-container" style="height: 5.5rem;border-bottom: 1px solid #eee;background-color: #ddd;">
+        <div class="swiper-container" style="height: 2rem;border-bottom: 1px solid #eee;background-color: #ddd;">
           <div class="swiper-wrapper">
             <div class="swiper-slide" style="background-color: coral;">Slide 1</div>
             <div class="swiper-slide" style="background-color: palevioletred;">Slide 2</div>
@@ -31,7 +31,7 @@
         </div>
         <!-- 分类 -->
         <div class="types">
-          <div v-for="(v,i) in navs" :style="'float: left;width: 25%;height: '+200/32+'rem;line-height:'+200/32+'rem;background-color:'+v.color" style="text-align: center;color: white;">
+          <div v-for="(v,i) in navs" :style="'float: left;width: 25%;height: '+200/100+'rem;line-height:'+200/100+'rem;background-color:'+v.color" style="text-align: center;color: white;">
             MENU{{i+1}}
           </div>
           <div style="clear: both;"></div>
@@ -41,7 +41,7 @@
         <!-- 限时秒杀 -->
         <div>
           <p class="titles">限时秒杀</p>
-          <div class="swiper-container2" style="height: 5.5rem;border-bottom: 1px solid #eee;background-color: #ddd;position: relative;width: 100%;overflow: hidden;">
+          <div class="swiper-container2" style="height: 2rem;border-bottom: 1px solid #eee;background-color: #ddd;position: relative;width: 100%;overflow: hidden;">
             <div class="swiper-wrapper">
               <div class="swiper-slide" style="background-color: coral;">Slide 1</div>
               <div class="swiper-slide" style="background-color: palevioletred;">Slide 2</div>
@@ -63,25 +63,25 @@
         <!-- 正品行货 -->
         <div>
           <p class="titles">正品行货</p>
-          <div style="height: 15rem;border-top: 1px solid #eee;border-bottom: 1px solid #eee;background-color: palevioletred;">
+          <div style="height: 3rem;border-top: 1px solid #eee;border-bottom: 1px solid #eee;background-color: palevioletred;">
             <div style="float: left;width: 50%;position: relative;height: 100%;">
               <span data-line style="position: absolute;right: 0;top: 0;height: 100%;border-right: 1px solid #eee;"></span>
-              <div style="height: 100%;line-height: 15rem;text-align: center;color: #ccc;">item</div>
+              <div style="height: 100%;line-height: 3rem;text-align: center;color: #ccc;">item</div>
             </div>
             <div style="float: left;width: 50%;position: relative;height: 100%;">
               <span data-line style="position: absolute;right: 50%;top: 0;height: 100%;border-right: 1px solid #eee;"></span>
               <span data-line style="position: absolute;right: 0;top: 50%;width: 100%;border-top: 1px solid #eee;"></span>
               <div style="float: left;height: 50%;width: 50%;">
-                <div style="height: 100%;line-height: 7.5rem;text-align: center;color: #ccc;">item</div>
+                <div style="height: 100%;line-height: 1.5rem;text-align: center;color: #ccc;">item</div>
               </div>
               <div style="float: left;height: 50%;width: 50%;">
-                <div style="height: 100%;line-height: 7.5rem;text-align: center;color: #ccc;">item</div>
+                <div style="height: 100%;line-height: 1.5rem;text-align: center;color: #ccc;">item</div>
               </div>
               <div style="float: left;height: 50%;width: 50%;">
-                <div style="height: 100%;line-height: 7.5rem;text-align: center;color: #ccc;">item</div>
+                <div style="height: 100%;line-height: 1.5rem;text-align: center;color: #ccc;">item</div>
               </div>
               <div style="float: left;height: 50%;width: 50%;">
-                <div style="height: 100%;line-height: 7.5rem;text-align: center;color: #ccc;">item</div>
+                <div style="height: 100%;line-height: 1.5rem;text-align: center;color: #ccc;">item</div>
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@
           <p class="titles">猜你喜欢</p>
           <div style="position: relative;">
             <span data-line style="position: absolute;right: 50%;top: 0;height: 100%;border-right: 1px solid #fff;"></span>
-            <div v-for="(v,i) in tolike" style="float: left;width: 50%;height: 15rem;background-color: #4297D7;border-bottom: 1px solid #fff;text-align: center;line-height: 15rem;color: white;">item</div>
+            <div v-for="(v,i) in tolike" style="float: left;width: 50%;height: 3rem;background-color: #4297D7;border-bottom: 1px solid #fff;text-align: center;line-height: 3rem;color: white;">item</div>
             <div style="clear: both;"></div>
           </div>
         </div>
@@ -308,16 +308,17 @@
   /* 顶部导航 */
   .topnav {
     position: relative;
-    height: 63px;
+    height: 60px;
     border-bottom: 1px solid #eee;
-    line-height: 63px;
-    font-size: 18px;
+    line-height: 60px;
+    font-size: 24px;
   }
   /* vantui */
   /* 焦点图 */
   .swiper-slide {
     background-color: #ccc;
-    line-height: 5.5rem;
+    line-height: 2rem;
+    font-size: 24px;
     text-align: center;
     color: white;
   }
