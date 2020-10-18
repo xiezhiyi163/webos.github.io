@@ -308,7 +308,7 @@
 			}
 
 			.index-xuanzhuanslidecustom {
-				height: 300px;
+				height: 600px;
 			}
 
 			.index-slidescroll {
@@ -434,10 +434,10 @@
 					for (var i = 0; i < length; i++) {
 						if (active == i || ($('.posimg').eq(i).css('left') != '0px' && $('.posimg').eq(i).css('right') != '0px')) {
 							$('.posimg').eq(i).css('left', ($('.index-xuanzhuanslide').eq(0).width() - $('.index-xuanzhuanslide').eq(0).width() *
-								0.65) / 2)
+								0.6) / 2)
 							$('.posimg').eq(i).css('right', ($('.index-xuanzhuanslide').eq(0).width() - $('.index-xuanzhuanslide').eq(0).width() *
-								0.65) / 2)
-							$('.posimg').eq(i).css('width', $('.index-xuanzhuanslide').eq(0).width() * 0.65)
+								0.6) / 2)
+							$('.posimg').eq(i).css('width', $('.index-xuanzhuanslide').eq(0).width() * 0.6)
 						}
 					}
 				},
@@ -493,7 +493,7 @@
 						'right': obj['xuanzhuanleft'].right,
 						'margin': obj['xuanzhuanleft'].margin,
 						'z-index': obj['xuanzhuanleft'].zIndex,
-						'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+						'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 						'bottom': '15%'
 					})
 					$('.posimg').eq(0).css({
@@ -502,7 +502,7 @@
 						'right': ($('.xuanzhuanslide').eq(0).width() - $('.posimg').eq(0).width()) / 2,
 						'margin': obj['xuanzhuanMid'].margin,
 						'z-index': obj['xuanzhuanMid'].zIndex,
-						'width': ($('.xuanzhuanslide').eq(0).width() * 0.65),
+						'width': ($('.xuanzhuanslide').eq(0).width() * 0.6),
 						'bottom': '0%'
 					})
 					$('.posimg').eq(1).css({
@@ -511,7 +511,7 @@
 						'right': obj['xuanzhuanright'].right,
 						'margin': obj['xuanzhuanright'].margin,
 						'z-index': obj['xuanzhuanright'].zIndex,
-						'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+						'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 						'bottom': '15%'
 					})
 					for (var i = 0; i < length; i++) {
@@ -523,7 +523,7 @@
 								'right': obj['xuanzhuanRleft'].right,
 								'margin': obj['xuanzhuanRleft'].margin,
 								'z-index': obj['xuanzhuanRleft'].zIndex,
-								'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+								'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 								'bottom': '15%'
 							})
 						}
@@ -558,14 +558,14 @@
 						}
 						publicflag.xuanzhuanmumafirstimgactive = active
 						$('.posimg').eq(active).css({
-							'left': $('.xuanzhuanslide').width() * 0.35 + ($('.xuanzhuanslide').width() * 0.65 - ($('.xuanzhuanslide').width() *
-								0.65) * 0.65),
+							'left': $('.xuanzhuanslide').width() * 0.4/*0.35*/ + ($('.xuanzhuanslide').width() * 0.6 - ($('.xuanzhuanslide').width() *
+								0.6) * 0.6),
 							'z-index': obj['xuanzhuanMid'].zIndex,
-							'width': $('.xuanzhuanslide').width() * 0.65,
+							'width': $('.xuanzhuanslide').width() * 0.6,
 						})
 						var tempwidth = $('.posimg').eq(active).width()
 						$('.posimg').eq(active).css({
-							'width': ($('.xuanzhuanslide').width() * 0.65) * 0.65,
+							'width': ($('.xuanzhuanslide').width() * 0.6) * 0.6,
 							'right': 0,
 						})
 						$('.posimg').eq(active).stop().animate({
@@ -573,13 +573,13 @@
 							'height': obj['xuanzhuanMid'].height,
 							'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 							'margin': obj['xuanzhuanMid'].margin,
-							'width': $('.xuanzhuanslide').width() * 0.65,
+							'width': $('.xuanzhuanslide').width() * 0.6,
 							'bottom': '0%'
 						}, 400)
 						if (tempact == length - 2) {
 							$('.posimg').eq(tempact - 1).stop().animate({
 								'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
-								'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+								'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 								'bottom': '15%'
 							}, 400)
 						}
@@ -595,7 +595,7 @@
 										'height': obj['xuanzhuanRright'].height,
 										'right': obj['xuanzhuanRright'].right,
 										'margin': obj['xuanzhuanRright'].margin,
-										'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+										'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 										'bottom': '15%'
 									}, 400)
 								} else {
@@ -607,7 +607,7 @@
 										'height': obj['xuanzhuanRleft'].height,
 										'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 										'margin': obj['xuanzhuanRleft'].margin,
-										'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+										'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 										'bottom': '15%'
 									}, 400)
 								}
@@ -621,7 +621,7 @@
 							'left': obj['xuanzhuanleft'].left,
 							'height': obj['xuanzhuanleft'].height,
 							'margin': obj['xuanzhuanleft'].margin,
-							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 							'bottom': '15%'
 						}, 400)
 						$('.posimg').eq(active + 1 > length - 1 ? 0 : active + 1).css({
@@ -632,7 +632,7 @@
 							'right': obj['xuanzhuanright'].right,
 							'margin': obj['xuanzhuanright'].margin,
 							'z-index': obj['xuanzhuanright'].zIndex,
-							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 							'bottom': '15%'
 						}, 400)
 					} else {
@@ -644,18 +644,18 @@
 						publicflag.xuanzhuanmumafirstimgactive = active
 						$('.posimg').eq(active).css({
 							'z-index': obj['xuanzhuanMid'].zIndex,
-							'width': $('.xuanzhuanslide').width() * 0.65
+							'width': $('.xuanzhuanslide').width() * 0.6
 						})
 						var tempwidth = $('.posimg').eq(active).width()
 						$('.posimg').eq(active).css({
-							'width': ($('.xuanzhuanslide').width() * 0.65) * 0.65
+							'width': ($('.xuanzhuanslide').width() * 0.6) * 0.6
 						})
 						$('.posimg').eq(active).stop().animate({
 							'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 							'height': obj['xuanzhuanMid'].height,
 							'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 							'margin': obj['xuanzhuanMid'].margin,
-							'width': $('.xuanzhuanslide').width() * 0.65,
+							'width': $('.xuanzhuanslide').width() * 0.6,
 							'bottom': '0%'
 						}, 400)
 						if (tempact == 1) {
@@ -665,7 +665,7 @@
 							$('.posimg').eq(tempact + 1).stop().animate({
 								'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 								'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
-								'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+								'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 								'bottom': '15%'
 							}, 400)
 						}
@@ -683,7 +683,7 @@
 											'height': obj['xuanzhuanRright'].height,
 											'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 											'margin': obj['xuanzhuanRright'].margin,
-											'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+											'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 											'bottom': '15%'
 										}, 400)
 									}
@@ -695,7 +695,7 @@
 										'height': '100%',
 										'left': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 										'margin': obj['xuanzhuanRleft'].margin,
-										'width': ($('.xuanzhuanslide').eq(0).width() * 0.65),
+										'width': ($('.xuanzhuanslide').eq(0).width() * 0.6),
 										'bottom': '0%'
 									}, 400)
 									continue;
@@ -710,7 +710,7 @@
 											'height': obj['xuanzhuanRright'].height,
 											'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 											'margin': obj['xuanzhuanRright'].margin,
-											'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+											'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 											'bottom': '15%'
 										}, 400)
 									} else {
@@ -722,7 +722,7 @@
 											'height': obj['xuanzhuanRright'].height,
 											'right': ($('.xuanzhuanslide').eq(0).width() - tempwidth) / 2,
 											'margin': obj['xuanzhuanRright'].margin,
-											'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+											'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 											'bottom': '15%'
 										}, 400)
 									}
@@ -738,7 +738,7 @@
 							'height': obj['xuanzhuanright'].height,
 							'right': obj['xuanzhuanright'].right,
 							'margin': obj['xuanzhuanright'].margin,
-							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 							'bottom': '15%'
 						}, 400)
 						$('.posimg').eq(active - 1 < 0 ? length - 1 : active - 1).css({
@@ -750,7 +750,7 @@
 							'height': obj['xuanzhuanleft'].height,
 							'margin': obj['xuanzhuanleft'].margin,
 							'z-index': obj['xuanzhuanleft'].zIndex,
-							'width': ($('.xuanzhuanslide').eq(0).width() * 0.65) * 0.65,
+							'width': ($('.xuanzhuanslide').eq(0).width() * 0.6) * 0.6,
 							'bottom': '15%'
 						}, 400)
 					}

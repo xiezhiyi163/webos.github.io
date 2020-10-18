@@ -85,6 +85,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var t = ''
+    for(var x in this.options){
+      t+=x+'='+this.options[x]+'&'
+    }
+    wx.setStorageSync('link', this.route+'?'+t)
     this.classfiySelectSet()
   },
 

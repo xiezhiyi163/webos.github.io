@@ -7,8 +7,6 @@
 	<body>
 		<!-- 
 		
-		https://www.jianshu.com/p/285d51730f5e，适配移动端
-		
 		 node 8.0.0或以上
 		 $ cnpm install -g create-react-app
 		 $ create-react-app my-app
@@ -18,7 +16,11 @@
 		 
 		 $ npm start
 		 
-		 构造完之后立马先创建一个组件文件夹，以免到时候分不清
+		 如果要eject，事先进行eject，避免后面经常报错，
+		 一开始也不能eject的话，就先用git处理下，git init ，git add . ，git commit -m 'init'，别管，只管做就行，
+		 eject完就把git文件夹删掉就行
+		 
+		 构建完之后立马先创建一个组件文件夹，以免到时候分不清
 		 
 		 一般没有特别要求应该都不会用react去开发pc端前端的前台页面，更多情况下会开发pc端前端的后台页面
 		 
@@ -79,18 +81,6 @@
 		     npm install --save history//助于js操作页面跳转
 		     路由js引入import React from 'react';
 		         配置routes数组，跟vue一样的结构
-		     组件页面引入如下：
-		         import {
-		             HashRouter as Router,//BrowserRouter为正常url模式，不过不会配置最好不要使用，js跳转配置麻烦
-		             Route,
-		             Link，
-		             Switch,
-		             Redirect,
-		             withRouter，
-		         }from 'react-router-dom';        
-		         import { renderRoutes } from 'react-router-config';
-		         import { createBrowserHistory } from 'history';
-		         封装的路由js
 				 例：
 				 _router = [{
 				 	component:ar(() => import('./index/index.js')),
@@ -103,9 +93,20 @@
 				 	component:ar(() => import('./index1/index.js')),
 				 	path:'/page2',
 				 }]
+		     组件页面引入如下：
+		         import {
+		             HashRouter as Router,//BrowserRouter为正常url模式，不过不会配置最好不要使用，js跳转配置麻烦
+		             Route,
+		             Link，
+		             Switch,
+		             Redirect,
+		             withRouter，
+		         }from 'react-router-dom';        
+		         import { renderRoutes } from 'react-router-config';
+		         import { createBrowserHistory } from 'history';
 		         //
 		         页面组件该怎么写就怎么写，跳转就使用<Link to="路径">文本</Link>进行跳转
-		         视图组件的根元素必须是router标签，一般只保留如下代码结构（特殊情况另外处理）:
+		    视图组件的根元素必须是router标签，一般只保留如下代码结构（特殊情况另外处理）:
 		             <Router>
 		                 {renderRoutes(封装的路由js)}
 		                 或者下面那样
@@ -278,6 +279,64 @@
 				</CacheRouter>
 		react过滤：
 			定义个函数，然后在dom里面{fn()}或者在构造函数里面定义的话就{this.fn().bind(this,参数值传进去)},返回一个过滤过的结果
+		如何适配移动端(备用方案)：
+			在index.html中添加以下js
+			
+				<script>
+			        !(function(win, doc) {
+			            function setFontSize() {
+			                var baseFontSize = 100;
+			                var baseWidth = 320;
+			                var clientWidth = document.documentElement.clientWidth ||         window.innerWidth;
+			                var innerWidth = Math.max(Math.min(clientWidth, 480), 320);
+			                var rem = 100;
+			                if (innerWidth > 362 && innerWidth <= 375) {
+			                    rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.9);
+			                }
+			                if (innerWidth > 375) {
+			                    rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.84);
+			                }
+			                window.__baseREM = rem;
+			                document.querySelector('html').style.fontSize = rem + 'px';
+			            }
+			            var evt = 'onorientationchange' in win ? 'orientationchange' : 'resize';
+			            var timer = null;
+			            win.addEventListener(evt, function() {
+			                clearTimeout(timer);
+			                timer = setTimeout(setFontSize, 300);
+			            }, false);
+			            win.addEventListener("pageshow", function(e) {
+			                if (e.persisted) {
+			                    clearTimeout(timer);
+			                    timer = setTimeout(setFontSize, 300);
+			                }
+			            }, false);
+			            setFontSize();
+			        }(window, document));
+			    </script>
+			2、配置webpack.config.js
+			
+				由于react默认隐藏webpack配置需要手动显示。首先执行命令显示webpack配置
+				
+				npm run eject
+				//Are you sure you want to eject? This action is permanent. (y/N) 
+				y
+				安装以下包：lib-flexible sass-loader node-sass postcss-px2rem-exclude
+				
+				npm i lib-flexible sass-loader node-sass postcss-px2rem-exclude --save
+				修改webpack.config.js ，首先引入：
+				
+				const px2rem = require('postcss-px2rem-exclude');
+			//加入
+				px2rem({remUnit:75,exclude: /node_modules/i})
+			然后找到处理postcss-loader的地方：
+				有require.resolve('postcss-loader')的地方，下面有个option对象，找到这个对象里面的plugin函数，然后在里面添加
+			在我们的入口文件index.js 中引入lib-flexible
+			
+				import "lib-flexible"
+			最后一步修改index.html
+			
+				<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
 		 -->
 	</body>
 </html>

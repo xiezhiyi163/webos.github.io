@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				outline: 0;
+				border: 0;
+				text-decoration: none !important;
+				list-style: none;
+				user-select:none;
+			}
+			.cont {
+				text-align: center;
+			}
+			.boxwrap {
+				/* -webkit-perspective: 1500;
+				perspective: 1500; */
+				display: inline-block;
+				width: 200px;
+				height: 200px;
+				transform-style:preserve-3d;
+				position: relative;
+				margin-top: 75px;
+			}
+			.boxsize {
+				line-height: 200px;
+				font-size: 50px;
+				color: #fff;
+			}
+			.boxleft,.boxright,.boxfront,.boxback,.boxtop,.boxbottom {
+				width: inherit;
+				height: inherit;
+				position: absolute;
+			}
+			.boxleft,.boxright {
+				transform: rotateY(90deg);
+			}
+			.boxleft {
+				left: -100px;
+			}
+			.boxright {
+				right: -100px;
+			}
+			.boxfront,.boxback {
+				transform: rotateX(90deg);
+			}
+			.boxfront {
+				top: -100px;
+			}
+			.boxback {
+				bottom: -100px;
+			}
+			.boxtop {
+				transform: translate3d(0,0,100px);
+			}
+			.boxbottom {
+				transform: translate3d(0,0,-100px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cont" id="cont">
+			<div id="boxarea" style="width: 300px;height: 350px;border: 1px solid #666;display: inline-block;line-height: normal;">
+				<div class="boxwrap" id="boxwrap">
+					<div class="boxsize boxleft" style="background-color: chocolate;">左</div>
+					<div class="boxsize boxright" style="background-color: chocolate;">右</div>
+					<div class="boxsize boxfront" style="background-color: palevioletred;">前</div>
+					<div class="boxsize boxback" style="background-color: palevioletred;">后</div>
+					<div class="boxsize boxtop" style="background-color: salmon;">上</div>
+					<div class="boxsize boxbottom" style="background-color: salmon;">下</div>
+				</div>				
+			</div>
+		</div>
+		<script type="text/javascript">
+			//@获取，初始化和设置=======
+			/*获取窗口尺寸和设备标识*/
+			var ww = window.innerWidth,
+				ddw = document.documentElement.clientWidth,
+				dbw = document.body.clientWidth,
+				tw = ww?ww:ddw?ddw:dbw;
+			var wh = window.innerHeight,
+				ddc = document.documentElement.clientHeight,
+				dbc = document.body.clientHeight,
+				th = wh?wh:ddc?ddc:dbc;
+			var UA = navigator.userAgent
+			var getsign = (UA.indexOf('Windows') != -1 || UA.indexOf('Macintosh') != -1)?'win':'mob';//
+			/*初始化鼠标或手势转动盒子需要的字段*/
+			/*  (起始x)(起始y)(结束x)  (结束y) (移动中的x写入)(移动中的y写入) (延时的和移动中记录相减的差值，用于记录单次手势当前点到结束点的距离) */
+			var mx = 0,my = 0,endmx = 0,endmy = 0,mxing = 0,mying = 0,mxyds = 0;
+			/*初始化旋转角度*/
+			var boxwrapRx = 45,boxwrapRy = 70;
+			/*设置行高*/
+			document.getElementById('cont').style.lineHeight = th+'px'
+			/*设置角度*/
+			document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+			//@定义方法=======
+			/* 鼠标或手势转动盒子 */
+			function getlastXY(ev){
+				var evX = getsign == 'win'?ev.pageX:ev.touches[0].pageX,
+					evY = getsign == 'win'?ev.pageY:ev.touches[0].pageY;
+				endmx = evX - mx,endmy = evY - my;
+				/*判断滑动方向*/
+				mxing = evX
+				mying = evY
+				setTimeout(function(){
+					if(boxwrapRx>360){
+						boxwrapRx = 0
+					}
+					if(boxwrapRx < 0){
+						boxwrapRx = 360
+					}
+					if(boxwrapRy>360){
+						boxwrapRy = 0
+					}
+					if(boxwrapRy < 0){
+						boxwrapRy = 360
+					}
+					document.querySelector('#boxwrap').style.transition = '0ms'
+					if(evX-mxing>0){
+						mxyds = evX-mxing
+						/* if(boxwrapRy<180){
+							boxwrapRx+=(1.5);							
+						}else{
+							boxwrapRx+=-(1.5);
+						} */
+						boxwrapRx+=(1.5);
+						document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+						console.log('往左')
+					}
+					if(evX-mxing<0){
+						mxyds = evX-mxing
+						/* if(boxwrapRy<180){
+							boxwrapRx+=-(1.5);							
+						}else{
+							boxwrapRx+=(1.5);
+						} */
+						boxwrapRx+=-(1.5);
+						document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+						console.log('往右')
+					}
+					if(evY-mying>0){
+						mxyds = evY-mying
+						boxwrapRy+=(1.5);
+						document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+						console.log('往上')
+					}
+					if(evY-mying<0){
+						mxyds = evY-mying
+						boxwrapRy+=-(1.5);
+						document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+						console.log('往下')
+					}
+				},65)
+			}
+			function getlastXY_(){
+				var ev2 = event||window.event
+				getlastXY(ev2)				
+			}
+			//@监听=======
+			window.addEventListener('resize',function(){/* 设置容器行高 */
+				document.getElementById('cont').style.lineHeight = th+'px'
+			})
+			/* 监听转动盒子 */
+			document.getElementById('boxarea').addEventListener(getsign == 'win'?'mousedown':'touchstart',function(){
+				document.querySelector('#boxwrap').style.transition = '0ms'
+				var ev = event||window.event;
+					mx = getsign == 'win'?ev.pageX:ev.touches[0].pageX;
+					my = getsign == 'win'?ev.pageY:ev.touches[0].pageY;	
+				window.addEventListener(getsign == 'win'?'mousemove':'touchmove',getlastXY_)
+			})
+			window.addEventListener(getsign == 'win'?'mouseup':'touchend',function(){
+				if(Math.abs(mxyds)>0){
+					setTimeout(function(){
+						document.querySelector('#boxwrap').style.transition = '300ms'
+						if ( Math.abs(endmx) > Math.abs(endmy) && endmx > 0 ) {		
+							boxwrapRx+=(mxyds*2);
+							document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+				　　　　　　console.log("右滑");		
+				　　　　}
+				　　　　else if ( Math.abs(endmx) > Math.abs(endmy) && endmx < 0 ) {		
+							boxwrapRx+=(mxyds*2);
+							document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+				　　　　　　console.log("左滑");		
+				　　　　}		
+				　　　　else if ( Math.abs(endmy) > Math.abs(endmx) && endmy > 0) {		
+							boxwrapRy+=(mxyds*2);
+							document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+				　　　　　　console.log("下滑",endmx);		
+				　　　　}		
+				　　　　else if ( Math.abs(endmy) > Math.abs(endmx) && endmy < 0 ) {		
+							boxwrapRy+=(mxyds*2);
+							document.querySelector('#boxwrap').style.transform = 'rotateX('+boxwrapRy+'deg) rotateZ('+boxwrapRx+'deg)'
+				　　　　　　console.log("上滑");		
+				　　　　}						
+						mxyds = 0;
+					},100)
+				}
+				window.removeEventListener(getsign == 'win'?'mousemove':'touchmove',getlastXY_)
+			})
+		</script>
+	</body>
+</html>

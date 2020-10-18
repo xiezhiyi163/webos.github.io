@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "sc-button":"../common/sc-ui/dist/components/scButton/sc-button"
+  }
 }

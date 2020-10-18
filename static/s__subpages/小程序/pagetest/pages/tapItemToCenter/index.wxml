@@ -1,9 +1,18 @@
 <!--pages/tapItemToCenter/index.wxml-->
 
-<swiper style="height:230rpx" previous-margin="290rpx" next-margin="290rpx" circular="true" bindchange="swiperchange">
-	<swiper-item wx:for="{{9}}">
-		<view style="height:180rpx;background-color:coral;transition:300ms;margin:0 30rpx;{{swiperindex==index?'transform:scale(1.2);margin-top:30rpx;':'margin-top:50rpx;'}}">
-      {{index}}
-    </view>
-	</swiper-item>
-</swiper>
+<!-- //监听布局touch事件 -->
+<view class='column' bindtouchstart='start' bindtouchend='end' bindtouchmove='move' style='min-height:{{winheight+"px"}}'>
+	<!-- //刷新状态view -->
+	<view style='height:{{hei}}px;background:gray;position:relative;overflow:hidden;;text-align:center;line-height:{{hei}}px' class='refresh'>{{desc}}</view>
+	<swiper style="height:230rpx" previous-margin="290rpx" next-margin="290rpx" circular="true" bindchange="swiperchange">
+		<swiper-item wx:for="{{9}}">
+			<view style="height:180rpx;background-color:coral;transition:300ms;margin:0 30rpx;{{swiperindex==index?'transform:scale(1.2);margin-top:30rpx;':'margin-top:50rpx;'}}">
+				{{index}}
+			</view>
+		</swiper-item>
+	</swiper>
+
+	<view class="scbtn" wx:for='{{60}}'>
+		<sc-button sc-class="sc-btn" raised style="width:100%;margin:0" hover-class="none">NORMAL</sc-button>
+	</view>
+</view>
