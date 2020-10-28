@@ -195,6 +195,33 @@
 					   }
 					}
 					小到大，>,大到小,<
+					
+				//@链式promise测试======
+				function m(type){
+					 return new Promise(function(rsv,rjt){
+						type?rsv(1):rjt(0)
+					})				
+				}
+				function m2(type){
+					 return new Promise(function(rsv,rjt){
+						type?rsv(2):rjt(-1)
+					})				
+				}
+				function m3(type){
+					 return new Promise(function(rsv,rjt){
+						type?rsv(3):rjt(0)
+					})				
+				}
+				m(true).then(function(data){
+					console.log(1)
+					return m2(true)
+				}).then(function(){
+					console.log(2)
+					return m3(true)
+				}).catch(function(data){
+					console.log(data,0)
+				})//then回调遇到false都会立马跳到最后的catch执行对应返回的catch
+				//
 		-->
 		<!-- 
 			如何做大小不一的选择项布局并且可以挤在一起的，
