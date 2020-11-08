@@ -222,6 +222,24 @@
 					console.log(data,0)
 				})//then回调遇到false都会立马跳到最后的catch执行对应返回的catch
 				//
+				操作属性追加的方法：
+					object.assign({},对象)
+					Object.defineProperty(对象，属性，{writable: false,value:最终赋给属性的值}）
+					----比如Object.defineProperty(window,'opps',{writable: false,value:[333]}
+				判断页面是否到达底部
+					//变量scrollTop是滚动条滚动时，滚动条上端距离顶部的距离
+					var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+				
+					//变量windowHeight是可视区的高度
+					var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				
+					//变量scrollHeight是滚动条的总高度（当前可滚动的页面的总高度）
+					var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+				
+					//滚动条到底部
+					if(scrollTop+windowHeight>=scrollHeight){
+						//要进行的操作
+					}
 		-->
 		<!-- 
 			如何做大小不一的选择项布局并且可以挤在一起的，

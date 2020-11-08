@@ -38,7 +38,7 @@
 			<div id="r-result" style="height: 50%;overflow-y: auto;"></div>
 		</div>
 		<!-- 白名单映射baidumap.com 用的3.0版本的jsAPI，百度开放平台申请ak密钥然后放到下面的js链接的参数那里才可以成功调用 -->
-		<script type="text/javascript" src="static/common/baidumap.js?v=2.0&ak=NWWXGw4vyvbKO2eG0CI5AR2rE37gaLfX&services=&t=20200327103013"></script>
+		<script type="text/javascript" src="static/common/baidumap.js?v=2.0&ak=E4805d16520de693a3fe707cdc962045&services=&t=20200327103013"></script>
 		<script src="static/common/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var datas = {
@@ -94,8 +94,8 @@
 					listens:function(){
 						this.appheight()//app容器调整
 						var _this = this// 百度地图API功能
-						_this.getloaction()//app容器调整
-						_this.baidumaps()//app容器调整
+						_this.getloaction()
+						_this.baidumaps()
 						window.addEventListener('resize',function(){
 							_this.appheight()//app容器调整
 						})							
