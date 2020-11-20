@@ -71,6 +71,15 @@
 					实现：
 						父级被委托，然后（ev.target || ev.srcElement）.nodeName.toLowerCase()，找节点名的小写处理，等于对应的标签，
 						再按正常流程，找到对应属性进行对应的业务操作
+					类似事件委托的处理：
+					var staffs = document.querySelectorAll('.staff')
+					for(var i=0;i<staffs.length;i++){
+						(function(index){
+							staffs[index].addEventListener('click',function(){
+								console.log(index)
+							})
+						})(i)
+					}
 				什么是跨域？如何解决？
 					浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任一不同，都是跨域
 					解决：1.jsonp跨域 2.nginx方向代理（后台的事）3.PHP端修改header（后台的事）
@@ -183,6 +192,13 @@
 								error:function(data){console.log("error");}//失败返回
 							}
 						);
+				function getdate() {
+				            var now = new Date(1604926614000),//1604926614*1000ms
+				                y = now.getFullYear(),
+				                m = now.getMonth() + 1,
+				                d = now.getDate();
+				            return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+				        }
 				冒泡排序：
 					var a=[6,2,4,1,9,5],t;
 					for(var i=0;i<a.length;i++){
