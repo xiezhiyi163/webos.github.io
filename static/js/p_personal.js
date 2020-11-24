@@ -114,7 +114,7 @@ var framexunhuan = function(th) {
 	setTimeout(function() { _this.checkClick(_this); }, _this.resolution);
 }
 var IframeOnClick = {
-	resolution: 200,
+	resolution: 500,
 	iframes: [],
 	interval: null,
 	Iframe: function() {
@@ -392,7 +392,7 @@ var timer = function() {
 		minute 
 		//+ ':' +	(second.toString().length < 2 ? '0' + second : second)
 	)
-	setTimeout(timer, 50)
+	setTimeout(timer, 200)
 }
 
 var iconsposi_size_set = function() {
