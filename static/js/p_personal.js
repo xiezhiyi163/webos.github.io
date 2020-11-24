@@ -163,7 +163,7 @@ var sizefn = function() {
 var linkstatus = function() {
 	//检查网络状态
 	p_data.linkstatus++;
-	links2('get', 1, function(res) {
+	links2('get', location.href, function(res) {
 		setTimeout(linkstatus, 5000)
 	}, function(error) {
 		if(error.status == 0) {

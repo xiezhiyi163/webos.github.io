@@ -11,7 +11,8 @@
 			$ git config --global user.name "Your Name"
 			$ git config --global user.email "email@example.com"
 			想要切换账号，就用以下命令
-			git config --system --unset credential.helper，之后的仓库操作，第一次会提示输入账号密码
+			git config --global credential.helper cache //之后的仓库操作，第一次会提示输入账号密码
+			git config --system --unset credential.helper，//清空密码
 			B（获取SSL公钥）
 			$ ssh-keygen -t rsa -C "youremail@example.com" : 生成相应邮箱的密钥
 			$ cat ~/.ssh/id_rsa.pub  查看公钥----将生成的公钥配置到码云或者GitHub（配置之后可忽略）
