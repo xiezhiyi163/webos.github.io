@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                border: 0;
+                outline: none;
+                text-decoration: none;
+            }
+            .centercont {
+                width: 800px;
+                min-height: 3000px;
+                margin: 0 auto;
+                background-color: #ccc;
+            }
+            /* fix */
+            #fixtop {
+                position: fixed;
+                top:0;
+                left: 0;
+                width: 100%;
+                height: 0;
+                visibility: hidden;
+            }
+            #fixtopin {
+                width: 800px;
+                height: 40px;
+                margin: 0 auto;
+                background-color: #ccc;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            #fixright {
+                position: fixed;
+                top: 0;
+            }
+            #fixright .in {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+            #fixrightin {
+                position: relative;
+                top: 0;
+                width: 200px;
+                height: 300px;
+                background-color: #999;
+            }
+            /*  */
+            #footer {
+                height: 1200px;
+                background-color: #eee;
+            }
+        </style>
+    </head>
+    <script src="../../js/jquery-1.11.0.js"></script>
+    <body>
+        <div style="height: 40px;background-color: #999;"></div>
+        <div id="fixtop">
+            <div id="fixtopin"></div>
+        </div>
+        <div id="centercont" class="centercont">
+            <!-- cont -->
+        </div>
+        <div id="fixright">
+            <div id="fixrightin">
+                <div>固定元素滚动一定距离顶部或底部贴紧测试(小于窗口大于窗口皆适合)</div>
+                <div class="in">元素底部</div>
+            </div>
+        </div>
+        <div id="footer"></div>
+    </body>
+    <script>
+        //==================
+        //变量和方法定义#####
+        //==================
+        var delta;
+        var win = $(window)
+        var doc = $(document)
+        var ctnt = $('#centercont')
+        var footer = $('#footer')
+        var datas = [
+            {id:'123',heights:100},
+            {id:'124',heights:200},
+            {id:'125',heights:300},
+            {id:'126',heights:300},
+            {id:'127',heights:300},
+            {id:'128',heights:300},
+            {id:'129',heights:400},
+            {id:'130',heights:300},
+            {id:'131',heights:300},
+            {id:'132',heights:300},
+            {id:'133',heights:300},
+            {id:'134',heights:300},
+        ]
+        /*================================
+        —— - ——固定右边fix的处理
+        ==================================*/
+        var flag = 0
+        //*操作的fixdom*/
+        var fixr = $('#fixright')
+        //*操作的fixdomin*/
+        var fixrin = $('#fixrightin')
+        //*fixdom固定在右边*/
+        var setfixdomtoright = function(){
+            var fixrcss = {left: ctnt.width() + ctnt.offset().left}
+            fixr.css(fixrcss)
+            fixrin.css(fixrcss)
+        }        
+        setfixdomtoright()
+        //
+        //进来页面重新设定fixdom的posi
+        //
+        var setfixdomposi = function(){
+            var temp = document.documentElement.scrollHeight-(document.documentElement.scrollTop||document.body.scrollTop)-document.documentElement.clientHeight
+            if(temp < fixr.height() && fixr.height()>win.height()){
+                var temp2 = (fixr.height() - temp)//总高度减去滚动条距离底部的距离，等于偏移量，但可能会底部有空白
+                fixr.css({top:-temp2})
+                var fixrtop = fixr.position().top
+                if(fixr.position().top<=0&&fixr.height() + fixr.position().top < win.height()){
+                    fixr.css({top:-(fixr.height() - win.height())})
+                }
+            }
+        }
+        setfixdomposi()
+        var setfixdominposi = function(type,scrollnum,isload){
+            var temp = document.documentElement.scrollHeight-(document.documentElement.scrollTop||document.body.scrollTop)-document.documentElement.clientHeight
+            var tempt = document.documentElement.scrollTop||document.body.scrollTop
+            var temp2 = footer.height() - temp                
+            if(temp<=footer.height()){
+                //到底部的判断定位            
+                fixrin.css({position:'fixed',left:ctnt.width() + ctnt.offset().left,bottom:(temp2 < 0?0:temp2),top:'auto'})
+                fixr.css({top:-((fixrin.height() - win.height()) + temp2),bottom:'auto'})
+                console.log(213123213)
+                if(fixrin.height()<win.height()&&(footer.position().top - win.scrollTop())>fixrin.height()){
+                    fixr.css({top:0})
+                    fixrin.css({top:0})
+                }
+            }else{
+                if(tempt<=60){
+                    flag = 0;
+                    fixrin.css({position:'fixed',left:ctnt.width() + ctnt.offset().left,bottom:'auto',top:(60 - tempt)})
+                    fixr.css({top:(60 - tempt),bottom:'auto'})
+                }else{
+                    if(fixrin.height()<win.height()){
+                        fixr.css({top:0})
+                    }
+                    if(type == 'down'){
+                        if(flag == 0){
+                            flag = 1;
+                            console.log(fixrin.position().top)
+                            fixr.css({top:fixrin.position().top,bottom:'auto'})
+                        }
+                    }
+                    fixrin.css({position:'relative',left:0,top:0,bottom:'auto'})
+                }                 
+            }
+            setTimeout(function(){
+                if(isload){
+                    tempt = document.documentElement.scrollTop||document.body.scrollTop
+                    if(tempt<=60){
+                        fixrin.css({position:'fixed',left:ctnt.width() + ctnt.offset().left,bottom:'auto',top:(60 - tempt)})
+                        fixr.css({top:(60 - tempt),bottom:'auto'})
+                    }else{
+                        var temp3 = footer.position().top - win.scrollTop()
+                        if((footer.position().top - win.scrollTop())>fixrin.height()){
+                            fixrin.css({top:0})
+                        }else{
+                            fixr.css({top:-(fixrin.height()-temp3)})
+                            fixrin.css({top:-(fixrin.height()-temp3)})
+                        }
+                    }
+                }
+            })            
+        }
+        setfixdominposi(null,null,1)
+        /*================================
+        —— - ——顶部固定显示标题和左边目录章节fix的处理
+        ==================================
+         **
+         * {
+         *  离顶部和底部距离判断中间的显示和消失
+         *  遍历选取离顶部为正数的栏目
+         *  左边某个在上面，就删除最开始的，补上一个，重新出现就删除后面一个，补上一个在前面
+         * }
+        ==================================*/
+        var fixtop = $('#fixtop')
+        var fixtopin = $('#fixtopin')
+        datas.map(function(v,i){
+            var dom = '<div id="item'+v.id+'" style="height:'+v.heights+'px">'+v.id+'</div>'
+            ctnt.append(dom)
+            win.on('scroll',null,function(){
+                var tempt = document.documentElement.scrollTop||document.body.scrollTop
+                if(($("#item"+v.id).position().top - win.scrollTop())<0){
+                    fixtopin.html("#item"+datas[i].id)
+                }
+            })
+        })
+
+        //============
+        //监听调整#####
+        //============
+        //*resize
+        win.on('resize',null,function(){
+            /*================================
+            —— - ——固定右边fix的处理
+            ==================================*/
+            //*fixdom固定在右边*/
+            setfixdomtoright()
+        })
+        //*scroll
+        function scroll( fn ) {
+            var beforeScrollTop = win.scrollTop(),fn = fn || function() {};
+            win.on('scroll',null,function(){
+                var afterScrollTop =  win.scrollTop(),
+                    delta = afterScrollTop - beforeScrollTop;
+                if( delta === 0 ) return false;
+                fn( delta > 0 ? "down" : "up" ,delta);
+                beforeScrollTop = afterScrollTop;
+            })
+        }
+        scroll(function(direction,delta2) {
+            var temp = document.documentElement.scrollHeight-(document.documentElement.scrollTop||document.body.scrollTop)-document.documentElement.clientHeight
+            var tempt = document.documentElement.scrollTop||document.body.scrollTop
+            /*================================
+            —— - ——固定右边fix的处理
+            ==================================*/
+            var fixrtop = fixr.position().top
+            if(direction == 'down'){
+                //
+                if(temp>footer.height()){
+                    if((fixrtop>0?fixrtop:-fixrtop) + win.height() > fixr.height()-5){
+                        fixr.css({top:-(fixr.height() - win.height())})
+                    }else{
+                        fixr.css({top:fixrtop - delta2})
+                    }
+                }
+                setfixdominposi('down',delta2,0)
+            }
+            if(direction == 'up'){
+                //
+                if(temp>footer.height()){
+                    if(fixrtop>=0){
+                        fixr.css({top:0})
+                    }else{
+                        if(fixrtop>0){
+                            fixr.css({top:0})
+                        }else{
+                            fixr.css({top:fixrtop - delta2})
+                        }                    
+                    }
+                }
+                setfixdominposi('up',delta2,0)
+            }
+            /*================================
+            —— - ——顶部固定显示标题和左边目录章节fix的处理
+            ==================================*/
+            if((footer.position().top - win.scrollTop())<70){
+                fixtop.css({visibility:'hidden'})
+            }else{
+                if(tempt>40){
+                    fixtop.css({visibility:'visible'})
+                }else{
+                    fixtop.css({visibility:'hidden'})
+                }
+            }
+        }); 
+    </script>
+</html>

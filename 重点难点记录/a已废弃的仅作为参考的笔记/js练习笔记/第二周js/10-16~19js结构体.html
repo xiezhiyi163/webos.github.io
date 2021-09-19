@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#popop{
+				width: 150px;
+				height: 150px;
+				background: #0689CA;
+			}
+			#click{
+				width: 150px;
+				height: 50px;
+				background: #708090;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+        	js的三种结构体：
+        	1.顺序结构
+        		程序按照书写的先后顺序自上而下依次执行
+        		例如：var 变量名 = “字符”，console。log（变量名）
+        	2.条件结构
+        		用来判断条件结果的对与错
+        		两种形式：if/else或switch/case
+        		if/else：
+        				条件1成立，执行1，否则执行2：
+        				if（条件1）{输出代码1}else{输出代码2}
+        				条件1成立，执行1，否则条件2成立，执行代码2，否则执行代码3：
+        				if（条件1）{输出代码1}else if（条件2）{输出代码2}else{输出代码3}
+        				如果条件1成立，执行代码段1，否则什么也不做
+        				if（条件1）{输出代码1}
+        				if(变量或变量名)等价于boolean布尔转换
+        		switch/case：将变量和case的不同值比较，如果相等，执行case后面的代码段，然后break（切断结束），如果变量和case都不相等，那么执行default后面的代码段；prompt()出来的值要加双引号
+        				switch（变量或变量名）{
+        					case 值1：代码段1；
+        					break；
+        					case 值2：代码段2；
+        					break；
+        					...
+        					default：代码段n；
+        				}
+        	3.循环结构：遍历集合中的所有值
+        		三种形式：for,while和do/while
+        			1.for循环：for(语句1；语句2；语句3；){}
+        				语句1：变量的初始值，如  var i=0,此时i相当于集合的下标，相当于索引；
+        				语句2：循环条件，集合的长度减一
+        					以初始值为基础，小于集合长度时候循环，执行大括号里面的内容
+        					例如，i<变量名.length，直到i不小于length，for循环结束
+        				语句3：下标增量，如：i等于i+1（i++），每次循环i都加一
+        			2.
+        			var 变量 = 数值
+        			while（条件）{
+        				代码段
+        				结尾加，变量++        				
+        			}，
+        				当条件成立，执行大括号里面的语句
+        				while（1）是死循环。while（变量或变量名）也等同于boolean
+        			for跟while的区别，当循环次数未知时，建议用while
+        			if跟while，if是判断，while是循环
+        			3.do/while：无论while的条件是否成立，do的代码段都先执行。
+        				do{代码段1}
+        				while（条件）
+        	i++：先运算再+1，++i，先加1再运算
+        	*break和continue用在循环条件中，
+        		break，直接跳出循环
+        		continue，结束当前循环，继续执行下一次的循环
+        			
+        -->
+        <!--
+        	10-17
+        	运算符：
+        	1.赋值运算符，=，+=，-=，*=，/=，%=
+        		a+=b：将a和b相加赋给a，等价于a=a+b
+        		a-=b：将a和b相减赋给a，等价于a=a-b
+        		以此类推a*=b，a/=b,a%=b
+        	2.算术运算符：+，-，*，/，++，--
+        		i++，先用i的原始值去运算，再自增，跟i=i+1不完全相同
+        		i--，先用i的原始值去运算，再自减，跟i=i-1不完全相同
+        		++i，先用i的原始值自增，再去运算
+        		--i，先用i的原始值自减，再去运算
+        	3.比较运算：>、<、==、<=、>=、!=
+        		!=：不等于号
+        	4.逻辑运算符：与，或，非
+        		与：&&、两个必须同时成立才为真
+        		或：||、只要有个条件就成立为真
+        		非：！、取反
+	        	&和&&的区别：
+	        		&，按位求与，将二进制的每一位按位求与
+	        		&&：两个条件为真时，结果为真
+        	5.三目运算符：（条件）? 结果1：结果2
+        		如果条件成立，取结果1，否则取结果2
+        -->
+        <!--
+        	
+        	10-18
+        	函数详解：
+        	变量声明的提升：先声明后赋值
+        	函数的声明及调用
+        		声明：function 函数名(){执行功能的代码段}
+        		调用：函数名()
+        	参数：函数括号中的值就叫参数
+        	参数的类型：形参和实参
+        		形参：形式化的变量参数，在函数声明时使用，如：function 函数名（a）{} 
+        		实参：真实的实际的参数，在函数调用时传入，如：函数名（1）；
+        		不定参argument：函数不确定参数的个数，此时可以不用写形参，arguments可以理解为实参的集合，形参
+        					例如：
+        						变量名：存放结果
+        						function 函数名（）{
+	        						for（var i=0；i<arguments.length；i++）{
+	        							变量名 += arguments[i]
+	        						}
+	        						//相当于求和
+	        					}
+	        					函数名（1,2,3,4,5）
+        	函数的类型：
+        		1.无参函数和有参函数
+        			无参函数：函数没有参数，如：function 函数名（）{} 
+        			有参函数：函数有参数，如：function 函数名（a）{} 
+        	return：函数的返回值（函数的返回结果），而且return语句后的语句不再执行；当return想要返回一个集合给函数时，return[数组]
+        				例如：function 函数名（）{return 1}
+        				当调用函数名时，等价于函数名等于1。
+        	
+        	10-19
+        	算法中的两种堆结构：
+        	1.队列：先进先出，例如：数组
+        	2.栈：先进后出，例如链表
+        -->
+        <button id="click">click me</button>
+        <div id="popop"></div>
+		<script>
+//			var pro = prompt()
+//			switch(pro){
+//				case "1":alert("周1")
+//				break;
+//				case "2":alert("周2")
+//				break;
+//				case "3":alert("周3")
+//				break;
+//				case "4":alert("周4")
+//				break;
+//				case "5":alert("周5")
+//				break;
+//				default:alert("放假")
+//			}
+			var btn = document.getElementById("click")		
+			var popop = document.getElementById("popop")
+			btn.onclick = function(){
+				if(popop.style.display == "none"){
+					popop.style.display = "block"
+				}
+				else{
+					popop.style.display = "none"
+				}
+			}
+//			var oop = "92743749"
+//			var popp = oop.indexOf("7")
+//			var poppp = oop.indexOf("7",popp+1)
+//			console.log(oop.charAt(poppp))
+		</script>
+	</body>
+</html>

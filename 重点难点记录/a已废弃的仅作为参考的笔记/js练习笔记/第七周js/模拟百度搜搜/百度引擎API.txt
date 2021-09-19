@@ -1,0 +1,17 @@
+请求阶段：
+	"method":"GET"
+	"url":"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+val+'&cb=fn"
+	参数：
+		"wd":用户输入关键字
+		"cb":回调函数fn(callback)
+	超链接跳转url:a.href = "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&rsv_idx=1&tn=baidu&wd="+dataArr[i];
+返回数据：
+	function fn(result){
+			
+	}
+	"result":回调函数参数，返回的数据，对象格式
+	"s":result的key,数组格式，用户关键字相关信息
+
+接口2：http://suggestion.baidu.com/su?wd='+this.value+'&cb=fn
+	
+      超链接跳转url:	http://www.baidu.com/s?wd=

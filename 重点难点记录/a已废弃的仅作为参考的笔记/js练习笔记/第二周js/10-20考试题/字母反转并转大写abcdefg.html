@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1 style="text-align: center;">字母反转并转大写</h1>
+		<script>
+			var str = "abcdefg"
+			var arr = str.split("")//转为数组
+			var arrrsv = arr.reverse()//倒序
+			var str2 = arrrsv.join("")//再转字符串
+			document.write(str2.toUpperCase())//最后大写
+		</script>
+	</body>
+</html>

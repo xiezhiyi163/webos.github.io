@@ -1,0 +1,21 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#zepto{
+	width: 80px;
+	height: 300px;
+	background: tan;
+}
+/*侧边栏需要用到的样式*/
+.pointer{
+	width: 300px;
+	height: 100%;
+	background: orange;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+/*其他测试用到的样式*/
+
+

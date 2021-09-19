@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "van-notice-bar": "../common/vant-weapp-UI/dist/notice-bar/index",
+    "-------分割线-------": "../common/vant-weapp-UI/dist/progress/index",
+    "van-circle": "../common/vant-weapp-UI/dist/circle/index",
+    "-------分割线1-------": "../common/vant-weapp-UI/dist/progress/index",
+    "van-progress": "../common/vant-weapp-UI/dist/progress/index",
+    "-------分割线2-------": "../common/vant-weapp-UI/dist/progress/index",
+    "van-swipe-cell": "../common/vant-weapp-UI/dist/swipe-cell/index",
+     "van-cell-group": "../common/vant-weapp-UI/dist/cell-group/index",
+     "van-button": "../common/vant-weapp-UI/dist/button/index",
+     "van-cell": "../common/vant-weapp-UI/dist/cell/index",
+     "-------分割线2-------": "../common/vant-weapp-UI/dist/progress/index",
+     "van-count-down": "../common/vant-weapp-UI/dist/count-down/index"
+}
+}

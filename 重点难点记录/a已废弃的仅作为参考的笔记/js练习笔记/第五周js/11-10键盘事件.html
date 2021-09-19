@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding:0;
+			}
+			body{
+				height: 900px;
+			}
+			#wrap{
+				width: 450px;
+				height: 450px;
+				margin: auto;
+				position: relative;
+				border: 1px solid rosybrown;
+			}
+			p{
+				width: 300px;
+				height: 300px;
+				background: indianred;
+				position:absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+        	键盘事件：
+        		event：事件回调函数，封装了鼠标或者键盘的参数，例如键盘码和鼠标点击事件
+        		event.keyCode：获取每个键盘码，后面跟值
+        			回车，13，空格，32，Backspace，8，tab，9，左37，上38，右39，下40，
+        		event.ctrlKey:当按下ctrl键时返回true，否则返回false
+        		event.shiftKey:当按下shift键时返回true，否则返回false
+        		event.altKey:当按下alt键时返回true，否则返回false
+        		组合健例如：event.ctrlKey && event.keyCode == 值
+        		1.onkeydown：键盘按下并触发该事件
+        		2.onkeyup：键盘抬起事件
+        		3.onmousedown：鼠标按下过程的事件
+        		4.onmouseup：鼠标抬起过程的事件
+        		5.onmousemove：鼠标移动事件
+        			event.clientX:鼠标横坐标
+        			event.clientY:鼠标纵坐标
+        		6.onmousewheel：鼠标滚轮事件
+        			event.wheelDelta:鼠标向上滚动为120，向下滚动为-120
+        			兼容火狐：window.addEventListener('DOMMouseScroll',function(){})，单引号里面的为监听事件
+        				event.detail::向上滚动为-3，向下滚动为3
+        			兼容ie8及：document.attachEvent('onmousewheel',function(){})，单引号里面的为监听事件
+        		event事件写函数里都要在函数里搞个event形参        		
+        	事件监听：
+        		非ie8用addEventListener这个来监听，addEventListener（‘事件类型（去掉on前缀）’，回调函数->函数名的话不带括号）
+        		ie8以下：attachEvent('事件类型',function(){})
+        	移除事件监听：
+        		非ie8用removeEventListener这个来监听，addEventListener（‘事件类型（去掉on前缀）’，回调函数->函数名的话不带括号）
+        		ie8以下：detachEvent('事件类型',function(){})
+       -->
+       <div id="wrap">
+        <p></p>
+        </div>
+        <script type="text/javascript">//拖拽练习
+        	var box = document.getElementsByTagName("p");
+        	var wrap = document.getElementById("wrap");
+				var startX=0,startY=0,boxleft=0,boxtop=0;
+				var wrapwidth=wrap.offsetWidth , wrapheight=wrap.offsetHeight;
+				var boxwidth=box[0].offsetWidth , boxheight=box[0].offsetHeight;
+				var maxwidth = wrapwidth-boxwidth;
+	        	var maxheight = wrapheight-boxheight;
+        	function move(event){
+        		var lastdisX = event.clientX - startX + boxLeft;
+        		var lastdisY = event.clientY - startY + boxTop;
+        		///
+        		if(lastdisX<0){
+        			lastdisX=0;
+        		}
+        		else if(lastdisX>maxwidth){
+        			lastdisX=maxwidth;
+        		}
+        		if(lastdisY<0){
+        			lastdisY=0;
+        		}
+        		else if(lastdisY>maxheight){
+        			lastdisY=maxheight;
+        		}
+        		box[0].style.left = lastdisX+"px";
+        		box[0].style.top = lastdisY+"px";
+        	}
+       		box[0].onmousedown = function(){
+        		startX=event.clientX,startY=event.clientY;
+				boxLeft = box[0].offsetLeft;
+				boxTop = box[0].offsetTop;
+       			if(wrap.addEventListener){
+                	wrap.addEventListener('mousemove',move);  				
+       			}
+       			else{
+       				wrap.attachEvent('onmousemove',move);
+       			}
+        	}
+        	box[0].onmouseup = function(){
+        		if(wrap.removeEventListener){
+               		wrap.removeEventListener('mousemove',move);
+                }else{
+                	wrap.detachEvent('onmousemove',move);
+                }
+        	}        	
+        </script>
+	</body>
+</html>

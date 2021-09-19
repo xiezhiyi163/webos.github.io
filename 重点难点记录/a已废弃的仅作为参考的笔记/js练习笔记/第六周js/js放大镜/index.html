@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				height:2900px;
+			}
+			#see-size{
+				width: 1000px;
+				height: 600px;
+				margin: 170px auto 0;
+				background:yellow;
+			}
+			#smallimg{
+				width: 400px;
+				height: 283px;
+				position: relative;
+				float: left;
+				background:yellow;
+			}
+			.move{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				background: white;
+				filter: alpha(opacity=50);
+				background: rgba(255,255,255,.4);
+			}
+			#bigimgbox{
+				width: 600px;
+				height: 600px;
+				background: gold;
+				float: left;
+				position: relative;
+				overflow: hidden;
+			}
+			#bigimgbox>img{
+				width: 2400px;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="see-size">
+			<div id="smallimg">
+				<div class="move"></div>
+				<img src="img/26436247p0.jpg" width="100%"/>
+			</div>
+			<div id="bigimgbox">
+				<img src="img/26436247p0.jpg" width="2400"/>
+			</div>		
+		</div>
+		<script type="text/javascript">
+			var smallimg = document.getElementById("smallimg");
+			var movebox = smallimg.getElementsByTagName("div");
+			var bigimgbox = document.getElementById("bigimgbox");
+			var bigimg = bigimgbox.getElementsByTagName("img");
+			////
+			smallimg.onmouseenter = function(event){
+				movebox[0].style.display = "block";
+				bigimgbox.style.display = "block";
+				var smallmaxwidth = smallimg.offsetWidth - movebox[0].offsetWidth;
+				var smallmaxheight = smallimg.offsetHeight - movebox[0].offsetHeight;//
+				function move(event){
+					var scrollX = document.body.scrollLeft||document.documentElement.scrollLeft;
+					var scrollY = document.body.scrollTop||document.documentElement.scrollTop;
+					var pX = event.pageX||event.clientX+scrollX;
+					var pY = event.pageY||event.clientY+scrollY;
+					var lastX = pX - smallimg.offsetLeft-movebox[0].offsetWidth/2;
+					var lastY = pY - smallimg.offsetTop-movebox[0].offsetHeight/2;
+					//
+					if(lastX<0){
+						lastX=0;
+					}
+					else if(lastX > smallmaxwidth){
+						lastX = smallmaxwidth;
+					}
+					if(lastY<0){
+						lastY=0;
+					}
+					else if(lastY>smallmaxheight){
+						lastY=smallmaxheight;
+					}
+					movebox[0].style.left = lastX+"px";
+					movebox[0].style.top = lastY+"px";
+					///
+					var bigimgboxwidth = bigimgbox.offsetWidth;
+					var bigimgwidth = bigimg[0].offsetWidth;
+					var smallimgwidth = smallimg.offsetWidth;
+					var moveboxwidth = movebox[0].offsetWidth;
+					var bigimgboxheight = bigimgbox.offsetHeight;
+					var bigimgheight = bigimg[0].offsetHeight;
+					var smallimgheight = smallimg.offsetHeight;
+					var moveboxheight = movebox[0].offsetHeight;
+					var sizeX = (bigimgwidth-bigimgboxwidth)/(smallimgwidth-moveboxwidth);
+					var sizeY = (bigimgheight-bigimgboxheight)/(smallimgheight-moveboxheight);
+					bigimg[0].style.left = -lastX*sizeX+"px";
+					bigimg[0].style.top = -lastY*sizeY+"px";
+					//
+				}
+				if(document.attachEvent){
+					smallimg.attachEvent('onmousemove',move);			
+				}else{
+					smallimg.addEventListener('mousemove',move);
+				}
+			}
+			smallimg.onmouseleave = function(){
+				movebox[0].style.display = "none";
+				bigimgbox.style.display = "none";
+			}
+		</script>
+	</body>
+</html>

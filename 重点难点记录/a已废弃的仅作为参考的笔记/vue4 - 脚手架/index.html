@@ -1,0 +1,113 @@
+<!--
+	VUE脚手架下载：cnpm install -g vue-cli
+	vue-cli的使用：
+		初始化项目，
+			vue init [模式] 项目名字
+				 Use ESLint to lint your code? 以下都为n回车,最后一个选第一个下载东西
+				模式：webpack
+					webpack-simple是简易版，比simple要更多东西，
+					simple是简易版，只有一个html
+		进入项目补齐文件依赖
+			cd 项目名字
+			cnpm install
+		启动项目
+			npm run dev
+			网址输入localhost:8080
+	
+		build文件夹：webpack工具的配置文件
+		src文件夹：图片文件夹，路由文件夹，然后main.js是入口文件，关联实例的，然后components是放置组件的地方
+		config：项目配置文件夹
+		static：经过了webpack配置的文件，常用的静态资源都放置在那
+	项目流程：main.js（src文件夹里面）←-（index.js（router文件夹里面）←-.....vue组件）------index.html或app.vue那里的router-view渲染出来
+	
+	
+-->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script> 
+	</head>
+
+	<body>
+		<div id="box">
+			{{test}}
+			<my-com1></my-com1>
+		</div>
+		<!--#template-->
+		<template id="myCom1temp">
+			<div>{{mvs}}</div>
+		</template>		
+		<!--#js-->
+		<script>
+//			var zj = Vue.extend({
+//				template:'',
+//				data(){
+//					return{
+//						
+//					}
+//				},
+//				methods:{},
+//				computed:{},
+//				mounted:function(){
+//					
+//				}
+//			})
+//			Vue.component('')
+//---------------------------------------------
+//			Vue.component('',{
+//				template:'',
+//				data(){
+//					return{
+//						
+//					}
+//				},
+//				methods:{},
+//				computed:{},
+//				mounted:function(){
+//					
+//				}
+//			})
+//---------------------------------------------------
+
+			var vm=new Vue({
+				el:'#box',
+				data:{
+					test:'test',
+				},
+				beforeCreate(){
+					console.log('beforeCreates',this.$el+'-el-',this.$data+'-data-',document.getElementById('box').innerHTML)
+				},
+				created(){//可以用来获取数据
+					console.log('beforeCreates',this.$el+'-el-',this.$data+'-data-',document.getElementById('box').innerHTML)
+				},
+				//以上两个可作为loading事件的处理
+				mounted(){
+					console.log('beforeCreates',this.$el+'-el-',this.$data+'-data-',document.getElementById('box').innerHTML)
+				},
+				updated(){//页面data数据发生改变时会触发
+					console.log(this.$data+'-data-')
+				}.
+				//以上可以作为实例挂载后执行的钩子函数
+				methods:{
+					
+				},
+				//下面是组件
+				components: {
+					'myCom1': {
+						template: '#myCom1temp',
+						data() {
+							return {
+								mvs:'mvsdata'
+							}
+						}
+					},
+				}
+			})	
+			//------------------
+		</script>
+	</body>
+
+</html>

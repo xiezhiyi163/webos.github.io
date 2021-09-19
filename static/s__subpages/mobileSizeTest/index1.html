@@ -1,0 +1,66 @@
+<!-- 
+    模板原尺寸调试，px为单位
+ -->
+ <!DOCTYPE html>
+<html style="font-size: 16px;">
+    <head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../../css/Pcss.css"/>
+		<title></title>
+        <style>
+            /* 套用的时候拿这里的 */
+            .table-thetableswrap {
+                min-width:500px;
+                padding: 12px;
+            }
+            .table-thetables {
+                display: table;
+                width: 100%;
+            }
+            .table-imgs,.table-infos {
+                display: table-cell;
+                vertical-align: top;
+            }
+            .table-imgsin {
+                width: 200px;
+                height: 200px;
+                background-color: coral;
+            }
+            .table-infos-wrap {
+                margin-left: 10px;
+            }
+            .table-infos-title {
+                position: relative;
+                height: 60px;
+                font-size: 24px;
+                word-break: break-word;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+            }
+            .table-infos-else {
+                height: 130px;
+                margin-top: 10px;
+                background-color: cornflowerblue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="table-thetableswrap" lang="套用的时候拿这个容器的">
+            <div class="table-thetables">
+                <div class="table-imgs">
+                    <div class="table-imgsin"></div>
+                </div>
+                <div class="table-infos">
+                    <div class="table-infos-wrap">
+                        <div class="table-infos-title">
+                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                        <div class="table-infos-else"></div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </body>
+</html>

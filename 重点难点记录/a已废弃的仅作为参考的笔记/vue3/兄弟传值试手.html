@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script> 
+	</head>
+
+	<body>
+		<div id="box">
+			<my-coma></my-coma>
+			<my-comb></my-comb>
+			<my-comc></my-comc>			
+			<my-comd></my-comd>			
+		</div>
+		<template id="coma">
+			<div><h1 @click="haha">{{msga}}</h1></div>
+		</template>
+		<template id="comb">
+			<div><h1 @click="hbhb">{{msgb}}</h1></div>
+		</template>
+		<template id='comc'>
+			<div><h1 @click="hchc">{{msgc}}</h1></div>
+		</template>
+		<template id='comd'>
+			<div><h1>{{msgd}}</h1></div>
+		</template>
+		<script>
+			var sm = new Vue({});
+			var vm=new Vue({
+				el:'#box',
+				data:{
+					
+				},
+				methods:{
+					
+				},
+				components: {
+					'myComa': {
+						template: '#coma',
+						data() {
+							return {
+								msga:'11111'
+							}
+						},
+						methods:{
+							haha(){
+								sm.$emit('haha',this.msga)
+							}							
+						}
+					},
+					'myComb': {
+						template: '#comb',
+						data() {
+							return {
+								msgb:'22222'
+							}
+						},
+						methods:{
+							hbhb(){
+								sm.$emit('hbhb',this.msgb)
+							}							
+						}
+					},
+					'myComc': {
+						template: '#comc',
+						data() {
+							return {
+								msgc:'33333'
+							}
+						},
+						mounted(){
+							var _th = this
+							sm.$on('haha',function(a){
+								_th.msgc=a
+							})
+							sm.$on('hbhb',function(a){
+								_th.msgc=a
+							})
+						},
+						methods:{
+							hchc(){
+								sm.$emit('hchc',this.msgc)
+							}							
+						}
+					},
+					'myComd': {
+						template: '#comd',
+						data() {
+							return {
+								msgd:'44444'
+							}
+						},
+						mounted(){
+							var _th = this
+							sm.$on('hchc',function(a){
+								_th.msgd=a
+							})
+						}
+					}
+				}
+			})	
+		</script>
+	</body>
+
+</html>

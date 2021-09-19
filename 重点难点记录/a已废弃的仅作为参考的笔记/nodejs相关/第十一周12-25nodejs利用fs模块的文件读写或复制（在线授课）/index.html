@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+	js研发周期：10天，是轻量级的脚本语言
+	浏览器有一个可以支持js运行的环境
+	什么是nodejs？
+		一种环境，支持js在服务器运行
+		由c++编写的，暴露出了很多系统级别的API，可以使用js调用
+		比如：桌面系统，但只能win7及以上；VR技术
+		服务端：1.搭建服务器
+			   2.连接数据库，用到MySQL、MongoDB
+			   3.如何编写接口
+	nodejs和原生js区别：nodejs不能alert
+	js的同步和异步事件：
+		同步，是同时进行的，异步，相当于发传单，同一时刻,把当前的先执行，挂起其他的函数
+		单线程异步：相当于医院分诊台，诊断出对应病症并对症下药进行医治这个意思
+	进程：一个进程在任意时刻只能运行一个线程，一个cpu只能运行一个进程
+	锁定当前路径打开命令窗口cmd：按住shift并右键当前文件夹空白位置，打开的命令窗口可以直接运行当前输入的js文件名的js功能；‘cd ..’返回上一级；使用nodejs运行代码：node+‘ ’+名字
+	ctrl+c可结束当前的nodejs环境
+	获取当前文件的路径：__dirname，两条下划线在前面的
+	直接文件本身的路径（连带本身）：__filename,同样也要带两条下划线在前面的
+	如何动态获取路径？那么就得要进行拼接操作
+	nodejs模块化：
+		1.命名冲突
+			添加用户main.js ==> add（）
+			添加好友main.js ==> add（）
+			方法相同，就冲突了
+		2.文件依赖
+			a==>b
+				b==>c
+					c==>d
+		3.命名空间（缓解命名冲突）：
+			比如var一个空对象，然后这个空对象动态赋个属性，等于某个值
+		加载器：
+		1.一个文件就是一个模块
+		2.在引入的文件的地方 ==> 注册一个变量，使用引入文件
+			（当前文件加载，模块）
+		比如：var jQ = 引入，require（‘a.js’）
+		nodejs提供了模块：
+			比如：var name = require('fs')//fs是文件系统模块
+			name.unlink(‘当前路径下的文件名’，模块回调函数(形参err))，这个方法是模块提供的，用来删除文件的
+			
+		如何编写一个模块：
+			1.暴露：如果想要引入，那么在编写这个模块时，必须要进行暴露
+			方法1：module.exports=函数名或{}
+			方法2：exports.名字={}
+			方法1被另一js文件调用可以直接调用本身模块里面的方法或属性，本身模块出来的是一个函数体或属性加值
+			方法2被另一js文件调用之后，本身模块出来的是一个对象{名字：函数}，调用所引入的方法或函数，只需要名字()就可以
+			2.在其他文件使用require引入，‘./’为当前文件的上一级，‘../为当前文件夹的上一级’
+		第三方模块：别人写的模块，是要先下载才能引入；引入的时候，关心的是功能，以及使用的参数
+		fs模块：文件系统模块，可以进行文件的创建，删除，修改，重命名，读取，写入
+			1.删除文件：
+				unlink('目标文件',function(err){//异步操作
+					if(err) throw err;//此步执行会中断当前进程，将错误抛出
+					《--这里是文件删除后要干的事--》
+				})
+			2.读取文件：
+				readFile('目标','utf-8',function(err,data){
+					if(err) throw err; 错误
+					console.log(data)  //别读取图片和视频
+				})
+			3.写入内容(会覆盖源文件全部内容，如果找不到文件，会进行动态创建)：
+				writeFile('目标','内容',function(err){
+					if(err) throw err;
+					console.log('写入完成')
+				})
+			4.追加内容（追加内容后面拼接‘\n’可实现换行）：
+				appendFile('目标','追加内容',function(err){
+					if(err) throw err;
+					console.log('写入完成')
+				})
+		复制功能(异步操作,要进行嵌套，涉及到了回调机制)：
+			1-读取并获取读取的数据
+			2-写入数据到另一个文件里面
+			readFile('目标','utf-8',function(err,data){
+				writeFile('另一目标','内容',function(err){
+					写入成功后的代码
+				})
+			})
+			
+		创建项目：
+		全局安装依赖：npm install -g express  6.10版node以后还要npm install -g express-generator
+		热更新支持：npm i -g supervisor，npm install -g nodemon
+			然后当前文件夹express --view=ejs 项目名字
+			（出现express : 无法将“express”项识别为 cmdlet、函数、脚本文件或可运行程序的名称，检查环境变量设置：NODE PATH ： 安装目录，系统变量的path添加：node安装目录）
+			进入项目里面cnpm i安装依赖
+			启动项目cnpm start（热更新启动nodemon app），默认端口3000（bin目录下的www文件localhost:3000）
+			页面搭建模式：appjs-----routes--------views出来成型网站或者服务器端
+			!!!!!!!没有热更新，如果文件有更改，服务器要重新启动
+			运行的醒目如果require找不到，就npm install -g browserify
+		
+		
+-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>

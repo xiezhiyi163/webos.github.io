@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			
+			form表单提交数据必备因素，
+			form----action，method，name
+			|
+			------input----name，value
+			value如果是字符串，平常传输就行，如果写成比如user[0].name或者user[]或者user[name][]，与后台沟通好让后台配置好接收
+			user[0].name,类似于数组当中包含对象
+			user[],后台保存到数据库的数组（也可能对象），下标自增，
+			user[name][]，后台保存到数据库的相同对象里面的数组（可能有些时候为对象）
+			
+			jQuery：是一种js的函数库，封装了原生js的功能和方法，方便编程者直接调用
+				优势：简化DOM操作，提供方便的选择器，提高兼容性，用户无需考虑方法的实现过程，直接调用，jQ内含有丰富插件
+			使用方法：
+				首先创建jQ库，然后导入jQ库，在script的src中链接该文件，把该jQ放在所有js的最上面
+					弊端：加载速度慢
+					语法：$()或者jQuery	
+					jQ对象的方法，迭代执行，无需循环
+			jQ选择器：
+				1.标签选择器：$('标签')
+				2.class选择器：S('.class名')
+				3.id选择器：$('#id名')
+				4.属性选择器：$("input[type='file']");
+			选择器的使用方式：
+				$('div').hide();
+			jQ选择器获取的为jQ对象，js获取的为DOM元素；
+				jq对象不能使用原生DOM的方法和属性，DOM元素不能使用jQ的属性和方法
+ 			$().eq(index):匹配指定下标的jq对象，下标从0开始
+			$(function(){}):等价于window.onload = function(){}
+			$.ready(function(){}):等价于window.onload = function(){}
+			原生DOM和JQ对象之间的转换：
+				DOM元素转jQ对象：$(document.getElementById())
+				jq对象转DOM元素：$('div').get(i),i为下标
+								html():获取或者修改元素内容，等价于innerHTML；
+								text():获取或者修改元素内容，不包含标签，等价于innerText
+								val():获取或者修改表单元素的内容，等价于value
+								index():获取JQ对象的下标
+								$(this):等价于this
+								获取当前对象的下标，$(this).index()
+				document元素转jQ对象：$(document)
+				window元素转JQ对象:$(window)
+				$().get(index)和$().eq的	区别：前者为DOM元素，后者为jQ对象
+			样式：
+				1.修改单个样式属性
+					$('div').css('color','值')
+				2.修改多个样式属性
+					$('div').css({'color':'值','height':'值'})->里面属性小写，跟css一样'-'拼接;				
+			事件类型：
+				1.click(回调函数)：点击事件;
+				2.dblclick(回调函数)：双击事件；
+				3.mouseover(回调函数)：鼠标移入事件
+				4.mouseout(回调函数)：鼠标移出事件
+				5.hover(回调函数):鼠标悬浮事件，包含了over和out事件，里面写两个函数就是分别是鼠标移入跟鼠标移出事件
+				6.change(回调函数):表单内容改变失去焦点时触发该事件
+				7.focus（回调函数）：表单获取焦点触发该事件
+				8.blur（回调函数）：表单失去焦点触发该事件
+				9.表单输入触发事件：$('input').bind('input propertychange')
+				10.mousewheel(回调函数)：鼠标滚动
+					火狐兼容：$(document).bind('mousewheel DOMMouseScroll',function(){
+						
+					})
+				keyup():键盘抬起事件
+				keydown():键盘按下事件
+				keypress():等价于keyup加keydown
+				resize():浏览器尺寸（大小重置）
+				scroll():滚动条滚动时间
+			兼容ie8的奇偶
+				奇数：$('元素:nth-child(odd)').css()
+				偶数：$('元素:nth-child(odd)').css()
+		-->
+		<input type="text" />
+		<script src="js/jquery-1.7.2.js"></script>
+		<script>
+			$('input').bind('input propertychange',function(){
+				console.log(111);
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+
+ <!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="box1">
+			<div style="padding: 10px;border: 2px solid royalblue;border-bottom:1px solid royalblue;">
+				<p style="display: inline-block;padding-left:50px;padding-right:50px;">
+					姓名
+				</p>
+				<p style="width: 180px; display: inline-block;padding-left:50px;padding-right:50px;border-left:2px solid royalblue;">
+					爱好
+				</p>
+				<p style="display: inline-block;padding-left:50px;border-left:2px solid royalblue;">
+					操作
+				</p><br />	
+			</div>
+			<div v-for='(value,index) in pep' style="padding: 10px;border: 1px solid royalblue;border-left:2px solid royalblue;border-right:2px solid royalblue;">
+				<p style="display: inline-block;padding-left:50px;padding-right:50px;">
+					{{value.name}}
+				</p>
+				<p style="width: 180px; display: inline-block;padding-left:50px;padding-right:50px;border-left:2px solid royalblue;">
+					<input type="text" v-if='value.checked' v-model='value.inpval'/>
+					<span v-else>{{value.inpval}}</span>
+				</p>
+				<p style="display: inline-block;padding-left:50px;border-left:2px solid royalblue;">
+					<input  type="checkbox" v-model='value.checked' />
+				</p><br />				
+			</div>
+			<div style="border-bottom:1px solid royalblue;"></div>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:'#box1',
+				data:{
+					pep:[						
+						{name:'刘洋',checked:false,inpval:'打篮球'},					
+						{name:'谭宇',checked:false,inpval:'游冬泳'},				
+						{name:'冯永',checked:false,inpval:'打乒乓'}				
+					]
+				}
+			})
+		</script>
+	</body>
+
+</html>

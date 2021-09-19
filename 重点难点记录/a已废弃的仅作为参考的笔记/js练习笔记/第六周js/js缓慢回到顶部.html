@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div style="width: 100%;height: 2000px;">
+			<button style="width: 100px; height: 100px;position: fixed; bottom: 60px; right: 60px;background: greenyellow;display: none;"></button>
+		</div>
+		<script type="text/javascript">
+			var btn = document.getElementsByTagName("button");
+			var timer = null;
+			//
+			window.onscroll = function(){
+				var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+				if(scrollY>=500){
+					btn[0].style.display = "block";
+				}			
+			}
+			btn[0].onclick = function(){
+				timer = setInterval(function(){
+					var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+					window.scrollBy(0,-15);	
+					if(scrollY==0){
+						clearInterval(timer);
+						btn[0].style.display = "none";
+					}
+				},1);
+			}
+		</script>
+	</body>
+</html>

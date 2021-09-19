@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			科学计数法:1000 = 1*10^3 = 1e3
+			Math对象中常用的方法:
+				1.Math.abs():求绝对值
+				2.Math.pow(x,y):求x的y次方
+				3.Math.sqrt(x):求x的2次根
+				4.Math.max(x,y):求x和y的最大值
+				5.Math.min(x,y):求x和y的最小值
+				6.Math.random():取0到1之间的随机数
+					取10到100：Math.tandom()*90+10
+					取10到120：Math.tandom()*110+10
+				7.Math.ceil(x)：向上取整
+				8.Math.floor(x):向下取整
+				9.Math.round(x):四舍五入
+			10-27
+			instanceof：用来判断变量类型，如果想等，返回true，否则返回false
+			例如：if(变量名.instanceof == String){}
+			而typeof是if(typeof 变量名 == "string"){}
+			Date类：用来处理日期和时间的
+				使用方式：通过new关键字，创建一个Date的实例化对象
+					例如：var dat = new Date（）；此时Date就是实例化对象
+				常见的属性和方法：
+					1.constructor构造：用来返回该对象的构造函数	
+					2.getTime()获取1970年1-1至今的所有毫秒数
+					3.getFullYear();获取年份
+					4.getMonth();获取月份，比实际月份小1，所以要加1
+					5.getDay();获取一周中的星期几，0-6,0代表周日
+					6.getDate();获取一个月中的某一天
+					7.getHours();获取小时
+					8.getMinutes();获取分钟
+					9.getSeconds();获取秒
+					10.getMilliseconds();获取毫秒
+					11.toString();将数字转为字符串
+					12.toLocaleString();将国际时间转为本地时间
+			10-28
+			递归算法：函数中调用自身，例如：function 函数名（）{函数名（）；}
+				适用情况：前后两项满足相同的代码结构（规律相同），例如：求阶层
+				优势：结构简单，速度快
+				案例：用递归法求5的阶层
+					function loop（n）{
+						if（n == 1）{
+							return 1
+						}else{
+							return n*loop（n-1）
+						}
+					}
+					loop（n）//是一个内部循环的过程，直到n等于1，才停止
+		-->
+		<span></span>天<span></span>时<span></span>分<span></span>秒
+		<script>
+//			var box = document.getElementsByTagName("div")
+//			function timecout(){
+//			var dat = new Date();
+//			var year =dat.getFullYear();
+//			var mounth = dat.getMonth()+1;
+//			var day = dat.getDate();
+//			var hour = dat.getHours();
+//			var minute = dat.getMinutes();
+//			var sec = dat.getSeconds();
+//			var minsec = dat.getMilliseconds();
+//			sec = (sec<10)? ("0"+sec):sec;
+//			minute = (minute<10)? ("0"+minute):minute;
+//			hour = (hour<10)? ("0"+hour):hour;
+//			box[0].innerHTML = (year+"/"+mounth+"/"+day+"<br/>"+hour+":"+minute+":"+sec+";"+minsec);
+//			var time = box[0].innerHTML 
+//				return time
+//			}
+//			setInterval(timecout,1)
+			
+			//倒计时
+			var box = document.getElementsByTagName("span");
+			function lasttime(){
+				var dat = new Date();
+				var lastTime = dat.getTime();
+				return lastTime
+			}
+			function latesttime(){
+				var dat = new Date(2017,10,11);
+				var latestTime = dat.getTime();
+				return latestTime
+			}
+			function timecout(){
+				sec = Math.floor((latesttime() - lasttime())/1000) % 60//秒对60求余
+				box[3].innerHTML = (sec<10) ? ("0"+sec) : sec
+				minute = Math.floor((latesttime() - lasttime())/(1000*60)) % 60//分钟对60求余
+				box[2].innerHTML = (minute<10) ? ("0"+minute) : minute
+				hour = Math.floor((latesttime() - lasttime())/(1000*60*60)) % 24//小时对24求余
+				box[1].innerHTML = (hour<10) ? ("0"+hour) : hour
+				day = Math.floor((latesttime() - lasttime())/(1000*60*60*24))
+				box[0].innerHTML = (day<10) ? ("0"+day) : day
+			}
+			if((latesttime() - lasttime())>=0){
+				setInterval(timecout,1);		
+			}
+		</script>
+	</body>
+</html>

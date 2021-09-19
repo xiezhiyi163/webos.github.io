@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <title>js时钟带文本标签月份和星期 - 站长素材</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                overflow: hidden;
+                position: relative;
+            }
+            .audio {
+                width: 162.5%;
+                margin-left: 5%;
+                margin-right: 5%;
+                transform: scale(0.84);
+                transform-origin: 0;
+            }
+            audio {
+                width: 100%;
+                transform: scale(0.66);
+                transform-origin: 0;
+                outline: none;
+                border-radius: 16px;
+                overflow: hidden;
+                position: relative;
+            }
+            .thelistwrap {
+                margin-right: 32px;
+                position: relative;
+                overflow: hidden;
+                background-color: #262626;
+                border-radius: 15px;
+                box-shadow: 6px 6px 10px 0px #2b2b2b;
+            }
+            .playing {
+                padding: 10px;
+                font-size: 12px;
+                margin-top: -12px;
+                color: white;
+            }
+            .playing div{
+                padding: 10px 0 0;
+                white-space: nowrap;
+            }
+            .listwrap {
+                max-height: 220px;
+                position: relative;
+                overflow: hidden auto;
+                font-size: 12px;
+                padding-bottom: 2px;
+            }
+            #listwrap {
+                padding: 10px;
+            }
+            .list-title {
+                padding: 10px 0;
+                border-bottom: 1px solid #e5e5e5;
+                color: white;
+            }
+            .song-titlewrap {
+                padding: 7px 0;
+                border-bottom: 1px solid #e5e5e5;
+                word-break: break-word;
+                cursor: pointer;
+                color:white;
+            }
+            .song-titlewrap span {
+                height: 16px;
+                display: inline-block;
+                margin-right: 6px;
+                position: relative;
+                top: -10px;
+                vertical-align: middle;
+                font-size: 25px;
+                color: #52cfff;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="../../../../static/js/jquery-1.11.0.js"></script>
+        <div class="thelistwrap">
+            <div style="background-color: #2f4b6b;">
+                <div class="audio">
+                    <audio id="player" src="" controls></audio>
+                </div>
+                <div class="playing">
+                    当前正在播放：
+                    <div id="playnow">暂无播放内容</div>
+                </div>
+            </div>
+            <div class="listwrap">
+                <div id="listwrap"></div>
+            </div>
+        </div>
+        <script>
+            /*
+                逻辑：
+                循环播放：
+                    播放哪首就存哪个的下标，然后++
+                随机播放：
+                    随机下标获取播放
+                删除逻辑：
+                    删除的时候判断是否在播放，判断对应的并且在播放就删除后当前下标重新播放
+                    删除的时候判断是否小于正在播放的下标，正在播放的下标-1
+            */
+            var firstload = 0 
+            var playindex = 0
+            var basepath = 'list/'
+            var getlist = function(){
+                $.ajax({
+                    type:'GET',
+                    url:'list/data.json',
+                    success:function(res){
+                        var lastlist = ''
+                        for(var i=0; i<res.name.length;i++){
+                            var list = ''
+                            list = '<div class="list-title">'+res.name[i].split('_')[0]+'</div>'//第一次拼接
+                            var thelist = ''
+                            for(var m=0;m<res.list[res.name[i].split('_')[1]].length;m++){
+                                function t(dom){
+                                    //第二次拼接
+                                    if(m==0){
+                                    thelist +='<div>'+dom
+                                    }else if(m==res.list[res.name[i].split('_')[1]].length-1){
+                                        thelist +=dom+'</div>' 
+                                    }else{                                        
+                                        thelist +=dom
+                                    }       
+                                }
+                                if(typeof res.list[res.name[i].split('_')[1]][m] == 'string'){
+                                    var thetitle = res.list[res.name[i].split('_')[1]][m]
+                                    var thelink = basepath+res.name[i].split('_')[1]+'/'+res.list[res.name[i].split('_')[1]][m]
+                                    var theevent = 'document.getElementById(\'player\').src = this.dataset.src;'+
+                                    'document.getElementById(\'playnow\').innerHTML = this.dataset.title;'+
+                                    'document.getElementById(\'player\').play();'
+                                    var dom = '<div class="song-titlewrap" data-src="'+thelink+'" data-title="'+thetitle+'" onclick="'+theevent+'"><span>·</span>'+res.list[res.name[i].split('_')[1]][m]+'</div>'
+                                    t(dom)
+                                }else{
+                                    var thetitle = res.list[res.name[i].split('_')[1]][m].name
+                                    var thelink = res.list[res.name[i].split('_')[1]][m].link
+                                    var theevent = 'document.getElementById(\'player\').src = this.dataset.src;'+
+                                    'document.getElementById(\'playnow\').innerHTML = this.dataset.title;'+
+                                    'document.getElementById(\'player\').play();'
+                                    if(res.list[res.name[i].split('_')[1]][m].show != 'false'){
+                                        var dom = '<div class="song-titlewrap" data-src="'+thelink+'" data-title="'+thetitle+'" onclick="'+theevent+'"><span>·</span>'+res.list[res.name[i].split('_')[1]][m].name+'</div>'                        
+                                    }else{
+                                        var dom = '<div class="song-titlewrap" data-src="'+thelink+'" data-title="'+thetitle+'" style="color:#848484;cursor:auto;"><span>·</span>'+res.list[res.name[i].split('_')[1]][m].name+'</div>'                        
+                                    }
+                                    t(dom)
+                                }
+                            }
+                            lastlist += list+thelist
+                        }
+                        $('#listwrap').append(lastlist)
+                        $('#listwrap').on('click','.song-titlewrap',function(){
+                            playindex = $(this).index()
+                        })
+                    }
+                })
+            }
+            getlist()
+            var getend = function(){
+                document.getElementById('player').addEventListener('ended',function(){
+                    playindex++;
+                    if(playindex>$('.song-titlewrap').length-1){
+                        playindex = 0
+                    }
+                    $('.song-titlewrap').eq(playindex).click()
+                })
+                document.getElementById('player').addEventListener('error',function(){
+                    if(firstload == 0){
+                        firstload=1                        
+                    }else{
+                        var m = $('.song-titlewrap').eq(playindex).html().split('·')
+                        m.splice(0,1);
+                        //
+                        if(window.parent.document.getElementsByClassName('spop--top-center').length!=0){
+                            window.parent.document.getElementsByClassName('spop--top-center')[0].innerHTML = ''
+                        }
+                        window.parent.spop({
+                            template:window.parent.popdom('text',{
+                                texts:'歌曲 - '+m.join('')+' - 播放失败',
+                                imgs:''
+                            }),
+                            style:'info',
+                            position:'top-center',
+                            autoclose:2000,
+                        })
+                        //
+                        playindex++;
+                        if(playindex>$('.song-titlewrap').length-1){
+                            playindex = 0
+                        }
+                        $('.song-titlewrap').eq(playindex).click()
+                    }
+                })
+            }
+            getend()
+        </script>
+    </body>
+</html>

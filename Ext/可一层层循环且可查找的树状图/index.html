@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="../../static/css/Pcss.css"/>
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+		<script type="text/javascript">
+			var datas = {
+				//后台数据
+				navs:[
+					{text:1153,id:'012',fid:'-1'},
+					{text:1125,id:'013',fid:'-1'},
+					{text:1223,id:'014',fid:'013'},
+					{text:1234,id:'015',fid:'013'},
+					{text:1025,id:'016',fid:'-1'},
+					{text:1096,id:'017',fid:'013,014'},
+				],
+				//处理后的数据
+				resetnavs:[]
+			}
+			
+			var setnavlistforchildren = function(){
+				//处理层级结构(二层)
+				for(var i=0;i<datas.navs.length;i++){
+					if(datas.navs[i].fid!='-1'){//找到不是第一层的
+						if(datas.navs[i].fid.indexOf(',')!=-1){
+							// for()
+						}else{
+							for(var k=0;k<datas.resetnavs.length;k++){
+								if(datas.resetnavs[k].id == datas.navs[i].fid){
+									datas.resetnavs[k].children.push({text:datas.navs[i].text,id:datas.navs[i].id,children:[]})
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			var setnavlist = function(){
+				//处理成层级结构(一层)
+				for(var i=0;i<datas.navs.length;i++){
+					//拿到fid
+					if(datas.navs[i].fid=='-1'){
+						datas.resetnavs.push({text:datas.navs[i].text,id:datas.navs[i].id,children:[]})
+					}
+				}
+				console.log(datas.resetnavs)
+				setnavlistforchildren()
+			}
+			setnavlist()
+		</script>
+	</body>
+</html>

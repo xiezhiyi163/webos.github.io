@@ -1,0 +1,12 @@
+/* pages/tapItemToCenter/index.wxss */
+@import "../common/sc-ui/dist/sc-ui.wxss";
+@import "../common/sc-ui/dist/assets/font-icon/material.wxss";
+
+.scbtn {
+  margin:20rpx;
+}
+
+.scbtn .sc-btn {
+  width: 100%;
+  min-width: auto;
+}

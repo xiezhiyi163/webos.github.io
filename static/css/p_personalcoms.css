@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.comfixed {
+    position:absolute;
+    z-index: 1;
+}
+
+#com_times {
+    right:0;
+    top: -10px;
+}
+
+#com_player {
+    right: 0;
+    top: 250px;
+}

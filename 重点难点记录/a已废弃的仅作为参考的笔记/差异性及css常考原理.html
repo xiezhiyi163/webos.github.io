@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			form表单提交时：name[]表示提交时，以自增数组提交，后面跟随的属性可选
+		-->
+		<!--
+			
+			es5与es6的变量区别：es5有变量提升，es6没有变量提升这个特性
+			
+			安卓与ios浏览器之间的差异性			
+				ios支付网页的样式问题需要重新加入：
+					<meta name='format-detection' content='telephone=no'>
+				ios的行高跟安卓也是有出入的，比如字体图标，得要重新设置样式，
+				安卓机无法input调用相机和相册，那就
+					<input type="file" accept="image/*" capture="camera"/>
+				ios日期获取问题，不能用横杠表示，会报错，
+				定位也是个头疼的问题，ios里面将fixed换成绝对定位，然后让body100%，main也是100%，定位的放在main上面，就ok，main样式加个滑动属性以及平滑滑动-webkit-overflow-scrolling：touch；就行
+				微信识别二维码，ios相比安卓来说有很多限制，要么图片上不要有太多文字，要么图片深度加深，来解除ios的二维码识别限制，
+				ios以及mac的select框需要appearance：none这个属性来支持去掉自带样式，还要加上有前缀的同样的属性来进行浏览器兼容
+			
+			vue跟其他框架的区别：
+				1.简单，可重用性，热加载更新，体积比较小，渲染速度更快，模板和渲染函数的选择相对较多
+				2.vue适合做一些中小型项目，相比于react跟angular，性能更好一些，但是生态性却没有react跟angular那么好，就是数据比较庞大的时候可能会相比于其他两个框架没那么快，
+				3.对dom的渲染方式不一样，vue是直接绑到html上的，类似于angular，但是react采用jsx语法，运用虚拟dom的概念对页面进行渲染，
+				相同点：都是运用虚拟dom实现快速渲染，可以响应式开发，组件开发，
+			
+			vue跟小程序的区别：
+				1.生命周期】，小程序的生命周期要比vue的生命周期简单一些，vue的钩子函数在跳转新页面时，钩子函数都会触发，但是小程序的钩子函数，页面不同的跳转方式，触发的钩子并不一样
+				2.请求数据】：vue是通过created和mounted钩子函数请求数据，而小程序则是通过onload跟onshow请求数据
+				3.vue绑定数据】会v-bind绑定到对应的属性那里，小程序只需要花括号就行，并不需要另外绑定
+				4.显示隐藏处理】：vue使用v-if和v-show，小程序使用wx:if跟hidden进行控制的
+				5.绑定事件】：vue使用的v-on绑定事件，阻止冒泡就在事件后面加一个。stop，小程序用bindtap，阻止冒泡用catchtap
+				6.vue使用v-model双向绑定数据】，但小程序需要input事件来实时监听做到双向数据绑定
+				7.取值方面】：vue只需要this就可以获取对应数据，但小程序需要this.data才能获取数据
+				8.小程序不同于vue跟html的传参】，它需要使用data属性并获取data来进行传参				 
+			jq与zepto的区别：
+				zepto不支持ie6-8，有些方法甚至只支持第三方浏览器以及移动端，
+				jq的有些方法在zepto无法使用，动画方面，zepto只支持animate，
+				zepto体积比jq的要小，轻量级js库，更适合移动端，
+				jq没有zepto专用的移动端事件，比如tap点击，doubletap双击，longtap长按，swipe滑动，swipeUp/down/left/right四个方向的滑动，pinchIn/Out放大缩小
+			sass跟less的相同点：
+				嵌套规则相同
+				css鼠标事件相同，都是以&:事件，这个形式来赋予事件
+			less和sass的区别：
+				1.编译环境不一样
+				Sass需要安装Ruby，属于服务端处理，然而Less是需要引入官网提供好的less.js，属于客户端处理。
+				2.变量不一样
+				less是用@，sass是用$
+				3.less无输出设置，sass可以使用特定的输出设置，包括
+					nested：嵌套缩进的css代码（接近编译前的风格）
+					expanded：展开的多行css代码
+					compact：简洁格式的css代码
+					compressed：压缩后的css代码
+				4.混合不同的mixins:
+					sass样式中声明Mixins时需要使用“@mixin”，然后后面紧跟Mixins的名，他也可以定义参数，同时可以给这个参数设置一个默认值，但参数名是使用“$”符号开始，而且和参数值之间需要使用冒号（：）分开
+					不过LESS样式中声明Mixins和Sass声明方法不一样，他更像CSS定义样式，在LESS可以将Mixins看成是一个类选择器，当然 Mixins也可以设置参数，并给参数设置默认值。不过设置参数的变量名是使用“@”开头，同样参数和默认参数值之间需要使用冒号（：）分 隔开。
+					sass：
+						@mixin abc($bg-c:red){//必须带默认值
+							width: 100px;height:100px;background-color: $bg-c;					
+						}					
+						/*调用abc Mixins*/					
+						.a{					
+							@include abc();	//重新赋值就abc(blue)替换red就行，每个值对应一个对象的值				
+						}
+					less:直接.abc($bg-c:red)，然后.abc()
+				5.sass的继承：@extend，less的继承：类似于mixins .block
+					sass:
+						.block {
+							margin: 10px 5px;
+							padding: 2px;
+						}
+						p {
+							@extend .block;/*继承.block选择器下所有样式*/
+							border: 1px solid #eee;
+						}
+					less:直接.class就行
+				6.sass支持条件语句，而less不支持
+			css易考点：
+				css优化：
+					样式避免过分重排
+					正确使用 Display 的属性
+						display: inline后不应该再使用 width、height、margin、padding 以及 float； 
+						display: inline-block 后不应该再使用 float； 
+						display: block 后不应该再使用 vertical-align； 
+						display: table-* 后不应该再使用 margin 或者 float；
+					Float在渲染时计算量比较大，尽量减少使用。
+					动画性能优化：
+						如果使用基于 javaScript 的动画，尽量使用 requestAnimationFrame. 避免使用 setTimeout, setInterval.
+						避免通过类似 jQuery animate()-style 改变每帧的样式，使用 CSS 声明动画会得到更好的浏览器优化。
+						使用 transform的translate 取代 absolute 定位就会得到更好的 fps，动画会更顺滑。
+					避免使用多层标签选择器
+				如何让浏览器的字体小于12？				
+					ie下不支持动画的给html跟body添加-webkit-text-size-adjust:none;这个样式
+					其他浏览器添加-webkit-transform:scale(0.833);来缩放比例达到缩小的效果
+					（各自用class封装起来，判断ie版本来替换使用）
+				flex布局基本概念：
+					采用 Flex 布局的元素，称为 Flex 容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称"项目"。
+				重绘，回流/重排：
+					1、回流/重排： 渲染树的一部分必须要更新且节点的尺寸发生了变化，会触发重排操作。每个页面至少在初始化的时候会有一次重排操作。 
+					2、重绘： 部分节点需要更新，但没有改变其形状，会触发重绘操作。
+			http优化：
+				1.合并、压缩、混淆，减少资源的请求
+				2.配置多个域名和cdn加速：
+					浏览器一次只可能并发请求10个文件，这样并发多次就会耗时。因此配置多个域名能够最大限度的增加并发请求量
+			https的加密原理：
+				（1）客户端向服务器端发起SSL连接请求；
+				（2） 服务器把公钥发送给客户端，并且服务器端保存着唯一的私钥
+				（3）客户端用公钥对双方通信的对称秘钥进行加密，并发送给服务器端
+				（4）服务器利用自己唯一的私钥对客户端发来的对称秘钥进行解密；
+				（5）进行数据传输，服务器和客户端双方用公有的相同的对称秘钥对数据进行加密解密，可以保证在数据收发过程中的安全，
+		-->
+	</body>
+</html>

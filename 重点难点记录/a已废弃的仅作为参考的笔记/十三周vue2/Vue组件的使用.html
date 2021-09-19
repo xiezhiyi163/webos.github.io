@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script>
+	</head>
+
+	<body>
+		<!--到时用脚本时，app是默认id-->
+		<div id="app">
+			<!--<zc-dbq></zc-dbq>
+			<zc-dbqb></zc-dbqb>-->
+			<my-com1></my-com1>
+			<father-from></father-from>
+		</div>
+
+		<template id="mc2">
+			<div>
+				<div>sadfasfsf</div>
+				<!--<my-com v-bind:m='share.mmss'>-->
+				<my-com v-bind:m='share'>
+				</my-com>
+			</div>
+		</template>
+		<script>
+			//			var zj = Vue.extend({//要注意的地方：templete里面的最外层元素叫做根元素
+			//				template:'<div><h3>655165</h3><h1>621621</h1></div>',
+			//				data(){
+			//					return{
+			//						
+			//					}
+			//				},
+			//				methods:{},
+			//				computed:{},
+			//				mounted:function(){
+			//					
+			//				}
+			//			})
+			//			Vue.component('zc-dbq',zj)
+			//			var zj2 = {//要注意的地方：templete里面的最外层元素叫做根元素
+			//				template:'<div><h3>655165</h3><h1>6666666</h1></div>',
+			//				data(){
+			//					return{
+			//						
+			//					}
+			//				},
+			//				methods:{},
+			//				computed:{},
+			//				mounted:function(){
+			//					
+			//				}
+			//			}
+			//			Vue.component('zc-dbqb',zj2)
+
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					isHaha: '651516'
+				},
+				methods: {
+
+				},
+				components: {
+					'myCom1': {
+						template: '<div><h1>{{isHaha}}</h1></div>',
+						data() {
+							return {
+								isHaha: '651516'
+							}
+						}
+					},
+					"fatherFrom": {
+						data() {
+							return {
+								isHaha: '651516',
+								share: {mmss:'65151'}
+							}
+						},
+						template: '#mc2',
+						components: {
+							'myCom': {
+//								template: '<h1 @click="changes()">{{m}}</h1>',
+								template: '<h1 @click="changes()">{{m.mmss}}</h1>',
+								props: ['m'] ,//此时myCom多了一条属性m
+								methods:{
+									changes(){
+										this.m.mmss='123'
+									}
+								}
+							}
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

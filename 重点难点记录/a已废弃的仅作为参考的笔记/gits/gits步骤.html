@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			git使用（仓库初次新建或配置用户跟连接时，重新开始操作）
+			A（一次设置就ok，要更换可以重新设置并覆盖）
+			$ git config --global user.name "Your Name"
+			$ git config --global user.email "email@example.com"
+			想要切换账号，就用以下命令
+			git config --global credential.helper cache //清空密码
+			git config --system --unset credential.helper，//之后的仓库操作，第一次会提示输入账号密码
+			B（获取SSL公钥）
+			$ ssh-keygen -t rsa -C "youremail@example.com" : 生成相应邮箱的密钥
+			$ cat ~/.ssh/id_rsa.pub  查看公钥----将生成的公钥配置到码云或者GitHub（配置之后可忽略）
+			//以上步骤一开始在本机设置好的可忽略，要更换可重新设置
+			C（创建本地git仓库，之后会有master的蓝色字样在路径后面）
+			$ git init（每次打开窗口的必须步骤）
+			D（首次创建本地仓库，与远程仓库建立连接）
+			$ git remote add <自定义远程仓库名称，随便什么名origins> <远程仓库地址，不行用http版的连接>（报fatal: remote origin already exists.错误的话，表明已连接，可以为了保险，先git remote rm origins再回去D步骤）（每次打开窗口的必须步骤，再往下走）
+			E
+			$ git add .    //当前目录添加所有可提交的文件，下面的步骤检测到文件修改时会提示返回这一步，当有提示Unable to create错误时，
+			git checkout -b 新分支//一开始为master，后来可根据实际git checkout <name>去切换或者重新创建分支
+			F（同步远程仓库到本地）
+			$ git pull origins master，首次创建远程仓库的分支，拉取时出现couldn't find remote ref master，可忽略不计，直接推送（通常的对应仓库里面的版本选择就是分支的意思，不需要拉取的，可跳过）
+				（备注：$ git add <file>..  可只提交某个文件，用空格分割可以指定多个文件。）
+			G
+			git status
+			git commit -m ‘test’先添加描述，再推送
+			git push origins master（或者 git push --set-upstream origin master）//推送上去(首次选择分支时这样，下次时可直接git push就行，切换分支再git push origins master，如推送出现RPC failed的情况出现的话，就写一下这个命令：git config --global http.postBuffer 524088000
+				报failed to push some refs to就
+				git pull --rebase origin master，没问题的
+)
+			*********
+			    git config core.ignorecase false
+
+				创建并切换分支：git checkout -b 新分支（前提是检查有没有分支重复，避免出错）
+				git checkout <name> : 切换分支
+					
+				删除文件夹：
+				$ git pull origin master  # 将远程仓库里面的项目拉下来
+				$ dir  # 查看有哪些文件夹
+				$ git rm -r --cached target    # 删除target文件夹
+				$ git commit -m '删除了target'   # 提交,添加操作说明
+				
+			************
+				nothing to commit, working tree clean 无任何修改时会有这个提示，必须有更改才可以进行push等操作
+			
+			
+			多人开发的时候如果遇到git pull弹到类似linux界面的输入情况的话，切换到英文，输入:Q这个，退出之后再重新拉取并进行推送的操作
+		-->
+	</body>
+</html>

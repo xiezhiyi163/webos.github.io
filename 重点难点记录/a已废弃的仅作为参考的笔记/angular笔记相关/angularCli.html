@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			A.npm install @angular/cli -g
+			B.ng version
+			C.ng new 文件名
+				routing选yes（app路径下的html的<router-outlet></router-outlet>要保留,【然后其他内容清空（可选），这个特性相当于vue的id=‘app’里面的router-view那样）
+				css处理方式可根据需要选择
+					
+			D.cnpm/npm start启动项目
+			
+			E.创建完项目之后，根目录下使用 ng g component 路径/文件夹（没有路径就默认app文件夹） 这个命令进行创建组件，直接app-文件夹就可以使用，在src/app找到app.module.ts，开头以import { 组件名（不可自定义） } from ‘路径（当前文件夹作为开始找路径）’方式引入了要用的组件，declarations属性中直接就已经把组件注册好了，比vue要方便一些
+			
+			F.路由配置：
+				---非懒加载：
+				在app-routing.module.ts里面配置，
+				开头import { 组件名（必须跟app.module.ts里面的一样） } from ‘路径（当前文件夹作为开始找路径）’，把组件引进去，
+				然后const routes: Routes = [{path:'自定义/:参数（可选）',component:组件名，children:[]}]这样子去使用，
+				然后其他地方<a [routerLink]=“['/自定义/参数（可选）']”>路由跳转</a>，
+				或者<a [routerLink]=“['/自定义'，参数（可选，没有就不要加逗号）]”>路由跳转</a>，
+				或者<a [routerLink]=“['/自定义']” [queryParams]="{'参数（可选）:值'}">路由跳转</a>就行
+				重定向就某个对象里面加上redirectTo：路径，pathMatch：'full'
+				参数使用：新建组件的ngOnInit里面直接赋予数据:this.数据名 = this.routeInfo.snapshot.queryParams.参数名
+				++++配置路由一开始要配置根路由，即路径为空
+			
+			总的项目流程：路由-----组件-----app组件的路由视图（根路径显示默认页面，然后控制跳转）
+		-->
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!--
+
+	兄弟之间数据传递：
+		再搞个空实例，然后父组件那里搞个函数，里面是空实例调用的$emit方法，自定义一个事件把父组件某个数据传出去，
+		之后兄弟组件搞个钩子函数mounted，里面空实例调用$on把父组件的自定义事件绑定到第一个参数。并第二个参数形参a回调函数接收父组件传过来的数据,然后在父组件中任意一个需要操作的标签搞个点击事件触发父组件里面的那个函数即可
+	vuex:状态管理工具
+	路由模块：vue-router
+	
+	路由的使用：
+	前端发送请求到服务器，服务器根据强求，访问不同的
+	前端路由：对应路径访问对应页面
+	Vuejs当中，页面实际上可以看成一个大的组件，根据请求的不同，加载不同的组件渲染页面，特点：单页面
+		router-view自定义标签
+	路由官网：es6的语法
+		const：定义常量
+		let，约等价于var，定义变量，要有明显的代码块
+		写法：{let a=1000}
+		路由的使用逻辑：1.准备路由使用组件 比如var一个home={‘’}
+					2.路由的配置（访问路径+注册组件）
+					const routes=[
+						{path:'/home',component:Home},
+						{path:'/new',component:New},
+						{path:'*',component:Home},
+						{path:'/hello',redirect:'/new'},
+					]
+					3.将配置放到路由里面使用
+					const router=new VueRouter（{
+						routes // routes：routes
+					}）
+					4.让Vue的实例加载路由
+					new Vue（{
+						el：‘#id’
+						router
+					}）
+			router-link标签，可实现跳转，自带class：router-link-active，可修改点击之后的样式
+				<router-link to='/home'></router-link>
+				
+			子路由：比如组件user里面在模板里面链接最后加个router-view，
+			对应的配置后面加个children:[{path:'要跳转的路径，不加斜杠，如果直接斜杠，自动加载当前组件，父路由加载单独斜杠配置的子路由即可',component:新加的要加载的组件}]，
+			然后返回模板那里，router-view前面把router-link标签搞定，标签那里to=‘/父路由/子路由’，就可以
+			参数问题：只需要定义一个组件，{{$route.params}}模板里面的这个可以查看参数的值，参数可自定义，在path那里自定义参数，参数可以是:name,也可以是:name/:con，渲染出来额的话在模板那里{{$route.params.自定义参数}}即可查看每一个子路由的路径，不过路径层级得要对应
+			router-link可以被按钮或其他点击事件替换并调用函数，函数里面router.replace({path:'/home'})没有历史纪录或者router.push({path:'/home'})有历史记录的
+	
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script> 
+	</head>
+
+	<body>
+		<div id="box">
+			<my-com1></my-com1>
+			<my-com2></my-com2>
+		</div>
+		<template id="com">
+			<div>
+				<h1 @click='alertA'>sdfdsfd</h1>
+				<h1>{{msg}}</h1>
+			</div>
+		</template>
+		<template id="com2">
+			<div>
+				<h2>{{msgb}}</h2>
+			</div>
+		</template>
+		<script>
+			var vmbrother=new Vue({});//目的就是为了借助这个实例里面的$emit,$son，
+									  //为了避免使用this，进行子传父之后父传子
+			var vm=new Vue({
+				el:'#box',
+				data:{
+					
+				},
+				methods:{
+					
+				},
+				components: {
+					'myCom1': {
+						template: '#com',
+						data() {
+							return {
+								msg:'我是父组件'
+							}
+						},
+						methods:{
+							alertA(){
+								alert('父级组件数据发送')
+								vmbrother.$emit('help',this.msg)					
+							}
+						}
+					},
+					'myCom2':{
+						template:'#com2',
+						data() {
+							return {
+								msgb:'我是子组件'
+							}
+						},
+						mounted(){//能自动接收数据
+							vmbrother.$on('help',function(a){
+								alert(a)
+							})
+						}
+					}
+				}
+			})	
+		</script>
+	</body>
+
+</html>

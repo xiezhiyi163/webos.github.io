@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Pcss.css">
+    <style>
+        body {
+            position: relative;
+            overflow: hidden;
+        }
+        .padtop {
+            padding-top: 10px;
+        }
+        .padleft {
+            display: inline-block;
+            padding-left: 20px;
+        }
+        .l {
+            text-align: left;
+        }
+        .wrap {
+            white-space: nowrap;
+        }
+        /* 顶部相关 */
+        .topwrap {
+            position: relative;
+            height: 0;
+            z-index: 1;
+        }
+        .topwrapin {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            box-shadow: 0 0 10px 0 #ccc;
+            background-color: white;
+            font-weight: 800;
+        }
+        /* 导航相关 */
+        #navbox {
+            display: inline-block;
+            padding-top: 80px;
+            width: 30%;
+            min-width: 280px;
+        }
+        .navwrap,.navsubwrap {
+            padding-left: 20px;
+        }
+        .navwrap {
+            padding-right: 20px;
+        }
+        .navbox {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px 0 #ccc;
+        }
+        /* 内容相关 */
+        .wrapcont {
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            width: 70%;
+            overflow: hidden auto;
+            text-align: center;
+            white-space: normal;
+        }
+        .wrapcontin {
+            padding-top: 80px;
+            padding-bottom: 40px;
+            margin-right: 40px;
+            margin-left: 40px;
+            word-break: break-word;
+        }
+        .conttext {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./jquery-1.11.0.js"></script>
+    <div class="wrap">
+        <!-- 顶部相关 -->
+        <div class="topwrap">
+            <div class="topwrapin">
+                <div class="padleft"></div><span style="color:#999">▮</span> 无限级导航渲染处理以及业务逻辑处理的总结
+            </div>
+        </div>
+        <!-- 导航相关 -->
+        <div id="navbox">
+            <!-- 
+                demo:
+                <div class="padtop navwrap" index='1'>
+                    <div class="navbox">111</div>
+                    <div class="padtop navsubwrap" index='2'>
+                        <div class="navbox">222</div>
+                    </div>
+                </div> 
+            -->
+        </div>
+        <!-- 内容相关 -->
+        <div id="wrapcont" class="wrapcont">
+            <div class="wrapcontin">
+                <h1>一点业务对接思路整理</h1>
+                <h1 class="padtop">实现无限导航的思路</h1>
+                <div class="conttext l">导航生成用到父级id和id进行关联，index为对应的层级关系，还有可能会有个level代表并列的层级关系</div>
+                <div class="conttext l">冒泡排序进行例如index从小到大排序后在进行筛选进行导航渲染</div>
+                <h1 class="padtop">深克隆</h1>
+                <div class="conttext l">声明变量</div>
+                <div class="conttext l">--是object</div>
+                <div class="conttext l">----传进来的引用类型是否存在转字符串之后'Array'字样，constructor引用类型</div>
+                <div class="conttext l">----：：是的话就将变量等于空数组，遍历传进来的，拿到遍历的每一个进行递归并把这个递归push到数组那里</div>
+                <div class="conttext l">----是否为null或者其引用类型constructor是否等于RxgExp</div>
+                <div class="conttext l">----：：是的话变量直接赋值</div>
+                <div class="conttext l">----：：否则直接给变量赋值空对象，遍历传进来的，然后以相同的属性等于被调用的递归传进去遍历的值</div>
+                <div class="conttext l">--否则直接赋值到变量</div>
+                <div class="conttext l">在是否为obj的判断后面返回变量出来</div>
+                <h1 class="padtop">冒泡排序</h1>
+                <div class="conttext l">两层循环，内层减上层的下标值，内层的前后比较，比减一小就小的那个作为临时值进行互换</div>
+                <h1 class="padtop">列表渲染业务逻辑</h1>
+                <div class="conttext l">请求节流：前后打开，中间禁止</div>
+                <div class="conttext l">一开始先打开，然后请求前判断是否禁止请求，没有就禁止再请求，请求完再打开</div>
+                <div class="conttext l">如果其他地方请求也需要请求节流就这么去处理就可以</div>
+                <h1 class="padtop">表单多图提交业务逻辑</h1>
+                <div class="conttext l">一开始先用时间戳作为id，进行图片上传处理，上传完之后进行状态修改</div>
+                <div class="conttext l">或者一开始先用时间戳作为id，然后遍历进行上传</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 导航相关
+        var nums = []
+        var maxnum = 0
+        var formaxnum = 0
+        var data = [
+            {id:1,parentid:-1,index:1,title:'首页',level:0},
+            {id:2,parentid:3,index:2,title:'设置分项',level:0},
+            {id:3,parentid:-1,index:1,title:'设置',level:0},
+            {id:4,parentid:2,index:3,title:'设置分项2',level:0},
+            {id:5,parentid:6,index:2,title:'管理分项',level:0},
+            {id:6,parentid:-1,index:1,title:'管理',level:0},
+        ]
+
+        //导航相关方法
+        function elsenav(formaxnums){
+            if(formaxnums<maxnum){
+                formaxnum = formaxnums + 1
+                data.map((v,i) => {
+                    var dom = ''
+                    if(v.index==formaxnum){
+                        if($('#n_'+v.parentid).find('class','navsubwrap').length == 0){
+                            dom += '<div id="n_'+v.id+'" data-parentid="'+v.parentid+'" class="padtop navsubwrap" index="'+v.index+'">'+
+                            '<div class="navbox">'+v.title+'</div></div>'
+                            $('#n_'+v.parentid).append('<div id="#in_'+v.parentid+'">'+dom+'</div>')
+                        }else{
+                            dom += '<div id="n_'+v.id+'" data-parentid="'+v.parentid+'" class="padtop navsubwrap" index="'+v.index+'">'+
+                            '<div class="navbox">'+v.title+'</div></div>'
+                            $('#in_'+v.parentid).append(dom)
+                        }
+                    }
+                })
+                elsenav(formaxnum)
+            }
+        }
+
+        function firstnav(){
+            /*遍历第一级，冒泡排序然后拿最后一个最大的*/
+            data.map((v,i) => {
+                if(v.index==1){
+                    $('#navbox').append('<div id="n_'+v.id+'" data-parentid="'+v.parentid+'" class="padtop navwrap" index="'+v.index+'">'+
+                    '<div class="navbox">'+v.title+'</div></div>')
+                }
+                nums.push(v.index)
+            })
+            for(var i=0;i<nums.length;i++){
+                for(var j=0;j<nums.length - i;j++){
+                    var temps = ''
+                    if(nums[j] < nums[j - 1]){
+                        temps = nums[j]
+                        nums[j] = nums[j - 1]
+                        nums[j - 1] = temps
+                    }
+                }
+            }
+            maxnum = nums[nums.length - 1]
+            elsenav(formaxnum)
+        }
+        
+        firstnav()
+
+        //设置大小相关
+        $('#wrapcont').height($(window).height())
+        window.addEventListener('resize',function(){
+            $('#wrapcont').height($(window).height())
+        });
+
+        //es6方法练习,构造函数语法糖
+        class Sm{
+            vb = 2
+            mv = function(){
+                return 3
+            }
+        }
+        console.log(new Sm().vb)
+        console.log(new Sm().mv())
+        //类比es5构造函数语法
+        function Sm2(){
+            this.vb = 2
+        }
+        Sm2.prototype.mv = function(){
+            return 3
+        }
+        console.log(new Sm2().vb)
+        console.log(new Sm2().mv())
+        //es6的构造函数继承
+        class Sm3 extends Sm {}
+        console.log(new Sm3().vb)
+        //es5的构造函数继承
+        function Sm4(){}
+        Sm4.prototype.vb = new Sm2().vb
+        console.log(new Sm4().vb)
+		//call
+		/* 构造函数 */
+		function Ner(){
+			this.ms = 3
+		}
+		Ner.prototype.fn = function(){
+			return this.ms
+		}
+		console.log(new Ner().fn.call({ms:4}))
+		/* 普通函数 */
+		var msvs = 1
+		function msv(){
+			msvs = 45
+		}
+		msv()
+		console.log(msvs)
+    </script>
+</body>
+
+</html>

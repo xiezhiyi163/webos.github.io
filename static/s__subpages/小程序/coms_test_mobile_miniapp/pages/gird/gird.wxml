@@ -1,0 +1,23 @@
+<!--pages/gird/gird.wxml-->
+<view class="girdwrap1-wrap">
+  <view class="girdwrap1-wraptop">
+    创建日期：2012-03-05
+  </view>
+  <view class="girdwrap1-wraptable">
+    <view class="girdwrap1-wraptablecell">
+      <view class="girdwrap1-wraptablecell-img"></view>
+    </view>
+    <view class="girdwrap1-wraptablecell" style="width:100%">
+      <view class="girdwrap1-wraptablecell-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</view>
+      <view class="girdwrap1-wraptablecell-desc">描述描述描述描述描述描述描述描述描述描述</view>
+      <view class="girdwrap1-wraptablecell-price">
+        <text>￥</text>30.00
+      </view>
+    </view>
+  </view>
+  <view class="girdwrap1-wrapctl">
+    <text>提示信息</text>
+    <button>操作</button>
+    <button>操作</button>
+  </view>
+</view>

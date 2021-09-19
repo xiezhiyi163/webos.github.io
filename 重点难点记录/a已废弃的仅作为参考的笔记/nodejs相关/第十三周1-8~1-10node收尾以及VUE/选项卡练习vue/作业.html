@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="node_modules/vue/dist/vue.js"></script>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			#box2{
+				width:500px;
+				margin: 0 auto;
+				position: relative;
+				background: lightgray;	
+			}
+			.show{background: #8A2BE2;}
+			.show:hover{background: lightblue;}
+			nav{
+				width: 25%;
+				display: block;
+				background: #8A2BE2;
+			}
+			nav a{
+				display: block;
+				text-align: center;
+				padding: 20px 0px;
+				width: 100%;
+				color: #fff;
+			}
+			p{
+				width: 325px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 125px;
+				display: none;
+				background: #F4A460;
+			}
+			#box2:hover p{display: block;}
+		</style>
+	</head>
+	
+	<body style="margin: 0;padding: 0;">
+		<div id="box2">
+			<nav>
+				<a v-for="(value,index) in arr" @mouseover="show(value)" v-bind:class="{show:value.shows}" >{{value.name}}</a>
+			</nav>
+			<p>
+				你选择的是：<b>{{choose}}</b>
+			</p>
+		</div>
+		<script>
+			var vm = new Vue({//VUE的实例 VM薄片层
+				el:'#box2',//挂载 声明我下面的所有数据都会提供给id=app的元素上面
+				data:{
+					choose:'html',
+					arr:[
+						{name:'html',shows:true},
+						{name:'css',shows:false},
+						{name:'vue',shows:false},
+						{name:'express',shows:false}
+					]
+				},
+				methods:{//给实例上的元素提供方法的地方
+					show(value){
+						//js选项卡逻辑??????
+						for(var i=0;i<this.arr.length;i++){
+							this.arr[i].shows=false;
+						}
+						value.shows=true;
+						
+						this.choose=value.name;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

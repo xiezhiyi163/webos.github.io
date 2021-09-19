@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../../css/Pcss.css"/>
+		<style>
+			body {
+				position: relative;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<video id="v" style="min-width: 100%;max-width: 100%;min-height: 100vh;max-height: 100vh;object-fit: cover;" src="file.mp4" autoplay muted loop></video>
+		<script>
+			function m(){
+				var _videoWidth = 0;
+				var _videoHeight = 0;
+				var _canvas ;
+				var _ctx ;
+				var _video;
+				_canvas = document.createElement('canvas');
+				_ctx = _canvas.getContext("2d");
+				_video = document.getElementById('v');
+				_videoWidth = _video.videoWidth ;//视频原有尺寸
+				_videoHeight = _video.videoHeight;//视频原有尺寸
+				_canvas.width =_videoWidth;
+				_canvas.height =_videoHeight;
+				_ctx.drawImage(_video, 0, 0,_videoWidth,_videoHeight);
+				var base64 = _canvas.toDataURL('image/jpeg');
+				window.parent.getimg(base64)
+			}
+			// document.getElementById('v').addEventListener('timeupdate',function(){
+			// 	m()
+			// })
+
+		</script>
+	</body>
+</html>

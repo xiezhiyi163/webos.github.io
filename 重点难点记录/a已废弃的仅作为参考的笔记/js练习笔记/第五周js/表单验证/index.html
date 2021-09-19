@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				font-family: arial;
+			}
+			#register0{
+				width: 255px;
+				margin: auto;
+			}
+			h1{
+				width: 250px;
+				margin: 50px 0 0 0;
+				text-align: center;
+			}
+			div{
+				padding: 10px 0;
+				height: 50px;
+				position: relative;
+			}
+			p{
+				position: absolute;
+				display: inline-block;
+				width: 90px;
+			}
+			div>input{
+				width: 253px;
+			}
+			.num{
+				width:202px;
+			}
+			div>a{}
+			div>span{
+				width: 100%;
+				min-height: 25px;
+				display: block;
+				background: greenyellow;
+				text-align: center;
+			}
+			div>button{
+				width: 100%;
+				height: 60px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="register0">		
+		<h1>用户注册</h1>
+		<div><p>用户名&nbsp;&nbsp;&nbsp;：</p><input type="text" />
+			<span></span>
+		</div>
+		<div><p>手机号&nbsp;&nbsp;&nbsp;：</p><input type="text" />
+			<span></span>
+		</div>
+		<div><p>验证码&nbsp;&nbsp;&nbsp;：</p><input type="text" class="num"/><a>3 4 7 5</a>
+			<span></span>
+		</div>
+		<div><p>设置密码：</p><input type="password" />
+			<span></span>
+		</div>
+		<div><p>确认密码：</p><input type="password" />
+			<span></span>
+		</div>
+		<div>
+			<button>提交</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var register = document.getElementById("register0")
+		var eachbox = register.getElementsByTagName("div");
+		var inp = register.getElementsByTagName("input");
+		var ifms = register.getElementsByTagName("span");
+		var btn = register.getElementsByTagName("button");
+		var name0 = register.getElementsByTagName("p");
+		var flag = null;
+		var user = /^[\u4e00-\u9fa5\w]{3,16}$/;
+		var phone = /^1[3|5|7|8][0-9]\d{4,8}$/;
+		var yzm = /^[0-9]\d{4}$/;//输入五位验证码;
+		var keypass = /^[a-z0-9_-]{6,18}$/;
+		eachbox[0].onclick = function(){
+			name0[0].style.left = "-100px";
+		}
+		eachbox[1].onclick = function(){
+			name0[1].style.left = "-100px";
+		}
+		eachbox[2].onclick = function(){
+			name0[2].style.left = "-100px";
+		}
+		eachbox[3].onclick = function(){
+			name0[3].style.left = "-100px";
+		}
+		eachbox[4].onclick = function(){
+			name0[4].style.left = "-100px";
+		}
+
+		inp[0].onblur = function(){
+			if(inp[0].value == ""){
+				ifms[0].innerHTML = "请输入非空内容";
+				flag = false;
+			}
+			else if(!user.test(inp[0].value)){
+				ifms[0].innerHTML = "用户名不合法";
+				flag = false;
+			}
+			else{
+				ifms[0].innerHTML = "正确";
+				flag = true;
+			}
+		}
+		inp[1].onblur = function(){
+			if(inp[1].value == ""){
+				ifms[1].innerHTML = "请输入手机号";
+				flag = false;
+			}
+			else if(!phone.test(inp[1].value)){
+				ifms[1].innerHTML = "手机号不合法";
+				flag = false;
+			}
+			else{
+				ifms[1].innerHTML = "正确";
+				flag = true;
+			}
+		}
+		inp[2].onblur = function(){
+			if(inp[2].value == ""){
+				ifms[2].innerHTML = "请输入验证码";
+				flag = false;
+			}
+			else if(inp[2].value !== "3475"){
+				ifms[2].innerHTML = "验证码不正确";
+				flag = false;
+			}
+			else{
+				ifms[2].innerHTML = "正确";
+				flag = true;
+			}
+		}
+		inp[3].onblur = function(){
+			if(inp[3].value == ""){
+				ifms[3].innerHTML = "请输入密码";
+				flag = false;
+			}
+			else if(!keypass.test(inp[3].value)){
+				ifms[3].innerHTML = "密码不合法";
+				flag = false;
+			}
+			else{
+				ifms[3].innerHTML = "正确";
+				flag = true;
+			}
+		}
+		inp[4].onblur = function(){
+			if(inp[4].value == ""){
+				ifms[4].innerHTML = "请确认密码";
+				flag = false;
+			}
+			else if(!(inp[4].value == inp[3].value)){
+				ifms[4].innerHTML = "密码不相符";
+				flag = false;
+			}
+			else{
+				ifms[4].innerHTML = "正确";
+				flag = true;
+			}
+		}
+
+		btn[0].onclick = function(){
+			name0[0].style.left = "-100px";
+			name0[1].style.left = "-100px";
+			name0[2].style.left = "-100px";
+			name0[3].style.left = "-100px";
+			name0[4].style.left = "-100px";
+			if(inp[0].value == ""){
+				ifms[0].innerHTML = "请输入非空内容";
+				flag = false;
+			}
+			else if(!user.test(inp[0].value)){
+				ifms[0].innerHTML = "用户名不合法";
+				flag = false;
+			}
+			else{
+				ifms[0].innerHTML = "正确";
+				flag = true;
+			}
+			
+			if(inp[1].value == ""){
+				ifms[1].innerHTML = "请输入手机号";
+				flag = false;
+			}
+			else if(!phone.test(inp[1].value)){
+				ifms[1].innerHTML = "手机号不合法";
+				flag = false;
+			}
+			else{
+				ifms[1].innerHTML = "正确";
+				flag = true;
+			}
+			
+			if(inp[2].value == ""){
+				ifms[2].innerHTML = "请输入验证码";
+				flag = false;
+			}
+			else if(inp[2].value !== "3475"){
+				ifms[2].innerHTML = "验证码不正确";
+				flag = false;
+			}
+			else{
+				ifms[2].innerHTML = "正确";
+				flag = true;
+			}
+			
+			if(inp[3].value == ""){
+				ifms[3].innerHTML = "请输入密码";
+				flag = false;
+			}
+			else if(!keypass.test(inp[3].value)){
+				ifms[3].innerHTML = "密码不合法";
+				flag = false;
+			}
+			else{
+				ifms[3].innerHTML = "正确";
+				flag = true;
+			}
+			
+			if(inp[4].value == ""){
+				ifms[4].innerHTML = "请确认密码";
+				flag = false;
+			}
+			else if(!(inp[4].value == inp[3].value)){
+				ifms[4].innerHTML = "密码不相符";
+				flag = false;
+			}
+			else{
+				ifms[4].innerHTML = "正确";
+				flag = true;
+			}
+			//
+			if(ifms[0].innerHTML == "正确"&&ifms[1].innerHTML == "正确"&&ifms[2].innerHTML == "正确"&&ifms[3].innerHTML == "正确"&&ifms[4].innerHTML == "正确"){
+				register.innerHTML = "注册成功"
+			}
+		}
+		
+	</script>
+	</body>
+</html>

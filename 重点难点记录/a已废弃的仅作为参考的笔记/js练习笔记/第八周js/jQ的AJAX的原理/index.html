@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+
+	<body>
+		<input type="text" id="oop" /><button>zhuce</button>
+		<script type="text/javascript">
+			function ajaxs(obj) {
+				var newobj = obj || {}; //没有obj，就把后面的默认的大括号赋给newobj
+				newobj.type = obj.type || 'GET';
+				newobj.url = obj.url || '';
+				newobj.async = obj.async || true;
+				newobj.dataType = obj.dataType;
+				newobj.data = obj.data || {};
+				newobj.success = obj.success || function() {}
+				//
+				var params = [];
+				for(k in newobj.data) {
+					params.push(k + '=' + newobj.data[k])
+				}
+				urlcanshu = params.join("&");
+				//一
+				var ajax = null;
+				if(window.XMLHttpRequest) {
+					ajax = new XMLHttpRequest();
+				} else {
+					ajax = new ActiveXObject('Microsoft.XMLHTTP');
+				}
+				//二，四
+				if(newobj.type == "GET" || "get") {
+					ajax.open(newobj.type, newobj.url + "?" + urlcanshu, newobj.async);
+					ajax.send(null);
+				} else {
+					ajax.open(newobj.type, newobj.url, newobj.async);
+					ajax.setRequestHeader("content-type", "application/x-www-form-urlencoded")
+					ajax.send(urlcanshu);
+				}
+				//三
+				ajax.onreadystatechange = function() {
+					if(ajax.readyState == 4 && ajax.status == 200) {
+						if(newobj.dataType == "xml") {
+							newobj.success(ajax.responseXML); //相当于data的值给success当实参来执行
+						} else if(newobj.dataType == "json" || newobj.dataType == "Text") {
+							newobj.success(ajax.responseText);
+						}
+					}
+				}
+			}
+			
+			
+			ajaxs({
+				type: "get",
+				url: "file/get.php",
+				anysc: true,
+				dataType: "Text",
+				data: {},
+				success: function(result) {
+					alert(result);
+				}
+			})
+		</script>
+	</body>
+
+</html>

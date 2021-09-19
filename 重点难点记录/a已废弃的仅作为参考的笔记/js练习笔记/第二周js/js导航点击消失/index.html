@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			.sidebar{
+				width: 170px;
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				background: peru;
+			}
+			ul{
+				list-style: none;
+			}
+			.sidebar>ul{
+				height: auto;
+				width: 130px;
+				margin:20px auto 0;
+			}
+			.firstnav-box{
+				width: 100%;
+				height: auto;
+				padding: 15px 0;
+				text-align: center;
+				color: white;
+				border-bottom: 1px solid #BB7F00;
+			}
+			.subnav-box{
+				width: 100%;
+				height: auto;
+				display: none;
+			}
+			.subnav-box>li{
+				padding: 15px 0;
+				text-align: center;
+				color: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sidebar">
+			<ul>
+				<li onclick="navshow('ART')" class="firstnav-box">文学艺术
+					<ul id="ART" class="subnav-box">
+						<li>demo</li>
+						<li>demo</li>
+						<li>demo</li>
+					</ul>
+				</li>
+				<li onclick="navshow('PIC')" class="firstnav-box">贴图专区
+					<ul id="PIC" class="subnav-box">
+						<li>demo</li>
+						<li>demo</li>
+						<li>demo</li>
+					</ul>
+				</li>
+				<li onclick="navshow('HOUSE')" class="firstnav-box">房产论坛
+					<ul id="HOUSE" class="subnav-box">
+						<li>demo</li>
+						<li>demo</li>
+						<li>demo</li>
+					</ul>
+				</li>
+				<li onclick="navshow('PLAY')" class="firstnav-box">娱乐八卦
+					<ul id="PLAY" class="subnav-box">
+						<li>demo</li>
+						<li>demo</li>
+						<li>demo</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<script>
+//			var fstnav = document.getElementsByClassName("firstnav-box")
+//			var subnav = document.getElementsByClassName("subnav-box")
+//			for(var j=0;j<subnav.length;j++){
+//				subnav[j].style.display = "none"
+//			}
+//			for(var i=0;i<fstnav.length;i++){
+//				fstnav[i].onclick = function(){
+//					if(this.getElementsByClassName("subnav-box")[0].style.display == "none"){
+//						this.getElementsByClassName("subnav-box")[0].style.display = "block"
+//					}else{
+//						this.getElementsByClassName("subnav-box")[0].style.display = "none"
+//					}
+//				}
+//			}
+			function navshow(id){
+				var subnav = document.getElementById(id)
+				if(subnav.style.display == "block"){
+					subnav.style.display = "none"
+				}else{
+					subnav.style.display = "block"
+				}
+			}
+	</script>
+	</body>
+</html>

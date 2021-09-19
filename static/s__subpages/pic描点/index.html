@@ -1,0 +1,597 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+		<title></title>
+        <!-- 公共css插件css以及自定义css，jq和公共方法js其他插件js -->
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                outline: 0;
+                border: 0;
+                text-decoration: none !important;
+                list-style: none;
+                font-family: "microsoft yahei";
+            }
+            input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
+            {
+            appearance: none;
+            }
+            input[type="number"]
+            {
+            appearance: textfield;
+            }
+            button{
+                border-radius: 0;
+            }
+
+
+            .noselect{
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -moz-user-select: none;
+            }
+            .picedittitle {
+                padding: 30px 30px 0;
+            }
+            .thepicwrap,.thepicwrap2 {
+                width: 260px;
+                margin: 30px;
+                position: relative;
+                overflow: hidden;
+            }
+            .thepicwrapin {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            .additemwrap {
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+            }
+            .additemwrap a {
+                display: inline-block;
+                margin-top: 10px;
+                color: #3080c5;
+            }
+            .sizewrap {
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-width: 0px;
+                min-height: 0px;
+                background-color: rgba(255, 255, 255, .4);
+            }
+            .sizewrapin {
+                width: 100%;
+                height: 100%;
+                position: relative;
+            }
+            .sizewrapin .linel {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                border-right: 1px solid red;
+            }
+            .sizewrapin .linet {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                border-bottom: 1px solid red;
+            }
+            .sizewrapin .liner {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                border-left: 1px solid red;
+            }
+            .sizewrapin .lineb {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-top: 1px solid red;
+            }
+            .sizewrap p {
+                position: absolute;
+                right: -4px;
+                bottom: -4px;
+                width: 10px;
+                height: 10px;
+                background-color: #fff;
+            }
+            #itemwrap .items {
+                padding: 10px 80px 10px 0;
+                position: relative;
+                border-bottom: 1px solid #ccc;
+            }
+            #itemwrap .items input{
+                width: 100%;
+                background-color: transparent;
+            }
+            #itemwrap .items span {
+                position: absolute;
+                right: 0px;
+                top: 8px;
+                width: 80px;
+                text-align: right;
+                color: #999;
+            }
+            #bgimg {
+                max-height: 300px;
+            }
+            /*
+            -------------------------
+            */
+            .addwrap {
+                height: 300px;
+                border: 2px dashed #ccc;
+                border-radius: 8px;
+            }
+            .addsign {
+                font-size: 130px;
+                text-align: center;
+                color: #ccc;
+            }
+            #btnsubmit {
+                margin-top: 20px;
+                padding: 10px;
+                border-radius: 8px;
+                background-color: #3080c5;
+                color: white;
+            }
+        </style>
+        <script src="../../js/jquery-1.11.0.js"></script>
+    </head>
+    <body>
+        <form action="">
+            <div style="position: relative;overflow: hidden;height: 0;">
+                <input id="uploadimg" type="file" accept="image/*" onchange="handleFiles(this)">
+                <!-- 提交的信息 -->
+                <input type="text" name="id" value="">
+                <input type="text" name="imglink" id="imglink" value="">
+                <input type="text" name="boxarea_group" id="boxarea_group" value="">
+            </div>
+            <div class="picedittitle">图片锚点添加/编辑</div>
+            <div id="nonepic" style="display:none">
+                <div class="thepicwrap2 noselect" onclick="javascript:document.getElementById('uploadimg').click()">
+                    <div class="addwrap">
+                        <div class="addsign">+</div>
+                        <div style="text-align: center;color: #ccc;">点击添加图片进行描点</div>
+                    </div>
+                </div>
+            </div>
+            <div id="ispic" style="display:none">
+                <div class="thepicwrap noselect">
+                    <div style="min-height: 100px;">
+                        <div class="thepicwrapin" id="thepicwrapin">
+                            <!-- 盒子移动区域 -->
+                            <!-- <div class="sizewrap" id="handle1" onmousedown="model(this.id)" onmouseup="modelcancel(this.id)">
+                                <div class="sizewrapin" id="handle_act_1">
+                                    <div class="linel"></div>
+                                    <div class="linet"></div>
+                                    <div class="liner"></div>
+                                    <div class="lineb"></div>
+                                </div>
+                                <p id="handle_box_1" onmousedown="model2(this.id)" onmouseup="modelcancel2(this.id)"></p>
+                            </div> -->
+                        </div>
+                        <img id="bgimg" src="" width="100%" style="float: left;" alt="">
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div class="thepicwrap noselect">
+                    <div class="additemwrap">
+                        <div>
+                            <div id="domnone" style="display: none;">
+                                还没添加任何框选元素
+                            </div>
+                            <div id="itemwrap">
+                                <!--  -->
+                            </div>
+                        <a onclick="toadddom()"> + 点击添加选区</a>
+                        <a onclick="javascript:document.getElementById('uploadimg').click()"> + 重新上传图片</a></div>
+                    </div>
+                    <button id="btnsubmit" style="width: 100%;">提交</button>
+                </div>
+            </div>
+        </form>
+    </body>
+    <!-- 自定义js -->
+    <script>
+
+
+
+
+        /*
+            提交和获取以及窗口管理都是操作的px单位，同时要实时获取装图片盒子的宽高
+            提交的时候转%，获取的时候转px
+
+            元素移动，
+            offsetleft最左边和最右边判断位置
+            大小改变同时判断是否大于offsetleft和元素大小的和,改变过程中先转百分比再转px
+        */
+
+
+
+
+        //===================================
+        //元素数组以及追加元素(在这里处理数据)
+        //===================================
+
+        //背景图
+        var thebgimg = '../../imgs/12462713951.jpg'//编辑的时候回显跟上传的时候存储
+        //点击区域的模型数据
+        var thisdata = [
+            {bid:'1',top:'30%',left:'30%',width:'30%',height:'30%',link:'//www.baidu.com'},
+            {bid:'2',top:'20%',left:'30%',width:'20%',height:'50%',link:'//www.qq.com'},
+        ]
+
+
+        //===================================
+        //拿到数据后处理的逻辑
+        //===================================
+        function setboxarealink(ids){
+            for(var i=0;i<thisdata.length;i++){
+                if(ids == thisdata[i].bid){
+                    thisdata[i].link = $('#item_box_input_'+ids).val()
+                }
+            }
+        }
+        function forString(){
+            if(thebgimg){
+                $('#imglink').val(thebgimg)
+                console.log($('#imglink').val())
+            }
+            if(thisdata.length != 0) {
+                $('#boxarea_group').val(JSON.stringify(thisdata))                
+                console.log($('#boxarea_group').val())
+           }
+        }
+        forString()
+        function bigwrapchange(){
+            if($(document).width()<600){
+                $('.thepicwrap2').eq(0).width(260)
+                $('.thepicwrap').eq(0).width(260)
+                $('.thepicwrap').eq(1).width(260)
+            }else if($(document).width()>600&&$(document).width()<900){
+                $('.thepicwrap2').eq(0).width(500)
+                $('.thepicwrap').eq(0).width(500)
+                $('.thepicwrap').eq(1).width(500)
+            }else{
+                $('.thepicwrap2').eq(0).width(760)
+                $('.thepicwrap').eq(0).width(760)
+                $('.thepicwrap').eq(1).width(760)
+            }
+        }
+        bigwrapchange()
+
+        function delitem(ids){
+            $('#item_box_'+ids).remove()
+            $('#handle'+ids).remove()
+            var ind = 0
+            for(var i=0;i<thisdata.length;i++){
+                if(ids == thisdata[i].bid){
+                    ind = i
+                }
+            }
+            thisdata.splice(ind,1)
+        }
+        function ifactive(){
+            //处理成都是未激活状态
+            for(var i=0;i<thisdata.length;i++){
+                thisdata[i].act = false
+            }
+        }
+        ifactive()
+        function hoveract(ids,type){
+            for(var i=0;i<thisdata.length;i++){
+                thisdata[i].act = false
+                $('#item_box_'+thisdata[i].bid).css({'background-color':'none'})
+                $('#handle'+thisdata[i].bid).css({'background-color':'rgba(255, 255, 255, .4)'})
+                $('#handle_act_'+thisdata[i].bid).css({'display':'none'})
+                if(ids == thisdata[i].bid&&type==1){
+                    thisdata[i].act = true
+                    $('#item_box_'+ids).css({'background-color':'#eee'})
+                    $('#handle'+ids).css({'background-color':'rgba(255, 255, 255, .5)'})
+                    $('#handle_act_'+ids).css({'display':''})
+                }
+            }
+        }
+        function adddom(){
+            //写入背景图和渲染点击区域的模型数据
+            $('#bgimg').attr('src',thebgimg)
+            for(var i=0;i<thisdata.length;i++){
+                var l = $('#thepicwrapin').width()*(Number(thisdata[i].left.split('%')[0])/100) + 'px'
+                var t = $('#thepicwrapin').width()*(Number(thisdata[i].top.split('%')[0])/100) + 'px'
+                var w = $('#thepicwrapin').width()*(Number(thisdata[i].width.split('%')[0])/100) + 'px'
+                var h = $('#thepicwrapin').width()*(Number(thisdata[i].height.split('%')[0])/100) + 'px'
+                $('#thepicwrapin').append('<div class="sizewrap" id="handle'+thisdata[i].bid+'" onmousedown="model(this.id)" onmouseup="modelcancel(this.id,\''+thisdata[i].bid+'\')" style="top:'+t+';left:'+l+';width:'+w+';height:'+h+'" onmouseover="hoveract(\''+thisdata[i].bid+'\',1)" onmouseout="hoveract(\''+thisdata[i].bid+'\',2)">'
+                    +'<div class="sizewrapin" id="handle_act_'+thisdata[i].bid+'" style="display:none">'
+                        +'<div class="linel"></div>'
+                        +'<div class="linet"></div>'
+                        +'<div class="liner"></div>'
+                        +'<div class="lineb"></div>'
+                    +'</div>'
+                    +'<p id="handle_box_'+thisdata[i].bid+'" onmousedown="model2(this.id)" onmouseup="modelcancel2(this.id,\''+thisdata[i].bid+'\')" onmouseenter="hoveract(\''+thisdata[i].bid+'\',1)" onmouseout="hoveract(\''+thisdata[i].bid+'\',2)"></p>'
+                +'</div>')
+                $('#itemwrap').append('<div id="item_box_'+thisdata[i].bid+'" onmouseover="hoveract(\''+thisdata[i].bid+'\',1)" onmouseout="hoveract(\''+thisdata[i].bid+'\',2)" class="items"><input id="item_box_input_'+thisdata[i].bid+'" onmouseover="hoveract(\''+thisdata[i].bid+'\',1)" onmouseout="hoveract(\''+thisdata[i].bid+'\',2)" placeholder="填写相应跳转的网址如：//www.baidu.com" value="'+thisdata[i].link+'" oninput="setboxarealink(\''+thisdata[i].bid+'\')"/><span onmouseover="hoveract(\''+thisdata[i].bid+'\',1)" onmouseout="hoveract(\''+thisdata[i].bid+'\',2)" onclick="delitem(\''+thisdata[i].bid+'\')">删除</span></div>')
+            }
+        }
+        function loadbgimg(){
+            if(thebgimg){
+                $('#ispic').css({'display':' '})
+                $('#nonepic').css({'display':'none'})
+                var m = new Image()
+                m.src = thebgimg
+                m.onload = function(){
+                    $('#bgimg').css({'max-height':'none'})
+                    setTimeout(() => {
+                        adddom()
+                    },0)                
+                }
+                m.onerror = function(){
+                    $('#ispic').css({'display':'none'})
+                    $('#nonepic').css({'display':' '})
+                }
+            }else{
+                $('#ispic').css({'display':'none'})
+                $('#nonepic').css({'display':' '})
+            }
+        }
+        loadbgimg()
+
+
+        //上传图片逻辑
+
+        function handleFiles(obj) {
+            function m(blob){
+                //
+                var formData = new FormData();           
+                formData.append('upload', files[0]); 
+                $.ajax({
+                    url: "",//文档接口
+                    type: "post",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    mimeType: "multipart/form-data",
+                    success: function (data) {
+                        thisdata = []
+                        $('#thepicwrapin').html('')
+                        $('#itemwrap').html('')
+                        thebgimg = blob; //图片加载后，释放object URL
+                        bigwrapchange();
+                        loadbgimg();
+                        forString();
+                        document.getElementById('uploadimg').value = ''
+                    },
+                    error: function (data) {
+    //                    alert('上传失败',这里的写入只是为了模拟有图片之后的操作测试，完了之后可以清掉)
+                        thisdata = []
+                        $('#thepicwrapin').html('')
+                        $('#itemwrap').html('')
+                        thebgimg = blob; //图片加载后，释放object URL
+                        bigwrapchange();
+                        loadbgimg();
+                        forString();
+                        document.getElementById('uploadimg').value = ''
+                    }
+                })
+            }
+            var files = obj.files;
+            var img = new Image();
+            if (window.URL) {
+                img.src = window.URL.createObjectURL(files[0]); //创建一个object URL，并不是你的本地路径
+                img.width = 60;
+                img.height = 60;
+                img.onload = function(e) {
+                    // thebgimg = window.URL.revokeObjectURL(this.src); //图片加载后，释放object URL
+                    m(window.URL.createObjectURL(files[0]))
+                }
+            } else if (window.FileReader) {
+                //opera不支持createObjectURL/revokeObjectURL方法。我们用FileReader对象来处理
+                var reader = new FileReader();
+                reader.readAsDataURL(files[0]);
+                reader.onload = function(e) {
+                    m(this.result)
+                }
+            } else {
+                //ie
+                obj.select();
+                obj.blur();
+                var nfile = document.selection.createRange().text;
+                document.selection.empty();
+                img.src = nfile;
+                img.onload = function() {
+
+                }
+            }
+        }
+
+        var flags = 1
+        function toadddom(){
+            if(!flags){
+                alert('添加得太快了')
+                return
+            }
+            flags = 0
+            setTimeout(() => {
+                //延时模拟完成打开开关
+                flags = 1
+            },10200)
+            var tepid = new Date().getTime()
+            var link = ''
+            var t = '0%'
+            var l = '0%'
+            var w = '20%'
+            var h = '20%'
+            thisdata.push({bid:tepid,top:t,left:l,width:w,height:h,link:link,act:false})
+            $('#thepicwrapin').append('<div class="sizewrap" id="handle'+tepid+'" onmousedown="model(this.id)" onmouseup="modelcancel(this.id,\''+tepid+'\')" style="top:'+t+';left:'+l+';width:'+w+';height:'+h+'" onmouseover="hoveract(\''+tepid+'\',1)" onmouseout="hoveract(\''+tepid+'\',2)">'
+                +'<div class="sizewrapin" id="handle_act_'+tepid+'" style="display:none">'
+                    +'<div class="linel"></div>'
+                    +'<div class="linet"></div>'
+                    +'<div class="liner"></div>'
+                    +'<div class="lineb"></div>'
+                +'</div>'
+                +'<p id="handle_box_'+tepid+'" onmousedown="model2(this.id)" onmouseup="modelcancel2(this.id,\''+tepid+'\')" onmouseenter="hoveract(\''+tepid+'\',1)" onmouseout="hoveract(\''+tepid+'\',2)"></p>'
+            +'</div>')
+            $('#itemwrap').append('<div id="item_box_'+tepid+'" onmouseover="hoveract(\''+tepid+'\',1)" onmouseout="hoveract(\''+tepid+'\',2)" class="items"><input id="item_box_input_'+tepid+'" onmouseover="hoveract(\''+tepid+'\',1)" onmouseout="hoveract(\''+tepid+'\',2)" placeholder="填写相应跳转的网址如：//www.baidu.com" value="'+link+'" oninput="setboxarealink(\''+tepid+'\')"/><span onmouseover="hoveract(\''+tepid+'\',1)" onmouseout="hoveract(\''+tepid+'\',2)" onclick="delitem(\''+tepid+'\')">删除</span></div>');
+            forString()
+        }
+
+
+        //单个处理的逻辑】
+        var p_data = {}
+        var sizechangeflag = 1
+        //位置拖动相关
+        function model(obj){
+            var leftnum = Number($('#'+obj).css('left').split('px')[0])
+            var topnum = Number($('#'+obj).css('top').split('px')[0])
+            var ev = event || window.event
+            var scrollX0 = document.body.scrollLeft || document.documentElement.scrollLeft; //---
+            var scrollY0 = document.body.scrollTop || document.documentElement.scrollTop; //---
+            p_data[obj] = {stx : ev.pageX || (ev.clientX + scrollX0),sty : ev.pageY || (ev.clientY + scrollY0)}
+            var fn = function(event) {
+                ev = event || window.event
+                var templeft = { m: leftnum }
+                var temptop = { m: topnum }
+                $('#'+obj).css({
+                    'left': templeft.m + (
+                        (ev.pageX || (ev.clientX + scrollX0)) - p_data[obj].stx),
+                    'top': temptop.m + (
+                        (ev.pageY || (ev.clientY + scrollY0)) - p_data[obj].sty)
+                })
+            }
+            $('#thepicwrapin').mousemove(function(event) { fn(event) })
+        };
+        function modelcancel(obj,ids){
+            $('#'+obj).unbind('mousemove');$('#thepicwrapin').unbind('mousemove');
+            for(var i=0;i<thisdata.length;i++){
+                if(ids == thisdata[i].bid){
+                    var leftnum = Number($('#handle'+ids).css('left').split('px')[0])
+                    var topnum = Number($('#handle'+ids).css('top').split('px')[0])
+                    //转成小数
+                    leftnum = ((leftnum/$('#thepicwrapin').width())*100) + '%'
+                    topnum = ((topnum/$('#thepicwrapin').height())*100) + '%'
+                    //重新赋值
+                    thisdata[i].left = leftnum
+                    thisdata[i].top = topnum
+                }
+            }
+            forString()
+        }
+        //大小改变相关
+        function model2(obj){
+            console.log($('#'+obj).parent().attr('id'))
+            var ev = event || window.event || arguments.callee.caller.arguments[0]
+            if(ev.cancelBubble) {
+                ev.cancelBubble = true;
+            }
+            if(ev.stopPropagation) {
+                ev.stopPropagation();
+            }
+            var leftnum = Number($('#'+$('#'+obj).parent().attr('id')).css('width').split('px')[0])
+            var topnum = Number($('#'+$('#'+obj).parent().attr('id')).css('height').split('px')[0])
+            var ev = event || window.event
+            var scrollX0 = document.body.scrollLeft || document.documentElement.scrollLeft; //---
+            var scrollY0 = document.body.scrollTop || document.documentElement.scrollTop; //---
+            p_data[obj] = {stx : ev.pageX || (ev.clientX + scrollX0),sty : ev.pageY || (ev.clientY + scrollY0)}
+            var fn = function(event) {
+                ev = event || window.event
+                var templeft = { m: leftnum }
+                var temptop = { m: topnum }
+                $('#'+$('#'+obj).parent().attr('id')).css({
+                    'width': templeft.m + (
+                        (ev.pageX || (ev.clientX + scrollX0)) - p_data[obj].stx),
+                    'height': temptop.m + (
+                        (ev.pageY || (ev.clientY + scrollY0)) - p_data[obj].sty)
+                })
+            }
+            $('#thepicwrapin').mousemove(function(event) { fn(event) })            
+        }
+        function modelcancel2(obj,ids){
+            var ev = event || window.event || arguments.callee.caller.arguments[0]
+            if(ev.cancelBubble) {
+                ev.cancelBubble = true;
+            }
+            if(ev.stopPropagation) {
+                ev.stopPropagation();
+            }
+            $('#'+$('#'+obj).parent().attr('id')).unbind('mousemove');$('#thepicwrapin').unbind('mousemove');
+            for(var i=0;i<thisdata.length;i++){
+                if(ids == thisdata[i].bid){
+                    var widthnum = $('#handle'+ids).width()
+                    var heightnum = $('#handle'+ids).height()
+                    //转成小数
+                    widthnum = ((widthnum/$('#thepicwrapin').width())*100) + '%'
+                    heightnum = ((heightnum/$('#thepicwrapin').height())*100) + '%'
+                    //重新赋值
+                    thisdata[i].width = widthnum
+                    thisdata[i].height = heightnum
+                }
+            }
+            forString()
+        }
+        //自动调整大小相关
+        function resizedom(){
+            if(!sizechangeflag){
+                return
+            }
+            sizechangeflag = 0
+            setTimeout(() => {
+                //延时模拟完成打开开关
+                sizechangeflag = 1
+            },200)
+            for(var i=0;i<$('.sizewrap').length;i++){
+                var leftnum = Number($('.sizewrap').eq(i).css('left').split('px')[0])
+                var topnum = Number($('.sizewrap').eq(i).css('top').split('px')[0])
+                //转成小数
+                leftnum = ((leftnum/$('#thepicwrapin').width())*100) + '%'
+                topnum = ((topnum/$('#thepicwrapin').height())*100) + '%'
+                //重新赋值
+                $('.sizewrap').eq(i).css({
+                    'left': leftnum,
+                    'top': topnum
+                })
+                var widthnum = $('.sizewrap').eq(i).width()
+                var heightnum = $('.sizewrap').eq(i).height()
+                //转成小数
+                widthnum = ((widthnum/$('#thepicwrapin').width())*100) + '%'
+                heightnum = ((heightnum/$('#thepicwrapin').height())*100) + '%'
+                //重新赋值
+                $('.sizewrap').eq(i).css({
+                    'width': widthnum,
+                    'height': heightnum
+                })
+            }
+            bigwrapchange()
+            function s(item,i){
+                setTimeout(() => {
+                    console.log('')
+                    $('.sizewrap').eq(i).css({
+                        'left': item.l + 'px',
+                        'top': item.t + 'px'
+                    })
+                    $('.sizewrap').eq(i).css({
+                        'width': item.w + 'px',
+                        'height': item.h + 'px'
+                    })                    
+                }, 0);
+            }
+            for(var i=0;i<$('.sizewrap').length;i++){
+                s({l:$('.sizewrap').eq(i).offset().left - $('.thepicwrap').eq(0).offset().left,t:$('.sizewrap').eq(i).offset().top - $('.thepicwrap').eq(0).offset().top,w:$('.sizewrap').eq(i).width(),h:$('.sizewrap').eq(i).height()},i)
+            }
+        }
+        resizedom()
+        $(window).resize(function(){
+            resizedom()
+        })
+    </script>
+</html>

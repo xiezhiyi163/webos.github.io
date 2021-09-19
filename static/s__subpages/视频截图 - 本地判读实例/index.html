@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/Pcss.css" />
+        <style>
+            #videowrap {
+                background-color: black;
+                height: 500px;
+            }
+            #videowrap video {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <!--  -->
+        <div id="videowrap">
+            <video id="videos" src="" controls></video>
+        </div>
+        <div><input id="uploads" type="file" accept="video/*" onchange="fn()"></div><button onclick="getData()">截图</button>
+        <div id="imgwrap">
+
+        </div>
+        <script>
+            var setheight = function(){
+                document.getElementById('videowrap').style.height = (window.innerWidth?window.innerWidth:document.body.clientWidth)*0.6 + 'px'
+            }
+            setheight()
+            window.addEventListener('resize',function(){
+                setheight()
+            })
+            // 
+            var fn = function(){
+                document.getElementById('videos').src = URL.createObjectURL(document.getElementById('uploads').files[0])
+            }
+            function getData(){
+                var scale = 0.8;
+                let v = document.getElementById("videos");
+                let canvas=document.createElement("canvas");
+                canvas.width = v.videoWidth * scale;
+                canvas.height = v.videoHeight * scale;
+                let ctx = canvas.getContext("2d");
+                ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+                // document.body.appendChild(canvas);
+                console.log(canvas.toDataURL());
+                var dom = document.createElement('img')
+                dom.src = canvas.toDataURL()
+                dom.style.display = 'block'
+                dom.style.width = '100%'
+                document.getElementById('imgwrap').appendChild(dom)
+            }    
+        </script>
+    </body>
+</html>

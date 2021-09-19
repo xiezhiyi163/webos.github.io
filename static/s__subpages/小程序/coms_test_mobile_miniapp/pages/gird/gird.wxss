@@ -1,0 +1,99 @@
+/* pages/gird/gird.wxss */
+
+.girdwrap1-wrap {
+  min-height: 150rpx;
+  margin: 20rpx 20rpx 0;
+  padding: 20rpx 20rpx 0;
+  box-shadow: 0 0 12rpx 0 #ccc;
+  border-radius: 16rpx;
+}
+
+.girdwrap1-wraptop {
+  padding-bottom: 20rpx;
+  color: #c1c2c7;
+}
+
+.girdwrap1-wraptable {
+  padding-bottom: 20rpx;
+  display: table;
+  width: 100%;
+}
+
+.girdwrap1-wraptablecell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.girdwrap1-wraptablecell-img {
+  width: 260rpx;
+  height: 260rpx;
+  margin-right: 20rpx;
+  background-color: #eee;
+  border-radius: 16rpx;
+}
+
+.girdwrap1-wraptablecell-title {
+  height: 82rpx;
+  word-break: break-word;
+  font-size: 32rpx;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.girdwrap1-wraptablecell-desc {
+  width: 390rpx;
+  margin-top: 8rpx;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 24rpx;
+  color: #ccc;
+  transform: scale(0.8);
+  transform-origin: 0;
+}
+
+.girdwrap1-wraptablecell-price {
+  padding-top: 12rpx;
+  font-size: 48rpx;
+}
+
+.girdwrap1-wraptablecell-price text {
+  font-size: 32rpx;
+}
+
+.girdwrap1-wrapctl {
+  margin-top: 20rpx;
+  padding:20rpx 0;
+  min-height: 50rpx;
+  font-size: 24rpx;
+  border-top: 1px solid #e5e5e5;
+}
+
+.girdwrap1-wrapctl text {
+  display: inline-block;
+  line-height: 50rpx;
+}
+
+.girdwrap1-wrapctl:after{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.girdwrap1-wrapctl button,.girdwrap1-wrapctl button:after {
+  width: auto !important;
+  border: 0;
+  background-color: transparent;
+}
+
+.girdwrap1-wrapctl button {
+  float: right;
+  margin-left: 20rpx !important;
+  padding:10rpx 20rpx;
+  font-size: 24rpx;
+  border: 1px solid #e5e5e5;
+}

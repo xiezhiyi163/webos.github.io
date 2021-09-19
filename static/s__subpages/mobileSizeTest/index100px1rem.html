@@ -1,0 +1,87 @@
+<!-- 
+    模板原尺寸调试，750为原尺寸，拿一半出来作为1rem
+ -->
+ <!DOCTYPE html>
+ <html>
+    <head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../../css/Pcss.css"/>
+		<title></title>
+        <style>
+             /* 套用的时候拿这里的 */
+            .table-thetableswrap {
+                min-width:3.2rem;
+                padding: 0.1rem;
+            }
+            .table-thetables {
+                display: table;
+                width: 100%;
+            }
+            .table-imgs,.table-infos {
+                display: table-cell;
+                vertical-align: top;
+            }
+            .table-imgsin {
+                width: 2rem;
+                height: 2rem;
+                background-color: coral;
+            }
+            .table-infos-wrap {
+                margin-left: 0.1rem;
+            }
+            .table-infos-title {
+                position: relative;
+                height: 0.6rem;
+                font-size: 0.24rem;
+                word-break: break-word;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+            }
+            .table-infos-else {
+                height: 1.3rem;
+                margin-top: 0.1rem;
+                background-color: cornflowerblue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="htmlpxget" style="font-size: 16px;"></div>
+        <div class="table-thetableswrap" lang="套用的时候拿这个容器的">
+            <div class="table-thetables">
+                <div class="table-imgs">
+                    <div class="table-imgsin"></div>
+                </div>
+                <div class="table-infos">
+                    <div class="table-infos-wrap">
+                        <div class="table-infos-title">
+                            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                        <div class="table-infos-else"></div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <script>
+            var methods = function(){
+                return {
+                    tosetrem:function(){
+                        var setrem = function() {
+                            var winwidth = (window.innerWidth||document.body.clientWidth||document.documentElement.clientWidth)
+                            var lastwinwidth = winwidth<320?320:winwidth
+                            var remset = lastwinwidth/7.5 + 'px'
+                            document.getElementsByTagName('html')[0].style.fontSize = remset
+                            document.getElementById('htmlpxget').innerHTML = remset
+                        }
+                        setrem()
+                        window.addEventListener('resize',function(){
+                            setrem()
+                        })
+                    }
+                }
+            }
+            methods().tosetrem()
+        </script>
+    </body>
+</html>

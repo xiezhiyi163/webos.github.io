@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#tabwrap{
+				width: 800px;
+				height: 500px;
+				margin: auto;
+				position: relative;
+				display: block;
+				background: #eee;
+			}
+			div{
+				display: none;
+			}
+			.tabdiv{
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+			.img1,.img2,.img3{
+				width: 100%;
+				height: 100%;
+			}.img1{background: burlywood;}
+			.img2{background: darkseagreen;}
+			.img3{background: lightsteelblue;}
+			.tabbtn-wrap{
+				width: 150px;
+				height: 30px;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 430px;
+				margin: auto;
+			}
+			.tabbtn-wrap>li{
+				width: 30px;
+				height: 30px;
+				float: left;
+				margin:0 10px;
+				background: brown;
+			}
+			.tabbtn{
+				background: rosybrown !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="tabwrap">
+			<div class="tabdiv"><p class="img1"></p></div>
+			<div><p class="img2"></p></div>
+			<div><p class="img3"></p></div>
+			<ul class="tabbtn-wrap">
+				<li class="tabbtn"></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var tabwrap = document.getElementById("tabwrap");
+			var tabdiv = tabwrap.getElementsByTagName("div");
+			var tabbtn = tabwrap.getElementsByTagName("li");
+			Array.prototype.indexOf = function(num){
+				if(!this.indexOf){
+					for(var i=0;i<this.length;i++){
+						if(this[i] == num){
+							return i;
+						}
+					}
+				}
+			}
+			function tabturn(event){
+					var ev = event||window.event
+					var tar = ev.target||ev.srcElement;
+					var zdy = Array.prototype.indexOf.call(tabbtn,tar);
+					if(tar.nodeName.toLowerCase() == "li"){
+						for(var i=0;i<tabbtn.length;i++){
+							tabbtn[i].className = "";
+							tabdiv[i].className = "";
+						}
+						tar.className = "tabbtn";
+						tabdiv[zdy].className = "tabdiv";
+					}
+			}
+			if(document.addEventListener){
+				tabwrap.addEventListener('click',tabturn);
+			}else{
+				tabwrap.attachEvent('onclick',tabturn);
+			}
+		</script>
+	</body>
+</html>

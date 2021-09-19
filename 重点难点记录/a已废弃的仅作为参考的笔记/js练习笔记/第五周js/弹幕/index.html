@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.video{
+				width: 100%;
+				height: 560px;
+				margin: auto;
+				position: relative;
+				background: grey;
+			}
+			.videotextfly-wrap{
+				width: 100%;
+				height: 90%;
+				position: absolute;
+			}
+			#videotextfly{
+				height: 100%;
+				width: 100%;
+				position: relative;
+				overflow-x: hidden;
+			}
+			#videotextfly>p{
+				width: auto;
+				position: absolute;
+				border: 1px solid lightseagreen;
+			}
+			.videotextsend-wrap{
+				width: 100%;
+				height: 50px;
+				margin: auto;
+				position: relative;
+				background: navajowhite;
+			}
+			.videotext-box{
+				height: 100%;
+				margin: 0 80px 0 15px;
+			}
+			#videotext{
+				width: 100%;
+				display: block;
+				padding:17px 0 17px 0;
+				background: none;
+				border: none;
+				outline: none;
+			}
+			#videotextsend{
+				width: 80px;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				right: 0;
+				border:none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="video">
+			<div class="videotextfly-wrap">
+				<div id="videotextfly"></div>
+			</div>
+			<video src="movie.mp4" style="width: 100%;height: 100%;"></video>
+		</div>
+		<div class="videotextsend-wrap">
+			<div class="videotext-box">
+				<input id="videotext" type="text" placeholder="请输入弹幕内容" />
+			</div>
+			<button id="videotextsend">发送</button>
+		</div>
+		<script type="text/javascript">
+			var vdotxtfly = document.getElementById("videotextfly");
+			var vdotxt = document.getElementById("videotext");
+			var vdotxtsnd = document.getElementById("videotextsend");
+			var timer = null;
+				function color2(){//
+					var color = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+					var newArr = [];
+					for(var i=0;i<6;i++){
+						var index = Math.floor(Math.random()*16);
+						newArr.push(color[index]);
+					}
+					return newArr.join("");
+				};
+			function txtfly(){
+				var vdotxtflyCents = document.createElement("p");
+				vdotxtfly.appendChild(vdotxtflyCents);
+				vdotxtflyCents.innerHTML = vdotxt.value;
+				vdotxtflyCents.style.top = Math.floor(Math.random()*460)+"px";
+				vdotxtflyCents.style.right = -(vdotxtflyCents.offsetWidth)+"px";
+				vdotxtflyCents.style.color = "#" + color2();//
+				clearInterval(timer);
+				setInterval(function(){
+					if(vdotxtflyCents.offsetWidth>1980){
+						vdotxtflyCents.remove();
+					}
+					vdotxtflyCents.style.left = vdotxtflyCents.offsetLeft-1+"px";
+				},5);
+			}
+			vdotxtsnd.onclick = function(){
+				txtfly();
+//				vdotxt.value=null;
+			}
+		</script>
+	</body>
+</html>

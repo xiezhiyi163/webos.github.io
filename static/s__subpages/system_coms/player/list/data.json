@@ -1,0 +1,13 @@
+{
+    "解释":"中文_aaa：横线前面为展示的名字，横线后面的是跟list里面匹配的，list里面每一个数组，可以放单个，也可以放指定属性的对象进行处理，比如：只有单纯名字的'xxxx'，以及{'name'：‘名字’,'link':‘链接’,'show':‘是否可播放’}",
+    "name":[
+        "默认列表_default"
+    ],
+    "list":{
+        "default":[
+            "Each and All.wav",
+            "Sparkle☆Time!! - セブンスシスターズ.flac",
+            {"name":"mms央广音乐之声","link":"mms://mms.cnr.cn/cnr003","show":"true"}
+        ]
+    }
+}

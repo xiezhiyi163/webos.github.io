@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "van-area": "../common/vant-weapp-UI/dist/area/index",
+    "van-datetime-picker": "../common/vant-weapp-UI/dist/datetime-picker/index"
+  }
+}
