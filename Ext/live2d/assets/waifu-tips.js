@@ -201,7 +201,7 @@ function initModel(waifuPath){
 	
 	$.ajax({
         cache: true,
-        url: waifuPath+'waifu-tips.json',
+        url: waifuPath,
         dataType: "json",
         success: function (result){
             $.each(result.mouseover, function (index, tips){
@@ -252,7 +252,7 @@ function loadModel(modelId, modelTexturesId){
     localStorage.setItem('modelId', modelId);
     if (modelTexturesId === undefined) modelTexturesId = 0;
     localStorage.setItem('modelTexturesId', modelTexturesId);
-    loadlive2d('live2d', '/qiantaiPage/Ext/live2d/assets/live2d-phpStatic/get/?id='+modelId+'-'+modelTexturesId, console.log('live2d','模型 '+modelId+'-'+modelTexturesId+' 加载完成'));//https://api.fghrsh.net/live2d/get/?
+    loadlive2d('live2d', './Ext/live2d/assets/live2d-phpStatic/get/?id='+modelId+'-'+modelTexturesId, console.log('live2d','模型 '+modelId+'-'+modelTexturesId+' 加载完成'));//https://api.fghrsh.net/live2d/get/?
 }
 
 function loadRandModel(){
@@ -263,7 +263,7 @@ function loadRandModel(){
     
     $.ajax({
         cache: false,
-        url: '/qiantaiPage/Ext/live2d/assets/live2d-phpStatic/'+modelTexturesRandMode+'_textures/?id='+modelId+'-'+modelTexturesId,
+        url: './Ext/live2d/assets/live2d-phpStatic/'+modelTexturesRandMode+'_textures/?id='+modelId+'-'+modelTexturesId,
         dataType: "json",
         success: function (result){
             if (result.textures['id'] == 1 && (modelTexturesId == 1 || modelTexturesId == 0)) {
@@ -294,7 +294,7 @@ function loadOtherModel(){
     
     $.ajax({
         cache: false,
-        url: '/qiantaiPage/Ext/live2d/assets/live2d-phpStatic/'+modelTexturesRandMode+'/?id='+modelId,
+        url: './Ext/live2d/assets/live2d-phpStatic/'+modelTexturesRandMode+'/?id='+modelId,
         dataType: "json",
         success: function (result){
             loadModel(result.model['id']);

@@ -25,6 +25,7 @@ var deskinitdata = function(type,p_data,callback){
 			'weixinxiaocehngxuAPI|_/&/_|' +
 			'aliyunshiliangtu|_/&/_|' +
 			'bilibili|_/&/_|' +
+			'codeedit|_/&/_|' +
 			'smallapp|_/&/_|' +
 			'baidu|_/&/_|' +
 			'enterUrl|_/&/_|' +
@@ -45,7 +46,7 @@ var deskinitdata = function(type,p_data,callback){
 		p_data.allicons.menuicons = [ //左侧菜单
 			{
 				a: "'MVC_OS','1','personal_mvc_os.html[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'",
-				g: 'MVC OS', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:1,ifmetro:0
+				g: 'MVC OS', ac: 0 ,ifresize:1,iconUrl:'\'static/imgs/icons/baseicons/com.png\'',color:'',ifdesk:1,ifmetro:0
 			},
 			{ 
 				a: "'testPage','1','personal_textPage.html[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
@@ -56,15 +57,19 @@ var deskinitdata = function(type,p_data,callback){
 				g: 'webjobprogram', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:1,ifmetro:0
 			},
 			{ 
-				a: "'weixinxiaocehngxuAPI','1','https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/api.html[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'weixinxiaocehngxuAPI','1','//developers.weixin.qq.com/miniprogram/dev/framework/app-service/api.html[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: '微信小程序api', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
-				a: "'bilibili','1','https://www.bilibili.com/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1100px','height:600px','indexmax'", 
+				a: "'bilibili','1','//www.bilibili.com/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1100px','height:600px','indexmax'", 
 				g: 'bilibili', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
-				a: "'baidu','1','https://baidu.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1253px','height:640px','indexmax'", 
+				a: "'codeedit','1','personal_codeEdit.html[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				g: '代码编辑器', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:1,ifmetro:0
+			},
+			{ 
+				a: "'baidu','1','//www.baidu.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:1253px','height:640px','indexmax'", 
 				g: 'baidu', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:1,ifmetro:0
 			},
 			{ 
@@ -72,7 +77,7 @@ var deskinitdata = function(type,p_data,callback){
 				g: 'enterUrlShowPage', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:1,ifmetro:0
 			},
 			{ 
-				a: "'elementUi','1','https://element.eleme.cn/#/zh-CN[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'elementUi','1','//element.eleme.cn/#/zh-CN[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: 'elementUi', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
@@ -84,7 +89,7 @@ var deskinitdata = function(type,p_data,callback){
 				g: 'counter', ac: 0 ,ifresize:0,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
-				a: "'smallapp','1','https://mp.weixin.qq.com/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'smallapp','1','//mp.weixin.qq.com/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: '小程序登入', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
@@ -92,7 +97,7 @@ var deskinitdata = function(type,p_data,callback){
 				g: 'VPlay', ac: 0,ifresize:1 ,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
-				a: "'Bstatic','1','https://bowlroll.net/file/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'Bstatic','1','//bowlroll.net/file/[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: 'B碗', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:0
 			},
 			{ 
@@ -104,7 +109,7 @@ var deskinitdata = function(type,p_data,callback){
 				g: '使用或开发指南', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 
-				a: "'lanhuApp','1','https://lanhuapp.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
+				a: "'lanhuApp','1','//lanhuapp.com[[[notAskClose]]]','left:120px;top:60px;background-color:none','width:800px','height:600px','indexmax'", 
 				g: '蓝湖app', ac: 0 ,ifresize:1,iconUrl:'',color:'',ifdesk:0,ifmetro:1
 			},
 			{ 

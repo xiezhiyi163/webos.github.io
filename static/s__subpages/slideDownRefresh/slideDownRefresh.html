@@ -10,6 +10,8 @@
 			#slideDown1,#slideDown2{width: 100%;height: 70px;;background: #e9f4f7;display: none;}
 			#slideDown1{height: 20px;}
 			#slideDown1>p,#slideDown2>p{margin: 0 auto 20px;text-align:center;font-size: 14px;color: #37bbf5;}
+			/* == */
+			.tips {margin: 30px 30px 0;padding:20px;text-align: center;box-shadow: 0 0 10px 0 #ccc;border-radius: 8px;}
 		</style>
 	</head>
 	<body>
@@ -23,15 +25,45 @@
 				</div>
 			</div>
 			<div class="myContent">
-				<ul>
-					<li>item1 -- item1 -- item1</li>
-					<li>item2 -- item2 -- item2</li>
-					<li>item3 -- item3 -- item3</li>
-					<li>item4 -- item4 -- item4</li>
-					<li>item5 -- item5 -- item5</li>
-					<li>item6 -- item6 -- item6</li>
-					<li>item7 -- item7 -- item7</li>
-				</ul>
+				<!-- == -->
+				<div style="padding: 0 0 30px;">
+					<div class="tips">使用移动端模式打开进行测试下拉刷新</div>
+					<div class="tips">
+						<div>
+							== 前后不分离的对接流程 ==
+						</div>
+						<div>
+							<br/>直接写好样式让后端渲染数据进去
+						</div>
+						<div>
+							<br/>如果需要做上传文件，单文件的时候
+						</div>
+						<div>
+							<br/>直接提交input，form标签的属性需要修改
+						</div>
+						<div>
+							<br/>多文件的时候，绝对性的使用ajax插件进行上传
+						</div>
+						<div>
+							<br/>== 前后分离的对接流程 ==
+						</div>
+						<div>
+							<br/>前端直接对接接口拿数据渲染
+						</div>
+						<div>
+							<br/>== 列表请求流程 ==
+						</div>
+						<div>
+							<br/>口诀：前后打开中间关闭
+						</div>
+						<div>
+							<br/>定义个打开的标识，请求结束后标识打开
+						</div>
+						<div>
+							<br/>请求前判断请求标识是否关闭并在请求前关闭标识
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<script>

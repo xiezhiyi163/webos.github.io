@@ -86,7 +86,7 @@ var systemsign = function() {
 var systemsignforIE = function() {
 	//=========
 	var UA = navigator.userAgent;
-	if(UA.indexOf('MSIE') != -1) {
+	if(UA.indexOf('MSIE') != -1&&navigator.userAgent.indexOf('11.0')==-1) {
 		return 1;
 	} else {
 		return 0;
@@ -111,7 +111,7 @@ var framexunhuan = function(th) {
 		}
 	}
 	var _this = th
-	setTimeout(function() { _this.checkClick(_this); }, _this.resolution);
+	_this.interval()
 }
 var IframeOnClick = {
 	resolution: 500,
@@ -126,7 +126,8 @@ var IframeOnClick = {
 		this.iframes.push(new this.Iframe(element, cb));
 		if(!this.interval) {
 			var _this = this;
-			this.interval = setTimeout(function() { _this.checkClick(_this); }, this.resolution);
+			this.interval = function(){setTimeout(function() { _this.checkClick(_this); }, this.resolution)};
+			this.interval()
 		}
 	},
 	checkClick: function(th) {
@@ -158,13 +159,17 @@ var sizefn = function() {
 	} else {
 		$('body>i').eq(0).css('display', 'none') //block
 	}
+	//底部状态栏背景设置
+	var tops = $(window).height() - $('#bottomwrap').height()
+	$('#bottomwrap_bgin').height($(window).height())
+	$('#bottomwrap_bgin').css('marginTop',-tops)
 }
 
 var linkstatus = function() {
 	//检查网络状态
 	p_data.linkstatus++;
 	links2('get', location.href, function(res) {
-		setTimeout(linkstatus, 5000)
+		setTimeout(linkstatus, 10000)
 	}, function(error) {
 		if(error.status == 0) {
 			$('.wifi_icon').eq(1).removeClass('pcss_none')
@@ -177,7 +182,7 @@ var linkstatus = function() {
 			p_data.linkstatus = 0;
 			console.clear();
 		}		
-		setTimeout(linkstatus, 5000)
+		setTimeout(linkstatus, 10000)
 	}, null, null)
 }
 
@@ -222,7 +227,9 @@ var disetfnAndMlisetfn = function() { //统一处理图标显示的地方
 		var dom = ''
 		dom+= '<li class="pcss_posi-rela" onclick="clickicon(' + strs.a + ',\''+ strs.g + '\',' + strs.ifresize + ',' + ((strs.iconUrl==''||strs.iconUrl==null||!strs.iconUrl)?'\'-\'':strs.iconUrl) + ',' + ((strs.color==''||strs.color==null||!strs.color)?'\'-\'':strs.color) + ',null)">'
 		dom+='	<div>'
-		dom+='		<img alt="" width="40" height="40" class="pcss_bg-col-eee" />'
+		dom+=strs.iconUrl?
+		'		<img alt="" width="40" height="40" class="pcss_bg-col-eee" src='+strs.iconUrl+' />':
+		'		<img alt="" width="40" height="40" class="pcss_bg-col-eee" />'
 		dom+='	</div>'
 		dom+='	<p class="pcss_posi-rela">'
 		dom+='		'+strs.g
@@ -235,7 +242,9 @@ var disetfnAndMlisetfn = function() { //统一处理图标显示的地方
 		//===========
 		var dom = ''
 		dom+='<li onclick="clickicon(' + obj.a + ',\''+ obj.g + '\',' + obj.ifresize + ',' + ((obj.iconUrl==''||obj.iconUrl==null||!obj.iconUrl)?'\'-\'':obj.iconUrl) + ',' + ((obj.color==''||obj.color==null||!obj.color)?'\'-\'':obj.color )+ ',null)">'
-		dom+='	<img class="pcss_bg-col-white pcss_posi-rela" alt="" width="20" height="20" />'
+		dom+=obj.iconUrl?
+		'	<img class="pcss_bg-col-white pcss_posi-rela" alt="" width="20" height="20" src='+obj.iconUrl+' />':
+		'	<img class="pcss_bg-col-white pcss_posi-rela" alt="" width="20" height="20" />'
 		dom+='	'+obj.g
 		dom+='</li>'
 		return dom
@@ -342,6 +351,10 @@ var mobsetcolorandsize = function() {
 		$('.menuleft').eq(0).removeClass('pcss_noheight pcss_hid')
 		$('.menuright').eq(0).addClass('pcss_hFull')
 		$('.menuright').eq(0).removeClass('pcss_noheight pcss_hid')
+		//colorreset
+		$('#bottomwrap').css('background-color', '')
+		$('.menuwrap').eq(0).css('background-color', '')
+		$('.rightmessage').eq(0).css('background-color', '')
 	}
 	if(systemsign() == 'mob') {
 		//手机端窗口尺寸重置
@@ -392,7 +405,7 @@ var timer = function() {
 		minute 
 		//+ ':' +	(second.toString().length < 2 ? '0' + second : second)
 	)
-	setTimeout(timer, 200)
+	setTimeout(timer, 1000)
 }
 
 var iconsposi_size_set = function() {
@@ -546,13 +559,13 @@ var theWindowbox = function(obj, sty, messageclick) { //窗口追加
 	var iflinkscanload = function() {
 		$('#' + obj.openid + '_f').attr('src', links) //获取重置后的连接访问
 		$('#' + obj.openid + '_toindex').click(function() {
-			framehome(
-				obj.openid + '_f', 
-				links,
-				obj.links.indexOf('[[[askClose]]]')!=-1?obj.links.split('[[[')[1].split('(')[1].split(')')[0]:null,
-			)
+			var ifaskclose = ''
+			if(obj.links.indexOf('[[[askClose]]]')!=-1){
+				ifaskclose = obj.links.split('[[[')[1].split('(')[1].split(')')[0]
+			}
+			framehome(obj.openid + '_f', links,ifaskclose)
 		})
-		var fn = function() { //模拟点击并收起弹出的容器
+		var fn = function(e) { //模拟点击并收起弹出的容器
 			//窗口加载完判断是否可拉大小
 			obj.ifresize == 0?$('#'+obj.openid+'_er').hide():''
 			obj.ifresize == 0?$('#'+obj.openid+'_sr').hide():''
@@ -580,7 +593,22 @@ var theWindowbox = function(obj, sty, messageclick) { //窗口追加
 		/* //以下逻辑为可用时才执行，success */
 		var fn = function(lin){			
 			links = lin
-			iflinkscanload()
+			$.ajax({
+				url:links,
+				complete:function(res,resStatus){
+					console.log(this)
+					if(resStatus == 'success'){
+						iflinkscanload()
+					}else{
+						if(res.status == 404){
+							links = 'personal_errorpage.html'
+						}else if(res.status == 403){
+							links = 'personal_cantviewpage.html'
+						}
+						iflinkscanload()
+					}
+				}
+			})
 		}
 		if(messageclick) {
 			fn(messageclick)
@@ -601,9 +629,6 @@ var theWindowbox = function(obj, sty, messageclick) { //窗口追加
 				fn(linkSplit+'?v='+p_data.pageOpenVer)
 			}
 		}
-		/* //这是不可用的逻辑，fail */
-		// links = 'personal_errorpage.html'
-		// iflinkscanload()
 	};
 	success()
 }
@@ -624,8 +649,8 @@ var bottomWrapIcon = function(obj) { //任务栏按钮追加
 	var str = {
 		str1: function(objs) {
 			var dom = ''
-			dom+='<span class="pcss_bg-col-7f8fdc99 iconbox" id="' + obj.openid + '_b" onclick="windowboxifshow(\'' + obj.openid + '\',\'0\')">'
-			dom+='<img class="pcss_bg-col-white" alt="" />'
+			dom+='<span class="pcss_bg-col-7f8fdc99 iconbox" id="' + objs.openid + '_b" onclick="windowboxifshow(\'' + objs.openid + '\',\'0\')">'
+			dom+=(objs.iconUrl!=''&&objs.iconUrl!='-')?'<img src='+objs.iconUrl+' class="pcss_bg-col-white" alt="" />':'<img class="pcss_bg-col-white" alt="" />'
 			dom+='</span>'
 			return dom
 		}
@@ -651,7 +676,8 @@ var popdom = function(type,obj){
 //控制iframe返回上一级
 var frameback = function(ids) {
 	maopao()
-	document.getElementById(ids).contentWindow.history.go(-1)
+	// document.getElementById(ids).contentWindow.history.go(-1)
+	$('#'+ids)[0].contentWindow.history.go(-1)
 	return false;
 }
 
@@ -855,19 +881,26 @@ var ifzuidahua = function(obj) {
 //窗口位置及大小调整
 
 var windowboxMovedown = function(obj, event) { //拖动窗口相关函数
+	function actives(){
+		$('.framezhezhao').css('top', '52px')
+		ifdeskactive('noactive') //模拟窗口未激活
+		for(var j = 0; j < p_data.windowdata.length; j++) {
+			p_data.windowdata[j].indexmax = 'no'
+			if(p_data.windowdata[j].openid == obj) {
+				p_data.windowdata[j].indexmax = 'indexmax'
+			}
+		}
+		activewindow(obj)
+		windowactivestyle(obj);
+	}
+	//
 	$('#' + obj).css({ 'transition': '0ms' }) //清除窗口恢复时的动画时间
 	if(systemsign() == 'mob') return;
-	if($('#' + obj + '_fullbox').attr('lang') == 1) return;
-	$('.framezhezhao').css('top', '52px')
-	ifdeskactive('noactive') //模拟窗口未激活
-	for(var j = 0; j < p_data.windowdata.length; j++) {
-		p_data.windowdata[j].indexmax = 'no'
-		if(p_data.windowdata[j].openid == obj) {
-			p_data.windowdata[j].indexmax = 'indexmax'
-		}
-	}
-	activewindow(obj)
-	windowactivestyle(obj);
+	if($('#' + obj + '_fullbox').attr('lang') == 1){
+		actives()
+		return;
+	} 
+	actives()
 	var leftnum = Number($('#' + obj).css('left').split('px')[0])
 	var topnum = Number($('#' + obj).css('top').split('px')[0])
 	var bigfn = function(event) {
@@ -884,7 +917,7 @@ var windowboxMovedown = function(obj, event) { //拖动窗口相关函数
 				'left': templeft.m + (
 					(ev.pageX || (ev.clientX + scrollX0)) - p_data.stx),
 				'top': temptop.m + (
-					(ev.pageY || (ev.clientX + scrollY0)) - p_data.sty)
+					(ev.pageY || (ev.clientY + scrollY0)) - p_data.sty)
 			})
 		}
 		$('#wrap').mousemove(function(event) { fn(event) })
@@ -1451,10 +1484,19 @@ var deskLoad = function() {
 	deskmessageshow()
 }
 
+//背景frame调用的获取截图方法,直接修改壁纸也可以调用写入
+var getimg = function(data){
+	document.getElementById('bottomwrap_bgin_img').style.backgroundImage = 'url('+data+')'
+}
+
 var loadwin = function() {
 	ifisIE()==1?'':(function(){
 		sessionStorage.live2dshow = 0
-		$('#zhezhaotext>span').html('初始化系统OK，正在登入...')
+		if(navigator.userAgent.indexOf('UCBrowser') > -1){
+			$('#zhezhaotext>span').html('初始化系统error，背景视频和插件无法加载')
+		}else{
+			$('#zhezhaotext>span').html('初始化系统OK，正在登入...')
+		}
 		live2d()
 		linkstatus()
 		mobheightfix()
@@ -1507,45 +1549,3 @@ var loadwin = function() {
  * 
  * }
  */
-window._loadwin = function(){
-	//获取系统加载时间
-	p_data.loadSYSstarttime = new Date().getTime()
-	window.onload = function(){
-		p_data.loadSYSendtime = new Date().getTime()		
-		p_data.loadSYSloadtime = p_data.loadSYSendtime-p_data.loadSYSstarttime+1000
-	}
-	//
-	setTimeout(function() {
-		//载入数据成功后并回调启动桌面
-		deskinitdata('get',p_data,loadwin)
-	}, 1000)	
-}
-_loadwin();
-//禁止打开控制台
-!function(){
-	return;
-    var _0x1cbb = ["tor", "struc", "call", "ger", "con", "bug", "de", "apply"];
-    setTimeout(check, 2e3);
-    function check() {
-        function doCheck(_0x1834ff) {
-            if (('' + _0x1834ff / _0x1834ff)['length'] !== 0x1 || _0x1834ff % 0x14 === 0x0) {
-                (function() {return !![]}[
-                    _0x1cbb[0x4] + _0x1cbb[0x1] + _0x1cbb[0x0]
-                ](
-                    _0x1cbb[0x6] + _0x1cbb[0x5] + _0x1cbb[0x3]
-                )[_0x1cbb[0x2]]());
-            } else {
-                (function() {return ![]}[
-                    _0x1cbb[0x4] + _0x1cbb[0x1] + _0x1cbb[0x0]
-                ](
-                    _0x1cbb[0x6] + _0x1cbb[0x5] + _0x1cbb[0x3]
-                )[_0x1cbb[0x7]]());
-            }			
-            doCheck(++_0x1834ff);
-        }
-        try {
-            doCheck(0)
-        } catch(err) { }
-		setTimeout(check, 2e3);
-    };
-}();

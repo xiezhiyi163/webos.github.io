@@ -10,15 +10,112 @@
 		<META    HTTP-EQUIV="Expires" CONTENT="0">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
 		<title></title>
+		<style>
+			.top {
+				height: 70px;background-color: slateblue;
+			}
+			.contwrap {
+				padding: 60px;
+				margin-left: 200px;
+			}
+			.leftfixedwrap {
+				position: fixed;
+				left: 0;
+				top: 70px;
+				width: 200px;
+			}
+			.leftfixedwrapitem {
+				margin-top: 20px;
+				margin-left: 20px;
+				padding: 10px 20px;
+				min-height: 10px;
+				box-shadow: 0 2px 10px 0 #ddd;
+				border-radius: 8px;
+			}
+		</style>
 	</head>
 	<body>
-		<div style="height: 70px;background-color: slateblue;"></div>
-		<div style="padding: 60px;">
+		<div class="top"></div>
+		<div class="leftfixedwrap">
+			<div class="leftfixedwrapitem">
+				使用指南
+			</div>
+			<div class="leftfixedwrapitem">
+				开发指南
+			</div>
+		</div>
+		<div class="contwrap">
 			<h1>使用指南</h1>
 			<div style="padding-top: 60px;">普通电脑一样使用，只不过这款OS并没有浏览器使用（因为本来内核就基于web），没有特殊原因不要使用UC去使用这个系统</div>
 			<h1 style="padding-top: 50px;">开发指南</h1>
 			<div style="padding-top: 60px;">开发出来的应用必须带有返回按钮（应用会来自于各种各样的域名，因为人力原因，无法做到每个应用的访问key配置），要实现不同源的页面进行后退，可以优先考虑message方法进行监听
 			<!--用程序员的话来说就是跨域-->
+			<h1 style="padding-top: 50px;">附录：后台导航多级处理逻辑</h1>
+			<div style="padding-top: 60px;">
+				例子：<br/>
+				uid为唯一标识，parentid指向父级导航，index代表层级缩进进行编辑，通过弹框形式编辑<br/>
+				回显：通过index，index不等于0，就拿上一级的uid跟parentid比，等于0就直接遍历，<br/>
+				回显的dom操作：0级处理完，设置元素id，下一级开始重新遍历并拿取元素id去匹配对应父级id进行追加<br/>
+				有多少级追加多少级，借助冒牌排序<br/>
+			</div>
+			<h1 style="padding-top: 50px;">冒泡排序</h1>
+			<div style="padding-top: 60px;">
+				同一个数组，两层遍历，二层长度减上层的下标<br/>
+				二层前后下标对比，互换，一种情况，大于第一个就第一个作为临时，从小到大排序，否则第二个作为临时
+			</div>
+			<h1 style="padding-top: 50px;">深克隆例子</h1>
+			<div style="padding-top: 60px;white-space: pre-wrap;word-break: break-all;">				
+//包含修改的深克隆练习
+var ombmjm = {
+    arrs:[22,33,111,{name:3324},'234234'],
+    fines:function(){var s = 0},
+    pos:null,
+    posm:undefined,
+    tempsv:/^[137]/,
+    tload:{id:123,arrv:[],ismav:324324,smf:function(){var r = 3}}
+}
+
+var dcls = function(ifobjcall,objfn,ifarrcall,arrfn){
+    //深克隆
+    var dcl = function(tar){
+        var res;
+        if(typeof tar == 'object'){
+            if(tar != null && tar.constructor.toString().indexOf('Array') != -1){
+                res = []
+                for(var i in tar){
+                    if(arrfn.constructor.toString().indexOf('Array') != -1 && ifarrcall){
+                        res.push(dcl(arrfn(tar,i)))
+                    }else{
+                        res.push(dcl(tar[i]))
+                    }
+                }
+            }else if(tar == null || tar.constructor == RegExp){
+                res = tar
+            }else{
+                res = {}
+                for(var i in tar){
+                    if(objfn.constructor.toString().indexOf('function') != -1 && ifobjcall){
+                        res[i] = dcl(objfn(tar[i],i))
+                    }else{
+                        res[i] = dcl(tar[i])
+                    }
+                }
+            }
+        }else{
+            res = tar
+        }
+        return res
+    }
+    //
+    var temps = dcl(ombmjm)
+    console.log(temps)
+}
+dcls(1,function(obj,key){
+    return obj
+},1,function(arr,ind){
+    return arr[ind]
+})
+
 			</div>
 		</div>
 	</body>

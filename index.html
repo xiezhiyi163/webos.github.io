@@ -9,12 +9,13 @@
 		
 		<META    HTTP-EQUIV="Expires" CONTENT="0">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-		<title></title>
+		<title>desk</title>
 		<link rel="stylesheet" type="text/css" href="static/css/Pcss.css"/>
 		<!-- 中 -->
 		<link rel="stylesheet" type="text/css" href="Ext/schedule/new_file.css"/>
 		<link href="Ext/jq22spop/dist/spop.css" rel="stylesheet"/>
 		<link rel="stylesheet" type="text/css" href="Ext/live2d/assets/waifu.css"/>
+		<link rel="stylesheet" href="static/css/p_personalcoms.css">
 		<link rel="stylesheet" type="text/css" href="static/css/p_personal.css" id="personal"/>
 	</head>
 	<!--
@@ -44,182 +45,231 @@
 	-->
 	<body>
 		<script pjs src="static/js/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
-		<div id="zhezhao">
-			<div class="pcss_posi-abso">
-				<div class="zhezhaoDeg">
-					<i class="zhezhaoimgout"></i>
-					<span class="zhezhaoimg"></span>					
-				</div>
-				<div class="zhezhaoimgcenter">
-					MVC OS
-				</div>
-			</div>
-			<p id="zhezhaotext" class="pcss_posi-abso">
-				<span>
-					正在初始化系统当中...
-				</span>				
-			</p>
-		</div>
-		<div id="system">
-			<div DESK id="wrap" class="pcss_bg-col-eee noselect pcss_floatl pcss_posi-rela">
-				<div class="copy"><span>POWER BY JQUERY @MVC</span></div>
-				<div class="copy2">POWER BY JQUERY @MVC</div>
-				<div id="wrapin2" class="pcss_posi-rela">
-					<!--字段格式：openid,isopen,links,styles,stylew,styleh,indexmax:indexmax(特殊字段，用来控制点击状态栏时窗口激活与最小化的判断), name:图标名称,ifresize:是否可缩放,iconUrl:图标图片,color:磁贴背景颜色 ,messageclick:右侧消息栏通知-->
-					<div id="wrapin">
-						<ul class="iconul">
-							<!--
-								  ****
-								 ******
-								 ******
-								  ****
-								 ====== 
-							-->
-						</ul>					
+		<div id="cantshowtip" style="width:100%;position: fixed;top: 0;left: 0;z-index: 10; line-height: 100vh;text-align: center;background-color: white;">分辨率过低，系统使用异常</div>
+		<div id="systemwrap">
+			 <div id="zhezhao">
+				<div class="pcss_posi-abso">
+					<div class="zhezhaoDeg">
+						<i class="zhezhaoimgout"></i>
+						<span class="zhezhaoimg"></span>					
 					</div>
-					<!--
-						************
-						* ======== *
-						* data     *
-						*          *
-						************
-					-->
+					<div class="zhezhaoimgcenter">
+						MVC OS
+					</div>
 				</div>
-				<div id="live2DBox" class="live2DBox" style="visibility:;">
-					<div id="live2DBoxclose" class="live2DBoxclose" style="background-color: rgba(0,0,0,.7);background-color: #00000077;position: absolute;top: -10px;right: 0px;color: white;" onclick="javascript:document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'visible';document.getElementById('live2DBoxclose').style.display = 'none';sessionStorage.live2dshow = 0">×</div>
-					<!--
-						{
-							离线包需要安装比如xampp环境来支持php后台运行，配置端口，
-							比如，apache的config按钮点击，选中http conf，做如下修改					
-							12.34.56.78:80,listen:8081,就是本地ip地址修改后的端口8081，
-							然后接口路径改为live2d资源离线包目录/qiantaiPage/Ext/live2d/assets/live2d-phpStatic,
-							会跨域的可前端文件随意放，已知跨域解决：php文件加
-							header('Access-Control-Allow-Origin:*');
-							header('Access-Control-Allow-Credentials:true');
-							、、
-							waifu类名元素已代码隐藏，js已经代码设置成没有启动，waifu-tips.js里面的联网showHitokoto-api已关闭
-							如果要做成可关闭可打开的话，判断waifu类名元素有没有隐藏再启动js
-						}
-					-->
-					<div class="waifu">
-				        <div class="waifu-tips"></div>
-				        <canvas id="live2d" width="250" height="220" class="live2d"></canvas>
-				        <div class="waifu-tool">
-				            <span class="fui-home"></span>
-				            <span class="fui-chat"></span>
-				            <span class="fui-eye"></span>
-				            <span class="fui-user"></span>
-				            <span class="fui-photo"></span>
-				            <span class="fui-info-circle"></span>
-				            <span class="fui-cross"></span>
-				        </div>
-				    </div>
-				</div>
-				<div id="iflive2dshow" style="position: absolute;right: 0;bottom: 20%;width: 32px;height: 32px;background-image: url(static/imgs/live2dsmall.png);" onclick="javascript:document.getElementById('live2DBox').style.visibility = 'visible';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'block';sessionStorage.live2dshow = 1"></div>
+				<p id="zhezhaotext" class="pcss_posi-abso">
+					<span>
+						正在初始化系统当中...
+					</span>				
+				</p>
 			</div>
-			<div BOTTOMWRAP id="bottomwrap" class="pcss_posi-rela pcss_vihid noselect pcss_floatl">
-				<!--@菜单开始按钮以及右下角图标,已打开的程序-->
-				<span id="showstart" lang='0' class="pcss_col-white noselect pcss_floatl">▶</span>
-				<div id="bottomrighticon" class="pcss_floatr">
-					<img class="wifi_icon" width="30" height="20" src="static/imgs/personal/int.png"/>
-					<img class="wifi_icon pcss_none" width="30" height="20" src="static/imgs/personal/intX.png"/>				
-					<img id="showlatestmessage" lang='0' class="message_icon" width="30" height="30" src="static/imgs/personal/message.png"/>
-					<span id="timer">00:00</span>
-					<span class="lastrightbutton"></span>
-				</div>
-				<div id="isopenwrap">
-					<p>
+			<div id="system">
+				<div DESK id="wrap" class="pcss_bg-col-eee noselect pcss_floatl pcss_posi-rela">
+					<!-- start bgwrap -->
+					<div class="bgwrap" id="bgwrap">
+						<iframe src="static/s__subpages/video_bg/thebg1/bg.html" frameborder="0" style="width: 100%;height:100%;visibility: hidden;" onload="this.style.visibility = 'visible'"></iframe>
+					</div>
+					<!-- bgwrap end -->
+				   	<div class="copy"><span>POWER BY JQUERY @MVC</span></div>
+					<div class="copy2">POWER BY JQUERY @MVC</div>
+					<div id="wrapin2" class="pcss_posi-rela">
+						<!-- 
+							+-----------------------+
+							|						|
+							|						|
+							|						|
+							|		desktop			|
+							|						|
+							|		coms start		|
+							|						|
+							|						|
+							|						|
+							+-----------------------+
+						-->
+						<div id="comswrap">
+							<div id="com_times" class="comfixed">
+								<iframe src="static/s__subpages/system_coms/jiaoben6970/index.html" onload="this.style.visibility = 'visible'" style="background-color: transparent;visibility: hidden;" frameborder="0" width="200" height="290"></iframe>
+							</div>
+							<div id="com_player" class="comfixed">
+								<iframe src="static/s__subpages/system_coms/player/index.html" onload="this.style.visibility = 'visible'" style="background-color: transparent;visibility: hidden;" frameborder="0" width="200" height="360"></iframe>
+							</div>
+						</div>
+						<!-- 
+							+-----------------------+
+							|						|
+							|						|
+							|						|
+							|		desktop			|
+							|						|
+							|		coms end		|
+							|						|
+							|						|
+							|						|
+							+-----------------------+
+						-->
+						<!--字段格式：openid,isopen,links,styles,stylew,styleh,indexmax:indexmax(特殊字段，用来控制点击状态栏时窗口激活与最小化的判断), name:图标名称,ifresize:是否可缩放,iconUrl:图标图片,color:磁贴背景颜色 ,messageclick:右侧消息栏通知-->
+						<div id="wrapin">
+							<ul class="iconul">
+								<!--
+									****
+									******
+									******
+									****
+									====== 
+								-->
+							</ul>					
+						</div>
 						<!--
-							*****
-							* 0 *
-							*****
-						-->					
-					</p>
-				</div>
-				<!--@开始菜单选项以及下方显示的已打开的窗口-->
-				<div data-ABSO class="menuwrap menuwrap-noheight pcss_hid pcss_posi-abso">
-					<div class="menuwwrapleftbar pcss_posi-abso">
-						<img class="pcss_bg-col-white headimg" data-t="头像" width="30" height="30" />
-						<img class="pcss_bg-col-white" id="taskmanager" data-t="任务管理器" width="30" height="30" />
-						<img class="pcss_bg-col-white" data-t="登出" width="30" height="30" lang='0' id="dianyuanshow"/>
-						<div id="dianyuan" class="pcss_posi-abso dianyuan-noheight pcss_hid">
-							<div>
-								<p id="reloadwin">▶重启</p>
-								<p>▶关于</p>							
+							************
+							* ======== *
+							* data     *
+							*          *
+							************
+						-->
+					</div>
+					<div id="live2DBox" class="live2DBox" style="visibility:;">
+						<div id="live2DBoxclose" class="live2DBoxclose" style="background-color: rgba(0,0,0,.7);background-color: #00000077;position: absolute;top: -10px;right: 0px;color: white;" onclick="javascript:document.getElementById('live2DBox').style.visibility = 'hidden';document.getElementById('iflive2dshow').style.visibility = 'visible';document.getElementById('live2DBoxclose').style.display = 'none';sessionStorage.live2dshow = 0">×</div>
+						<!--
+							{
+								离线包需要安装比如xampp环境来支持php后台运行，配置端口，
+								比如，apache的config按钮点击，选中http conf，做如下修改					
+								12.34.56.78:80,listen:8081,就是本地ip地址修改后的端口8081，
+								然后接口路径改为live2d资源离线包目录/qiantaiPage/Ext/live2d/assets/live2d-phpStatic,
+								会跨域的可前端文件随意放，已知跨域解决：php文件加
+								header('Access-Control-Allow-Origin:*');
+								header('Access-Control-Allow-Credentials:true');
+								、、
+								waifu类名元素已代码隐藏，js已经代码设置成没有启动，waifu-tips.js里面的联网showHitokoto-api已关闭
+								如果要做成可关闭可打开的话，判断waifu类名元素有没有隐藏再启动js
+							}
+						-->
+						<div class="waifu">
+							<div class="waifu-tips"></div>
+							<canvas id="live2d" width="250" height="220" class="live2d"></canvas>
+							<div class="waifu-tool">
+								<span class="fui-home"></span>
+								<span class="fui-chat"></span>
+								<span class="fui-eye"></span>
+								<span class="fui-user"></span>
+								<span class="fui-photo"></span>
+								<span class="fui-info-circle"></span>
+								<span class="fui-cross"></span>
 							</div>
 						</div>
 					</div>
-					<div>
-						<img src="static/imgs/personal/change.png" width="20" height="20" class="changeimg pcss_posi-abso pcss_none" lang="0" alt='0' />
-						<div class="pcss_floatl pcss_hFull menuleft">
-							<div class="menuleftdiv">
-								<div class="searchinputwrap">
-									<div>
-										<p>
-											<input placeholder="请输入关键词搜索" type="text" />
-										</p>										
-									</div>									
+					<div id="iflive2dshow" style="position: absolute;right: 0;bottom: 20%;width: 32px;height: 32px;background-image: url(static/imgs/live2dsmall.png);" onclick="javascript:document.getElementById('live2DBox').style.visibility = 'visible';document.getElementById('iflive2dshow').style.visibility = 'hidden';document.getElementById('live2DBoxclose').style.display = 'block';sessionStorage.live2dshow = 1"></div>
+				</div>
+				<div BOTTOMWRAP id="bottomwrap" class="pcss_posi-rela pcss_vihid noselect pcss_floatl">
+					<!--@菜单开始按钮以及右下角图标,已打开的程序-->
+					<span id="showstart" lang='0' class="pcss_col-white noselect pcss_floatl">▶</span>
+					<div id="bottomrighticon" class="pcss_floatr">
+						<img class="wifi_icon" width="30" height="20" src="static/imgs/personal/int.png"/>
+						<img class="wifi_icon pcss_none" width="30" height="20" src="static/imgs/personal/intX.png"/>				
+						<img id="showlatestmessage" lang='0' class="message_icon" width="30" height="30" src="static/imgs/personal/message.png"/>
+						<span id="timer">00:00</span>
+						<span class="lastrightbutton"></span>
+					</div>
+					<div id="isopenwrap">
+						<p>
+							<!--
+								*****
+								* 0 *
+								*****
+							-->					
+						</p>
+					</div>
+					<!--@开始菜单选项以及下方显示的已打开的窗口-->
+					<div data-ABSO class="menuwrap menuwrap-noheight pcss_hid pcss_posi-abso">
+						<div class="menuwwrapleftbar pcss_posi-abso">
+							<img class="pcss_bg-col-white headimg" data-t="头像" width="30" height="30" />
+							<img class="pcss_bg-col-white" id="taskmanager" data-t="任务管理器" width="30" height="30" />
+							<img class="pcss_bg-col-white" data-t="登出" width="30" height="30" lang='0' id="dianyuanshow"/>
+							<div id="dianyuan" class="pcss_posi-abso dianyuan-noheight pcss_hid">
+								<div>
+									<p id="reloadwin">▶重启</p>
+									<p>▶关于</p>							
 								</div>
-								<ul class="pcss_col-white" id="menuleftin">
-									<!--
-										*....
-										*....
-										*....
-										*....
-									-->
-								</ul>								
 							</div>
 						</div>
-						<div class="pcss_floatl pcss_hFull menuright">
-							<div class="menurightdiv">
-								<div class="pcss_hid">
-									<!--
-										*...
-										.../.../...
-										.../.../...
-										.../.../...
-										*...
-										.../.../...
-										.../.../...
-										.../.../...
-									-->							
-								</div>								
+						<div>
+							<img src="static/imgs/personal/change.png" width="20" height="20" class="changeimg pcss_posi-abso pcss_none" lang="0" alt='0' />
+							<div class="pcss_floatl pcss_hFull menuleft">
+								<div class="menuleftdiv">
+									<div class="searchinputwrap">
+										<div>
+											<p>
+												<input placeholder="请输入关键词搜索" type="text" />
+											</p>										
+										</div>									
+									</div>
+									<ul class="pcss_col-white" id="menuleftin">
+										<!--
+											*....
+											*....
+											*....
+											*....
+										-->
+									</ul>								
+								</div>
 							</div>
-						</div>					
+							<div class="pcss_floatl pcss_hFull menuright">
+								<div class="menurightdiv">
+									<div class="pcss_hid">
+										<!--
+											*...
+											.../.../...
+											.../.../...
+											.../.../...
+											*...
+											.../.../...
+											.../.../...
+											.../.../...
+										-->							
+									</div>								
+								</div>
+							</div>					
+						</div>
 					</div>
-				</div>
-				<!--@右侧通知-->
-				<div data-ABSO class="rightmessage pcss_posi-abso rightmessage-nowidth pcss_hid">
-					<p class="pcss_posi-abso"><span class="pcss_vihid">----</span></p>
-					<div id="rightmessagein" class="pcss_col-white">
-						<p>消息中心</p>
-						<div id="rightmessagecontscrollwrap">
-							<div id="rightmessagecontscroll" lang="0" class="pcss_posi-rela">
-								<!--rightmessage data-->
-								<div id="MVCnotes_message" class="pcss_bg-col-66A8CC" onclick="removemessage('MVCnotes','personal_note.html?dd=0')">
-									<div>
-										<p>title</p>
-										<p class="rightmessage-p pcss_hid pcss_posi-rela">content</p>										
+					<!--@右侧通知-->
+					<div data-ABSO class="rightmessage pcss_posi-abso rightmessage-nowidth pcss_hid">
+						<p class="pcss_posi-abso"><span class="pcss_vihid">----</span></p>
+						<div id="rightmessagein" class="pcss_col-white">
+							<p>消息中心</p>
+							<div id="rightmessagecontscrollwrap">
+								<div id="rightmessagecontscroll" lang="0" class="pcss_posi-rela">
+									<!--rightmessage data-->
+									<div id="MVCnotes_message" class="pcss_bg-col-66A8CC" onclick="removemessage('MVCnotes','personal_note.html?dd=0')">
+										<div>
+											<p>title</p>
+											<p class="rightmessage-p pcss_hid pcss_posi-rela">content</p>										
+										</div>
 									</div>
 								</div>
-							</div>
-							<div id='schedule-box' class="boxshaw">
-								<!--
-									{
-										日历插件schedule
-									}
-								-->
+								<div id='schedule-box' class="boxshaw">
+									<!--
+										+-----------------------------
+										|	日历插件schedule
+										+-----------------------------
+									-->
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>			
+				<div BOTTOMWRAP id="bottomwrap_bg" class="pcss_posi-rela noselect pcss_floatl">
+					<div style="filter: blur(6px);">
+						<div id="bottomwrap_bgin">
+							<img id="bottomwrap_bgin_img" style="background-size: cover;background-position:center;background-repeat:no-repeat ;display: block;width: 100%;height: 100%;">
+						</div>
+					</div>
+				</div>
+			</div>
+			<i class="pcss_floatl" style="display: none;">
+				<span class="pcss_floatl ls">···</span>
+				<span>···</span>
+				<span class="pcss_floatr rs">···</span>
+			</i>
 		</div>
-		<i class="pcss_floatl">
-			<span class="pcss_floatl ls">···</span>
-			<span>···</span>
-			<span class="pcss_floatr rs">···</span>
-		</i>
 		<script src="Ext/schedule/schedule.js" type="text/javascript" charset="utf-8"></script>
 		<script src="Ext/jq22spop/dist/spop.js">
 			//spop({
@@ -247,24 +297,68 @@
 		<script pjs src="static/js/api.js" type="text/javascript" charset="utf-8"></script>
 		<a id="_personalinitjson"></a>
 		<a id="_personal"></a>
+		<a id="_personalinit"></a>
 		<script type="text/javascript">
-			if(navigator.userAgent.indexOf('Trident')!=-1){
+			if(navigator.userAgent.indexOf('Trident')!=-1&&navigator.userAgent.indexOf('11.0')==-1){
 				$('#system').remove()
 				$('#zhezhaotext span').html('系统初始化失败,该系统暂不支持IE打开')
 			}else{
-				$('#_personalinitjson').append('<script src="static/js/p_personalinitjson.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')
-				$('#_personal').append('<script src="static/js/p_personal.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')		
+				if(navigator.userAgent.indexOf('Trident')==-1){
+					$('#_personalinitjson').append('<script src="static/js/p_personalinitjson.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')
+					$('#_personal').append('<script src="static/js/p_personal.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')		
+					$('#_personalinit').append('<script src="static/js/p_personalinit.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')		
+				}
 			}
 		</script>
 		<!-- 下 -->
 		<a id="Pjs"></a>
 		<script type="text/javascript">
-			if(navigator.userAgent.indexOf('Trident')!=-1){
+			if(navigator.userAgent.indexOf('Trident')!=-1&&navigator.userAgent.indexOf('11.0')==-1){
 				$('#system').remove()
-				$('#zhezhaotext span').html('系统初始化失败,该系统暂不支持IE打开')
+				$('#zhezhaotext span').html('系统初始化失败,该系统暂不支持更低版本IE打开')
 			}else{
-				$('#Pjs').append('<script src="static/js/Pjs.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')
+				if(navigator.userAgent.indexOf('Trident')==-1){
+					if(navigator.userAgent.indexOf('UCBrowser') > -1){
+						$('#comswrap').remove()
+						$('#bgwrap').remove()
+					}
+					$('#Pjs').append('<script src="static/js/Pjs.js?v='+(new Date().getTime())+'" type="text/javascript" charset="utf-8"></\script>')
+				}
+			}		
+			//控制页面是否够尺寸展示
+			var ifnone = 0
+			if(window.innerWidth<1000||window.innerHeight<768){
+				ifnone = 1
+			}else{
+				ifnone = 0
 			}
+			var ifcanshow = function(){
+				var systemsign = function() {
+					//=========
+					var UA = navigator.userAgent
+					if(UA.indexOf('Windows') != -1 || UA.indexOf('Macintosh') != -1) {
+						return 'win'
+					} else {
+						return 'mob'
+					}
+				}
+				if((window.innerWidth<1000||window.innerHeight<768)&&systemsign() == 'win'){
+					document.getElementById('systemwrap').style.visibility = 'hidden'
+					document.getElementById('cantshowtip').style.visibility = 'visible'
+				}else{
+					document.getElementById('systemwrap').style.visibility = 'visible'
+					document.getElementById('cantshowtip').style.visibility = 'hidden'
+				}
+			}
+			ifcanshow()
+			window.addEventListener('resize',function(){
+				ifcanshow()
+			})
 		</script>
+		<!-- 以下只有ie11才会运行总台，因为上面没法在ie从a标签追加脚本 -->
+		<script src="static/js/p_personalinitjson.js"></script>
+		<script src="static/js/p_personal.js"></script>
+		<script src="static/js/p_personalinit copy.js"></script>
+		<script src="static/js/Pjs.js"></script>
 	</body>
 </html>

@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "zySlider":"../common/zy-slider/zyslider",
-    "echarts":"../common/ec-canvas/ec-canvas"
-  }
-}

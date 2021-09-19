@@ -1,9 +1,0 @@
-<!--pages/zySlider_echarts/index.wxml-->
-<view>
-  <zySlider minValue="0" maxValue="100" min="-30" max="100"/><!-- min 从0到负数，反之正数 -->  
-</view>
-
-<view style="height:350px">
-  <echarts id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ec }}" style="height:100%"></echarts>
-  <echarts id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ec2 }}" style="height:100%"></echarts>
-</view>

@@ -1,3 +1,0 @@
-<!--pages/letters_find_where/index.wxml-->
-<view style="height:40px;background-color:#ddd"></view>
-<letterfind list="{{list}}" keyword="{{keyword}}"/>

@@ -345,5 +345,12 @@ window.toolbox = [{
 				name: 'swiper轮播切换（可用于菜单menu轮播切换）',
 				type: 'slider',
 				typename: '轮播slider'
-			}
+			},
+			//
+			{
+				link: dataobj.linkhead1 + 'jsmind-master/example/demo.html',
+				name: 'jsmind树状分叉图',
+				type: 'navs',
+				typename: 'nav_show'
+			},
 		]

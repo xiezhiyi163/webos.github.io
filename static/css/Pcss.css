@@ -13,6 +13,7 @@
 	border: 0;
 	text-decoration: none !important;
 	list-style: none;
+	font-family: "microsoft yahei";
 }
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
 {
